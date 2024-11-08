@@ -16,7 +16,11 @@ You should always make your own commits to your own branch.
 
 Your commit message should be clearly state that what you have done in this commit.
 
-## Our Work
+## Our work
+
+### Kaining Yang Work
+
+- Finish branch configuration
 
 ### Prasad Shinde Work
 
