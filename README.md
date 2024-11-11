@@ -75,3 +75,7 @@ git log --graph --oneline
 ### Prasad Shinde Work
 
 - Finished create git repository.
+
+### Yao Zhang Work
+
+- Finish branch configuration
