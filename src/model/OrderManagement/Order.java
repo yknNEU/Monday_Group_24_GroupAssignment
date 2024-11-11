@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.OrderManagement;
 
 import java.util.ArrayList;
@@ -12,45 +7,67 @@ import model.MarketModel.MarketChannelAssignment;
 import model.ProductManagement.Product;
 import model.SalesManagement.SalesPersonProfile;
 
-/**
- *
- * @author kal bugrara
- */
 public class Order {
 
-    ArrayList<OrderItem> orderitems;
-    CustomerProfile customer;
-    SalesPersonProfile salesperson;
-    MarketChannelAssignment mca;
-    String status;
+    private ArrayList<OrderItem> orderItems;
+    private CustomerProfile customer;
+    private SalesPersonProfile salesPerson;
+    private MarketChannelAssignment marketChannelAssignment;
+    private String status;
 
-    public Order(){}
+    public Order() {
+        // TODO
+    }
     
-    public Order(CustomerProfile cp) {
-        orderitems = new ArrayList();
-        customer = cp;
-        customer.addCustomerOrder(this); //we link the order to the customer
-        salesperson = null;
-        status = "in process";
+    public Order(CustomerProfile customerProfile) {
+        this.orderItems = new ArrayList<OrderItem>();
+        this.customer = customerProfile;
+        this.customer.addCustomerOrder(this); // we link the order to the customer
+        this.salesPerson = null;
+        // this.marketChannelAssignment = null;
+        this.status = "in process";
     }
 
-
-    public Order(CustomerProfile cp, SalesPersonProfile ep) {
-        orderitems = new ArrayList();
-        customer = cp;
-        salesperson = ep;
-        customer.addCustomerOrder(this); //we link the order to the customer
-        salesperson.addSalesOrder(this);  
+    public Order(CustomerProfile customerProfile, SalesPersonProfile salesPersonProfile) {
+        this.orderItems = new ArrayList<OrderItem>();
+        this.customer = customerProfile;
+        this.customer.addCustomerOrder(this); // we link the order to the customer
+        this.salesPerson = salesPersonProfile;
+        this.salesPerson.addSalesOrder(this);
+        // this.marketChannelAssignment = null;
+        // this.status = "in process";
     }
-    public OrderItem newOrderItem(Product p, int actualprice, int q) {
-        OrderItem oi = new OrderItem(p, actualprice, q);
-        orderitems.add(oi);
+
+    public ArrayList<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public CustomerProfile getCustomer() {
+        return customer;
+    }
+
+    public SalesPersonProfile getSalesPerson() {
+        return salesPerson;
+    }
+
+    public MarketChannelAssignment getMarketChannelAssignment() {
+        return marketChannelAssignment;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public OrderItem newOrderItem(Product product, int actualPrice, int quantity) {
+        OrderItem oi = new OrderItem(product, actualPrice, quantity);
+        orderItems.add(oi);
         return oi;
     }
-    //order total is the sumer of the order item totals
+
+    // order total is the sumer of the order item totals
     public int getOrderTotal() {
         int sum = 0;
-        for (OrderItem oi : orderitems) {
+        for (OrderItem oi : orderItems) {
             sum = sum + oi.getOrderItemTotal();
         }
         return sum;
@@ -58,36 +75,60 @@ public class Order {
 
     public int getOrderPricePerformance() {
         int sum = 0;
-        for (OrderItem oi : orderitems) {
-            sum = sum + oi.calculatePricePerformance();     //positive and negative values       
+        for (OrderItem oi : orderItems) {
+            sum = sum + oi.calculatePricePerformance();     // positive and negative values       
         }
         return sum;
     }
 
     public int getNumberOfOrderItemsAboveTarget() {
         int sum = 0;
-        for (OrderItem oi : orderitems) {
+        for (OrderItem oi : orderItems) {
             if (oi.isActualAboveTarget() == true) {
-                sum = sum + 1;
+                sum++;
             }
         }
         return sum;
     }
     
-    //sum all the item targets and compare to the total of the order 
-    public boolean isOrderAboveTotalTarget(){
+    // sum all the item targets and compare to the total of the order 
+    public boolean isOrderAboveTotalTarget() {
         int sum = 0;
-        for (OrderItem oi: orderitems){
-            sum = sum + oi.getOrderItemTargetTotal(); //product targets are added
+        for (OrderItem oi : orderItems) {
+            sum = sum + oi.getOrderItemTargetTotal(); // product targets are added
         }
-        if(getOrderTotal()>sum) {return true;}
-        else {return false;}
-        
+        if (getOrderTotal() > sum) {
+            return true;
+        } else {
+            return false;
+        }
     }
-public void CancelOrder(){
-    status = "Cancelled";
-}
-public void Submit(){
-    status = "Submitted";
-}
+
+    public void cancelOrder() {
+        status = "Cancelled";
+    }
+
+    public void submit() {
+        status = "Submitted";
+    }
+
+    public void setOrderItems(ArrayList<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public void setCustomer(CustomerProfile customer) {
+        this.customer = customer;
+    }
+
+    public void setSalesPerson(SalesPersonProfile salesPerson) {
+        this.salesPerson = salesPerson;
+    }
+
+    public void setMarketChannelAssignment(MarketChannelAssignment marketChannelAssignment) {
+        this.marketChannelAssignment = marketChannelAssignment;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

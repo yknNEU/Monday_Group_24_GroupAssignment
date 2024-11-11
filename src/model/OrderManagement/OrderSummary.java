@@ -1,28 +1,48 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.OrderManagement;
 
-/**
- *
- * @author kal bugrara
- */
 public class OrderSummary {
-    int salesvolume;
-    boolean totalabovetarget;
-    int orderpriceperformance;
-    int numberofOrderitemsabovetarget;
-    
-public OrderSummary(Order o){
-    salesvolume = o.getOrderTotal();
-    totalabovetarget = o.isOrderAboveTotalTarget();
-    orderpriceperformance = o.getOrderPricePerformance();
-    numberofOrderitemsabovetarget = o.getNumberOfOrderItemsAboveTarget();
 
-}
-public int getOrderProfit(){
-    return orderpriceperformance;
-}
+    private int salesVolume;
+    private boolean totalAboveTarget;
+    private int orderPricePerformance;
+    private int numberOfOrderItemsAboveTarget;
+    
+    public OrderSummary(Order order) {
+        this.salesVolume = order.getOrderTotal();
+        this.totalAboveTarget = order.isOrderAboveTotalTarget();
+        this.orderPricePerformance = order.getOrderPricePerformance();
+        this.numberOfOrderItemsAboveTarget = order.getNumberOfOrderItemsAboveTarget();
+    }
+
+    public int getSalesVolume() {
+        return salesVolume;
+    }
+
+    public boolean isTotalAboveTarget() {
+        return totalAboveTarget;
+    }
+
+    public int getOrderPricePerformance() {
+        return orderPricePerformance;
+    }
+
+    public int getNumberOfOrderItemsAboveTarget() {
+        return numberOfOrderItemsAboveTarget;
+    }
+
+    public void setSalesVolume(int salesVolume) {
+        this.salesVolume = salesVolume;
+    }
+
+    public void setTotalAboveTarget(boolean totalAboveTarget) {
+        this.totalAboveTarget = totalAboveTarget;
+    }
+
+    public void setOrderPricePerformance(int orderPricePerformance) {
+        this.orderPricePerformance = orderPricePerformance;
+    }
+
+    public void setNumberOfOrderItemsAboveTarget(int numberOfOrderItemsAboveTarget) {
+        this.numberOfOrderItemsAboveTarget = numberOfOrderItemsAboveTarget;
+    }
 }

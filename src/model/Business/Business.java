@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.Business;
 
 import java.util.ArrayList;
@@ -22,95 +17,162 @@ import model.Supplier.Supplier;
 import model.Supplier.SupplierDirectory;
 import model.UserAccountManagement.UserAccountDirectory;
 
-/**
- *
- * @author kal bugrara
- */
 public class Business {
 
-    String name;
-    PersonDirectory persondirectory;
-    MasterOrderList masterorderlist;
-    CustomerDirectory customers;
-    SupplierDirectory suppliers;
-    MarketCatalog marketcatalog;
-    ChannelCatalog channelcatalog;
-    SolutionOfferCatalog solutionoffercatalog;
-    CustomerDirectory customerdirectory;
-    EmployeeDirectory employeedirectory;
-    SalesPersonDirectory salespersondirectory;
-    UserAccountDirectory useraccountdirectory;
-    MarketingPersonDirectory marketingpersondirectory;
+    private String name;
+    private PersonDirectory personDirectory;
+    private MasterOrderList masterOrderList;
+    private CustomerDirectory customers;
+    private SupplierDirectory suppliers;
+    private MarketCatalog marketCatalog;
+    private ChannelCatalog channelCatalog;
+    private SolutionOfferCatalog solutionOfferCatalog;
+    private CustomerDirectory customerDirectory;
+    private EmployeeDirectory employeeDirectory;
+    private SalesPersonDirectory salesPersonDirectory;
+    private UserAccountDirectory userAccountDirectory;
+    private MarketingPersonDirectory marketingPersonDirectory;
 
-    public Business(String n) {
-        name = n;
-        masterorderlist = new MasterOrderList();
-        suppliers = new SupplierDirectory();
-//        solutionoffercatalog = new SolutionOfferCatalog();
-        persondirectory = new PersonDirectory();
-        customerdirectory = new CustomerDirectory(this);
-        salespersondirectory = new SalesPersonDirectory(this);
-        useraccountdirectory = new UserAccountDirectory();
-        marketingpersondirectory = new MarketingPersonDirectory(this);
-        employeedirectory = new EmployeeDirectory(this);
-
+    public Business(String name) {
+        this.name = name;
+        this.personDirectory = new PersonDirectory();
+        this.masterOrderList = new MasterOrderList();
+        // this.customers = new CustomerDirectory();
+        this.suppliers = new SupplierDirectory();
+        this.marketCatalog = new MarketCatalog();
+        this.channelCatalog = new ChannelCatalog();
+        this.solutionOfferCatalog = new SolutionOfferCatalog();
+        this.customerDirectory = new CustomerDirectory(this);
+        this.employeeDirectory = new EmployeeDirectory(this);
+        this.salesPersonDirectory = new SalesPersonDirectory(this);
+        this.userAccountDirectory = new UserAccountDirectory();
+        this.marketingPersonDirectory = new MarketingPersonDirectory(this);
     }
 
-    public int getSalesVolume() {
-        return masterorderlist.getSalesVolume();
-
+    public String getName() {
+        return name;
     }
 
     public PersonDirectory getPersonDirectory() {
-        return persondirectory;
+        return personDirectory;
     }
 
-    public UserAccountDirectory getUserAccountDirectory() {
-        return useraccountdirectory;
-    }
-    public MarketingPersonDirectory getMarketingPersonDirectory() {
-        return marketingpersondirectory;
+    public MasterOrderList getMasterOrderList() {
+        return masterOrderList;
     }
 
-    public SupplierDirectory getSupplierDirectory() {
+    public CustomerDirectory getCustomers() {
+        return customers;
+    }
+
+    public SupplierDirectory getSuppliers() {
         return suppliers;
     }
 
-    public ProductsReport getSupplierPerformanceReport(String n) {
-        Supplier supplier = suppliers.findSupplier(n);
+    public MarketCatalog getMarketCatalog() {
+        return marketCatalog;
+    }
+
+    public ChannelCatalog getChannelCatalog() {
+        return channelCatalog;
+    }
+
+    public SolutionOfferCatalog getSolutionOfferCatalog() {
+        return solutionOfferCatalog;
+    }
+
+    public CustomerDirectory getCustomerDirectory() {
+        return customerDirectory;
+    }
+
+    public EmployeeDirectory getEmployeeDirectory() {
+        return employeeDirectory;
+    }
+
+    public SalesPersonDirectory getSalesPersonDirectory() {
+        return salesPersonDirectory;
+    }
+
+    public UserAccountDirectory getUserAccountDirectory() {
+        return userAccountDirectory;
+    }
+
+    public MarketingPersonDirectory getMarketingPersonDirectory() {
+        return marketingPersonDirectory;
+    }
+
+    public int getSalesVolume() {
+        return masterOrderList.getSalesVolume();
+    }
+
+    public ProductsReport getSupplierPerformanceReport(String supplierName) {
+        Supplier supplier = suppliers.findSupplier(supplierName);
         if (supplier == null) {
             return null;
         }
         return supplier.prepareProductsReport();
-
     }
 
-    public ArrayList<ProductSummary> getSupplierProductsAlwaysAboveTarget(String n) {
-
-        ProductsReport productsreport = getSupplierPerformanceReport(n);
-        return productsreport.getProductsAlwaysAboveTarget();
-
+    public ArrayList<ProductSummary> getSupplierProductsAlwaysAboveTarget(String supplierName) {
+        ProductsReport productsReport = getSupplierPerformanceReport(supplierName);
+        return productsReport.getProductsAlwaysAboveTarget();
     }
 
-    public int getHowManySupplierProductsAlwaysAboveTarget(String n) {
-        ProductsReport productsreport = getSupplierPerformanceReport(n); // see above
-        int i = productsreport.getProductsAlwaysAboveTarget().size(); //return size of the arraylist
+    public int getHowManySupplierProductsAlwaysAboveTarget(String supplierName) {
+        ProductsReport productsReport = getSupplierPerformanceReport(supplierName);
+        int i = productsReport.getProductsAlwaysAboveTarget().size();
         return i;
     }
 
-    public CustomerDirectory getCustomerDirectory() {
-        return customerdirectory;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public SalesPersonDirectory getSalesPersonDirectory() {
-        return salespersondirectory;
+    public void setPersonDirectory(PersonDirectory persondirectory) {
+        this.personDirectory = persondirectory;
     }
 
-    public MasterOrderList getMasterOrderList() {
-        return masterorderlist;
-    }
-        public EmployeeDirectory getEmployeeDirectory() {
-        return employeedirectory;
+    public void setMasterOrderList(MasterOrderList masterorderlist) {
+        this.masterOrderList = masterorderlist;
     }
 
+    public void setCustomers(CustomerDirectory customers) {
+        this.customers = customers;
+    }
+
+    public void setSuppliers(SupplierDirectory suppliers) {
+        this.suppliers = suppliers;
+    }
+
+    public void setMarketCatalog(MarketCatalog marketcatalog) {
+        this.marketCatalog = marketcatalog;
+    }
+
+    public void setChannelCatalog(ChannelCatalog channelcatalog) {
+        this.channelCatalog = channelcatalog;
+    }
+
+    public void setSolutionOfferCatalog(SolutionOfferCatalog solutionoffercatalog) {
+        this.solutionOfferCatalog = solutionoffercatalog;
+    }
+
+    public void setCustomerDirectory(CustomerDirectory customerdirectory) {
+        this.customerDirectory = customerdirectory;
+    }
+
+    public void setEmployeeDirectory(EmployeeDirectory employeedirectory) {
+        this.employeeDirectory = employeedirectory;
+    }
+
+    public void setSalesPersonDirectory(SalesPersonDirectory salespersondirectory) {
+        this.salesPersonDirectory = salespersondirectory;
+    }
+
+    public void setUserAccountDirectory(UserAccountDirectory useraccountdirectory) {
+        this.userAccountDirectory = useraccountdirectory;
+    }
+
+    public void setMarketingPersonDirectory(MarketingPersonDirectory marketingpersondirectory) {
+        this.marketingPersonDirectory = marketingpersondirectory;
+    }
 }

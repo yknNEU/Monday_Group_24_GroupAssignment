@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.Supplier;
 
 import java.util.ArrayList;
@@ -11,45 +6,60 @@ import model.ProductManagement.ProductCatalog;
 import model.ProductManagement.ProductSummary;
 import model.ProductManagement.ProductsReport;
 
-/**
- *
- * @author kal bugrara
- */
 public class Supplier {
-    String name;
-    ProductCatalog productcatalog;
-   ProductsReport productsreport;
-    public Supplier(String n){
-        name = n;
-        productcatalog = new ProductCatalog("software");
-        
+
+    private String name;
+    private ProductCatalog productCatalog;
+    private ProductsReport productsReport;
+
+    public Supplier(String name) {
+        this.name = name;
+        this.productCatalog = new ProductCatalog("software");
+        // this.productsReport = new ProductsReport();
     }
     
-    public ProductsReport prepareProductsReport(){
-        
-        productsreport = productcatalog.generatProductPerformanceReport();
-        return productsreport;
-    }
-    
-    public ArrayList<ProductSummary> getProductsAlwaysAboveTarget(){
-       
-        if(productsreport==null) productsreport = prepareProductsReport();
-       return productsreport.getProductsAlwaysAboveTarget();
-       
-    }
-    
-    public String getName(){
+    public String getName() {
         return name;
     }
-        public ProductCatalog getProductCatalog(){
-        return productcatalog;
+
+    public ProductCatalog getProductCatalog() {
+        return productCatalog;
     }
-    //add supplier product ..
+
+    public ProductsReport getProductsReport() {
+        return productsReport;
+    }
+
+    public ProductsReport prepareProductsReport() {
+        productsReport = productCatalog.generatProductPerformanceReport();
+        return productsReport;
+    }
     
-    //update supplier product ...
+    public ArrayList<ProductSummary> getProductsAlwaysAboveTarget() {
+        if (productsReport == null) {
+            productsReport = prepareProductsReport();
+        }
+        return productsReport.getProductsAlwaysAboveTarget();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setProductCatalog(ProductCatalog productCatalog) {
+        this.productCatalog = productCatalog;
+    }
+
+    public void setProductsReport(ProductsReport productsReport) {
+        this.productsReport = productsReport;
+    }
+
+    // TODO: add supplier product ..
+    
+    // update supplier product ...
+    
     @Override
-   public String toString(){
-       return name;
-       
-   }
+    public String toString() {
+        return name;
+    }
 }

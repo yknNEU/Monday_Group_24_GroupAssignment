@@ -1,49 +1,62 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.UserAccountManagement;
 
 import model.Personnel.Profile;
 
-/**
- *
- * @author kal bugrara
- */
 public class UserAccount {
     
-    Profile profile;
-    String username;
-    String password;
+    private Profile profile;
+    private String userName;
+    private String password;
     
-    public UserAccount (Profile profile, String un, String pw){
-        username = un;
-         password = pw;
-         this.profile = profile;
-
+    public UserAccount (Profile profile, String userName, String password) {
+        this.profile = profile;
+        this.userName = userName;
+        this.password = password;
     }
 
-    public String getPersonId(){
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPersonId() {
         return profile.getPerson().getPersonId();
     }
 
-        public boolean isMatch(String id){
-        if(getPersonId().equals(id)) return true;
+    public String getRole() {
+        return profile.getRole();
+    }
+
+    public boolean isMatch(String id) {
+        if (getPersonId().equals(id)) {
+            return true;
+        }
         return false;
     }
-        public boolean IsValidUser(String un, String pw){
-        
-            if (username.equalsIgnoreCase(un) && password.equals(pw)) return true;
-            else return false;
-        
+
+    public boolean isValidUser(String userName, String password) {
+        if (this.userName.equalsIgnoreCase(userName) && this.password.equals(password)) {
+            return true;
         }
-        public String getRole(){
-            return profile.getRole();
-        }
-        
-        public Profile getAssociatedPersonProfile(){
-            return profile;
-        }    
-        
+        return false;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

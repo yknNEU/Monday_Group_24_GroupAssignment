@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.SalesManagement;
 
 import java.util.ArrayList;
@@ -10,38 +5,45 @@ import java.util.ArrayList;
 import model.Business.Business;
 import model.Personnel.Person;
 
-/**
- *
- * @author kal bugrara
- */
 public class SalesPersonDirectory {
 
-    Business business;
-    ArrayList<SalesPersonProfile> salespersonlist;
+    private Business business;
+    private ArrayList<SalesPersonProfile> salesPersonList;
 
-    public SalesPersonDirectory(Business d) {
-
-        business = d;
-        salespersonlist = new ArrayList();
-
+    public SalesPersonDirectory(Business business) {
+        this.business = business;
+        this.salesPersonList = new ArrayList<SalesPersonProfile>();
     }
 
-    public SalesPersonProfile newSalesPersonProfile(Person p) {
+    public Business getBusiness() {
+        return business;
+    }
 
-        SalesPersonProfile sp = new SalesPersonProfile(p);
-        salespersonlist.add(sp);
+    public ArrayList<SalesPersonProfile> getSalesPersonList() {
+        return salesPersonList;
+    }
+
+    public SalesPersonProfile newSalesPersonProfile(Person person) {
+        SalesPersonProfile sp = new SalesPersonProfile(person);
+        salesPersonList.add(sp);
         return sp;
     }
 
     public SalesPersonProfile findSalesPerson(String id) {
-
-        for (SalesPersonProfile sp : salespersonlist) {
-
+        for (SalesPersonProfile sp : salesPersonList) {
             if (sp.isMatch(id)) {
                 return sp;
             }
         }
-            return null; //not found after going through the whole list
-         }
 
+        return null;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
+
+    public void setSalesPersonList(ArrayList<SalesPersonProfile> salesPersonList) {
+        this.salesPersonList = salesPersonList;
+    }
 }

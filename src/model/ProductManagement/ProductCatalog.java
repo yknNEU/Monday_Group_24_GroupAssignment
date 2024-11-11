@@ -1,54 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.ProductManagement;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author kal bugrara
- */
 public class ProductCatalog {
 
-    String type;
-    ArrayList<Product> products; //list of products initially empty
+    private String type;
+    private ArrayList<Product> products; // list of products initially empty
 
-    public ProductCatalog(String n) {
-        type = n;
-         products = new ArrayList();  ///create the list of elements otherwise it is null
+    public ProductCatalog(String type) {
+        this.type = type;
+        this.products = new ArrayList<Product>();  // create the list of elements otherwise it is null
     }
-// new ProductCatalog(); or new ProductCatalog("Printers");
-    public ProductCatalog(    ) {
-        type = "unknown";
-        products = new ArrayList();
+
+    // new ProductCatalog(); or new ProductCatalog("Printers");
+    public ProductCatalog() {
+        this.type = "unknown";
+        this.products = new ArrayList<Product>();
     }
-    public Product newProduct(int fp, int cp, int tp) {
-        Product p = new Product(fp, cp, tp);
+
+    public String getType() {
+        return type;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public Product newProduct(int floorPrice, int ceilingPrice, int targetPrice) {
+        Product p = new Product(floorPrice, ceilingPrice, targetPrice);
         products.add(p);
         return p;
     }
-    public Product newProduct(String n, int fp, int cp, int tp) {
-        Product p = new Product(n,fp, cp, tp);
+
+    public Product newProduct(String name, int floorPrice, int ceilingPrice, int targetPrice) {
+        Product p = new Product(name, floorPrice, ceilingPrice, targetPrice);
         products.add(p);
         return p;
     }
 
     public ProductsReport generatProductPerformanceReport() {
         ProductsReport productsreport = new ProductsReport();
-
         for (Product p : products) {
-
             ProductSummary ps = new ProductSummary(p);
             productsreport.addProductSummary(ps);
         }
         return productsreport;
     }
 
-    public ArrayList<Product> getProductList(){
-        return products;
+    public void setType(String type) {
+        this.type = type;
     }
 
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
 }

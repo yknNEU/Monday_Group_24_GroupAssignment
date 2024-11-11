@@ -1,58 +1,58 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.OrderManagement;
 
 import java.util.ArrayList;
 
 import model.CustomerManagement.CustomerProfile;
-import model.MarketingManagement.MarketingPersonProfile;
 import model.SalesManagement.SalesPersonProfile;
 
-/**
- *
- * @author kal bugrara
- */
 public class MasterOrderList {
-    ArrayList<Order> orders;
-    MasterOrderReport masterorderreport;
+
+    private ArrayList<Order> orders;
+    private MasterOrderReport masterOrderReport;
     
-    public MasterOrderList(){
-        orders = new ArrayList();
-       
+    public MasterOrderList() {
+        this.orders = new ArrayList<Order>();
+        // this.masterOrderReport = new MasterOrderReport();
+    }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
+    public MasterOrderReport getMasterOrderReport() {
+        return masterOrderReport;
     }
     
-    public Order newOrder(CustomerProfile cp){
-        Order o= new Order(cp);
+    public Order newOrder(CustomerProfile customerProfile) {
+        Order o = new Order(customerProfile);
         orders.add(o);
         return o;
-            
- 
     }
-    public Order newOrder(CustomerProfile cp, SalesPersonProfile spp){
-        Order o= new Order(cp, spp);
+
+    public Order newOrder(CustomerProfile customerProfile, SalesPersonProfile salesPersonProfile) {
+        Order o = new Order(customerProfile, salesPersonProfile);
         orders.add(o);
         return o;
-            
- 
     }
     
-    public MasterOrderReport generateMasterOrderReport(){
-    masterorderreport = new MasterOrderReport();
-        
-    return masterorderreport;
-        
-}
-
-public int getSalesVolume(){
-
-int sum = 0;
-for(Order order: orders){
-    sum = sum + order.getOrderTotal();
-}
-return sum;
+    public MasterOrderReport generateMasterOrderReport() {
+        masterOrderReport = new MasterOrderReport();
+        return masterOrderReport;
     }
 
+    public int getSalesVolume() {
+        int sum = 0;
+        for (Order order : orders) {
+            sum = sum + order.getOrderTotal();
+        }
+        return sum;
+    }
+
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
+    }
+
+    public void setMasterOrderReport(MasterOrderReport masterOrderReport) {
+        this.masterOrderReport = masterOrderReport;
+    }
 }

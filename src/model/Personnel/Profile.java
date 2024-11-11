@@ -1,35 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.Personnel;
 
-import java.util.ArrayList;
-
-/**
- *
- * @author kal bugrara
- */
 public abstract class Profile {
-    Person person;
-     public Profile(Person p){
-        person = p;
-        
+    
+    private Person person;
+
+    public Profile(Person person) {
+        this.person = person;
     }
     
-     public abstract String getRole();
+    public abstract String getRole();
     
-    public Person getPerson(){
+    public Person getPerson() {
         return person;
     }
-     
 
-        public boolean isMatch(String id) {
+    public boolean isMatch(String id) {
         if (person.getPersonId().equals(id)) {
             return true;
         }
         return false;
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 }

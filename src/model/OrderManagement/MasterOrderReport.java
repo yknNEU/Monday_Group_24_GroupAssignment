@@ -1,40 +1,47 @@
-
 package model.OrderManagement;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author kal bugrara
- */
 public class MasterOrderReport {
-    ArrayList<OrderSummary> ordersummarylist;
+
+    private ArrayList<OrderSummary> orderSummaryList;
     
-    public MasterOrderReport(){
-        
-        ordersummarylist = new ArrayList();
-        
+    public MasterOrderReport() {
+        this.orderSummaryList = new ArrayList<OrderSummary>();
     }
-    public void generateOrderReport(ArrayList<Order> orders){
+
+    public ArrayList<OrderSummary> getOrderSummaryList() {
+        return orderSummaryList;
+    }
+
+    public void generateOrderReport(ArrayList<Order> orders) {
         ArrayList<Order> orderlist = orders;
-        OrderSummary ordersummary ;
-        for(Order order: orderlist){
+        OrderSummary ordersummary;
+        for (Order order : orderlist) {
             ordersummary = new OrderSummary(order);
-            ordersummarylist.add(ordersummary);
+            orderSummaryList.add(ordersummary);
         }         
     }
     
-    public OrderSummary getTopProfitableOrder(){ //most profitable order
+    public OrderSummary getTopProfitableOrder() { 
+        // most profitable order
         OrderSummary currenttoporder = null;
         
-        for (OrderSummary os: ordersummarylist){
-            if(currenttoporder == null)currenttoporder= os; // initial step 
-            else 
-                if(os.getOrderProfit()> currenttoporder.getOrderProfit()){
-                currenttoporder = os; //we have a new higher total
-            }
+        for (OrderSummary os : orderSummaryList) {
+            if (currenttoporder == null) {
+                currenttoporder = os; // initial step 
+            } else {
+                if (os.getOrderPricePerformance() > currenttoporder.getOrderPricePerformance()) {
+                    currenttoporder = os; // we have a new higher total
                 }
+            }         
+        }
+
         return currenttoporder;
+    }
+
+    public void setOrderSummaryList(ArrayList<OrderSummary> orderSummaryList) {
+        this.orderSummaryList = orderSummaryList;
     }
 }
 
