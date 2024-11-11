@@ -5,7 +5,6 @@ build/
 nbproject/
 build.xml
 manifest.mf
-*.form
 *.class
 *.jar
 output/
