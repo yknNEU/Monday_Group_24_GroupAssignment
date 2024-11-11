@@ -12,3 +12,4 @@ outputs/
 *.log
 test.java
 test/
+.DS_Store
