@@ -1,47 +1,73 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.ProductManagement;
 
-/**
- *
- * @author kal bugrara
- */
-
-//this class will extract summary data from the product
+// this class will extract summary data from the product
 public class ProductSummary {
-    Product subjectproduct;
-    int numberofsalesabovetarget;
-    int numberofsalesbelowtarget;
-    int productpriceperformance; //total profit above target --could be negative too
-    int acutalsalesvolume;
-    int rank; // will be done later
+
+    private Product subjectProduct;
+    private int numberOfSalesAboveTarget;
+    private int numberOfSalesBelowTarget;
+    private int productPricePerformance; // total profit above target --could be negative too
+    private int acutalSalesVolume;
+    private int rank; // will be done later
     
-    public ProductSummary(Product p){
-        
-        numberofsalesabovetarget = p.getNumberOfProductSalesAboveTarget();
-        productpriceperformance = p.getOrderPricePerformance();
-        subjectproduct = p; //keeps track of the product itself not as well;
-        acutalsalesvolume = p.getSalesVolume();
-        numberofsalesbelowtarget = p.getNumberOfProductSalesBelowTarget();
-    
+    public ProductSummary(Product product) {
+        this.subjectProduct = product; // keeps track of the product itself not as well;
+        this.numberOfSalesAboveTarget = product.getNumberOfProductSalesAboveTarget();
+        this.numberOfSalesBelowTarget = product.getNumberOfProductSalesBelowTarget();
+        this.productPricePerformance = product.getOrderPricePerformance();
+        this.acutalSalesVolume = product.getSalesVolume();
+        // this.rank = 0;
     }
-    
-    public int getSalesRevenues(){
-        return acutalsalesvolume;
+
+    public Product getSubjectProduct() {
+        return subjectProduct;
     }
-    public int getNumberAboveTarget(){
-        return numberofsalesabovetarget;
+
+    public int getNumberAboveTarget() {
+        return numberOfSalesAboveTarget;
     }
-    public int getProductPricePerformance(){
-        return productpriceperformance;
+
+    public int getNumberBelowTarget() {
+        return numberOfSalesBelowTarget;
     }
-    public int getNumberBelowTarget(){
-        return numberofsalesbelowtarget;
-    }            
-    public boolean isProductAlwaysAboveTarget(){
+
+    public int getProductPricePerformance() {
+        return productPricePerformance;
+    }
+
+    public int getAcutalSalesVolume() {
+        return acutalSalesVolume;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+      
+    public boolean isProductAlwaysAboveTarget() {
         return false; // to be implemented
+    }
+
+    public void setSubjectProduct(Product subjectProduct) {
+        this.subjectProduct = subjectProduct;
+    }
+
+    public void setNumberAboveTarget(int numberOfSalesAboveTarget) {
+        this.numberOfSalesAboveTarget = numberOfSalesAboveTarget;
+    }
+
+    public void setNumberBelowTarget(int numberOfSalesBelowTarget) {
+        this.numberOfSalesBelowTarget = numberOfSalesBelowTarget;
+    }
+
+    public void setProductPricePerformance(int productPricePerformance) {
+        this.productPricePerformance = productPricePerformance;
+    }
+
+    public void setAcutalSalesVolume(int acutalSalesVolume) {
+        this.acutalSalesVolume = acutalSalesVolume;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 }

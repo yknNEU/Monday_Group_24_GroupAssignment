@@ -1,47 +1,50 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.OrderManagement;
 
 import model.ProductManagement.Product;
 
-/**
- *
- * @author kal bugrara
- */
 public class OrderItem {
 
-    Product selectedproduct;
-    int actualPrice;
-    int quantity;
+    private Product selectedProduct;
+    private int actualPrice;
+    private int quantity;
 
-    public OrderItem(Product p, int paidprice, int q) {
-        selectedproduct = p;
-        p.addOrderItem(this); //make sure product links back to the item
-        quantity = q;
-        this.actualPrice = paidprice;
+    public OrderItem(Product product, int actualPrice, int quantity) {
+        this.selectedProduct = product;
+        product.addOrderItem(this); // make sure product links back to the item
+        this.actualPrice = actualPrice;
+        this.quantity = quantity;
+    }
+
+    public Product getSelectedProduct() {
+        return selectedProduct;
+    }
+
+    public int getActualPrice() {
+        return actualPrice;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 
     public int getOrderItemTotal() {
         return actualPrice * quantity;
     }
 
-//The following calculates what the price gain would have been if products were sold at target price
+    // The following calculates what the price gain would have been if products were sold at target price
     public int getOrderItemTargetTotal() {
-        return selectedproduct.getTargetPrice() * quantity;
+        return selectedProduct.getTargetPrice() * quantity;
     }
 
-    //returns positive if seller is making higher margin than target
-    //returns negative if seller is making lower margin than target
-    //otherwise zero meaning neutral
+    // returns positive if seller is making higher margin than target
+    // returns negative if seller is making lower margin than target
+    // otherwise zero meaning neutral
     public int calculatePricePerformance() {
-        return (actualPrice - selectedproduct.getTargetPrice()) * quantity;
+        return (actualPrice - selectedProduct.getTargetPrice()) * quantity;
     }
 
     public boolean isActualAboveTarget() {
-        if (actualPrice > selectedproduct.getTargetPrice()) {
+        if (actualPrice > selectedProduct.getTargetPrice()) {
             return true;
         } else {
             return false;
@@ -49,34 +52,30 @@ public class OrderItem {
     }
 
     public boolean isActualBelowTarget() {
-        if (actualPrice < selectedproduct.getTargetPrice()) {
+        if (actualPrice < selectedProduct.getTargetPrice()) {
             return true;
         } else {
             return false;
         }
-
     }
 
     public boolean isActualATTarget() {
-        if (actualPrice == selectedproduct.getTargetPrice()) {
+        if (actualPrice == selectedProduct.getTargetPrice()) {
             return true;
         } else {
             return false;
         }
-
     }
 
-    public Product getSelectedProduct() {
-        return selectedproduct;
+    public void setSelectedProduct(Product selectedProduct) {
+        this.selectedProduct = selectedProduct;
     }
 
-    public int getActualPrice() {
-        return actualPrice;
-
+    public void setActualPrice(int actualPrice) {
+        this.actualPrice = actualPrice;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
-    
 }

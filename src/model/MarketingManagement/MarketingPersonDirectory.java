@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.MarketingManagement;
 
 import java.util.ArrayList;
@@ -10,38 +5,45 @@ import java.util.ArrayList;
 import model.Business.Business;
 import model.Personnel.Person;
 
-/**
- *
- * @author kal bugrara
- */
 public class MarketingPersonDirectory {
 
-    Business business;
-    ArrayList<MarketingPersonProfile> marketingpersonlist;
+    private Business business;
+    private ArrayList<MarketingPersonProfile> marketingPersonList;
 
-    public MarketingPersonDirectory(Business d) {
-
-        business = d;
-        marketingpersonlist = new ArrayList();
-
+    public MarketingPersonDirectory(Business business) {
+        this.business = business;
+        this.marketingPersonList = new ArrayList<MarketingPersonProfile>();
     }
 
-    public MarketingPersonProfile newMarketingPersonProfile(Person p) {
+    public Business getBusiness() {
+        return business;
+    }
 
-        MarketingPersonProfile sp = new MarketingPersonProfile(p);
-        marketingpersonlist.add(sp);
+    public ArrayList<MarketingPersonProfile> getMarketingPersonList() {
+        return marketingPersonList;
+    }
+
+    public MarketingPersonProfile newMarketingPersonProfile(Person person) {
+        MarketingPersonProfile sp = new MarketingPersonProfile(person);
+        marketingPersonList.add(sp);
         return sp;
     }
 
     public MarketingPersonProfile findMarketingPerson(String id) {
-
-        for (MarketingPersonProfile sp : marketingpersonlist) {
-
+        for (MarketingPersonProfile sp : marketingPersonList) {
             if (sp.isMatch(id)) {
                 return sp;
             }
         }
-            return null; //not found after going through the whole list
-         }
 
+        return null;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
+
+    public void setMarketingPersonList(ArrayList<MarketingPersonProfile> marketingPersonList) {
+        this.marketingPersonList = marketingPersonList;
+    }
 }

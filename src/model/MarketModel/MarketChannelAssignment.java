@@ -1,24 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.MarketModel;
 
-/**
- *
- * @author kal bugrara
- */
 public class MarketChannelAssignment {
     
-    Market market;
-    Channel channel;
+    private Market market;
+    private Channel channel;
     
-    public MarketChannelAssignment(Market m, Channel c){
-        
-        market = m;
-        channel = c;
-        
+    public MarketChannelAssignment(Market market, Channel channel) {
+        this.market = market;
+        this.channel = channel;
     }
     
+    public Market getMarket() {
+        return market;
+    }
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public void setMarket(Market market) {
+        this.market = market;
+    }
+
+    public void setChannel(Channel channel) {
+        this.channel = channel;
+    }
 }

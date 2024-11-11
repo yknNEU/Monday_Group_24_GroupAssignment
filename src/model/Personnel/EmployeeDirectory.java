@@ -1,46 +1,48 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.Personnel;
 
 import java.util.ArrayList;
 
 import model.Business.Business;
 
-/**
- *
- * @author kal bugrara
- */
 public class EmployeeDirectory {
 
-    Business business;
-    ArrayList<EmployeeProfile> employeelist;
+    private Business business;
+    private ArrayList<EmployeeProfile> employeeList;
 
-    public EmployeeDirectory(Business d) {
-
-        business = d;
-        employeelist = new ArrayList();
-
+    public EmployeeDirectory(Business business) {
+        this.business = business;
+        this.employeeList = new ArrayList<EmployeeProfile>();
     }
 
-    public EmployeeProfile newEmployeeProfile(Person p) {
+    public Business getBusiness() {
+        return business;
+    }
 
-        EmployeeProfile sp = new EmployeeProfile(p);
-        employeelist.add(sp);
+    public ArrayList<EmployeeProfile> getEmployeeList() {
+        return employeeList;
+    }
+
+    public EmployeeProfile newEmployeeProfile(Person person) {
+        EmployeeProfile sp = new EmployeeProfile(person);
+        employeeList.add(sp);
         return sp;
     }
 
     public EmployeeProfile findEmployee(String id) {
-
-        for (EmployeeProfile sp : employeelist) {
-
+        for (EmployeeProfile sp : employeeList) {
             if (sp.isMatch(id)) {
                 return sp;
             }
         }
-            return null; //not found after going through the whole list
-         }
+
+        return null;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
     
+    public void setEmployeeList(ArrayList<EmployeeProfile> employeeList) {
+        this.employeeList = employeeList;
+    }
 }

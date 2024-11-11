@@ -1,53 +1,50 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.ProductManagement;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author kal bugrara
- */
 public class ProductsReport {
 
-    ArrayList<ProductSummary> productsummarylist;
+    private ArrayList<ProductSummary> productSummaryList;
 
     public ProductsReport() {
-        productsummarylist = new ArrayList();
+        this.productSummaryList = new ArrayList<ProductSummary>();
     }
 
-    public void addProductSummary(ProductSummary ps) {
+    public ArrayList<ProductSummary> getProductSummaryList() {
+        return productSummaryList;
+    }
 
-        productsummarylist.add(ps);
+    public void addProductSummary(ProductSummary productSummary) {
+        productSummaryList.add(productSummary);
     }
 
     public ProductSummary getTopProductAboveTarget() {
-        ProductSummary currenttopproduct = null;
+        ProductSummary currentTopProduct = null;
 
-        for (ProductSummary ps : productsummarylist) {
-            if (currenttopproduct == null) {
-                currenttopproduct = ps; // initial step 
-            } else if (ps.getNumberAboveTarget() > currenttopproduct.getNumberAboveTarget()) {
-                currenttopproduct = ps; //we have a new higher total
+        for (ProductSummary ps : productSummaryList) {
+            if (currentTopProduct == null) {
+                currentTopProduct = ps; // initial step 
+            } else if (ps.getNumberAboveTarget() > currentTopProduct.getNumberAboveTarget()) {
+                currentTopProduct = ps; // we have a new higher total
             }
-
         }
-        return currenttopproduct;
+
+        return currentTopProduct;
     }
 
     public ArrayList<ProductSummary> getProductsAlwaysAboveTarget() {
-        ArrayList<ProductSummary> productsalwaysabovetarget = new ArrayList(); //temp array list
+        ArrayList<ProductSummary> productsAlwaysAboveTarget = new ArrayList<ProductSummary>(); // temp array list
 
-        for (ProductSummary ps : productsummarylist) {
+        for (ProductSummary ps : productSummaryList) {
             if (ps.isProductAlwaysAboveTarget() == true) {
-                productsalwaysabovetarget.add(ps);
+                productsAlwaysAboveTarget.add(ps);
             }
         }
 
-        return productsalwaysabovetarget;
+        return productsAlwaysAboveTarget;
     }
 
+    public void setProductSummaryList(ArrayList<ProductSummary> productSummaryList) {
+        this.productSummaryList = productSummaryList;
+    }
 }

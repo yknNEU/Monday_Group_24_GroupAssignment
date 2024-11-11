@@ -1,53 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.UserAccountManagement;
 
 import java.util.ArrayList;
 
 import model.Personnel.*;
 
-/**
- *
- * @author kal bugrara
- */
 public class UserAccountDirectory {
     
-      ArrayList<UserAccount> useraccountlist ;
+    private ArrayList<UserAccount> userAccountList;
     
-      public UserAccountDirectory (){
-          
-       useraccountlist = new ArrayList();
-
+    public UserAccountDirectory() {
+        this.userAccountList = new ArrayList<UserAccount>();
     }
 
-    public UserAccount newUserAccount(Profile p, String un, String pw) {
+    public ArrayList<UserAccount> getUserAccountList() {
+        return userAccountList;
+    }
 
-        UserAccount ua = new UserAccount (p,  un,  pw);
-        useraccountlist.add(ua);
-        return ua;
+    public UserAccount newUserAccount(Profile profile, String userName, String password) {
+        UserAccount userAccount = new UserAccount(profile, userName, password);
+        userAccountList.add(userAccount);
+        return userAccount;
     }
 
     public UserAccount findUserAccount(String id) {
-
-        for (UserAccount ua : useraccountlist) {
-
+        for (UserAccount ua : userAccountList) {
             if (ua.isMatch(id)) {
                 return ua;
             }
         }
-            return null; //not found after going through the whole list
-         }
-     public UserAccount AuthenticateUser(String un, String pw) {
+        return null;
+    }
 
-        for (UserAccount ua : useraccountlist) {
-
-            if (ua.IsValidUser(un, pw)) {
+    public UserAccount authenticateUser(String userName, String password) {
+        for (UserAccount ua : userAccountList) {
+            if (ua.isValidUser(userName, password)) {
                 return ua;
             }
         }
-            return null; //not found after going through the whole list
-         }   
+        return null;
+    }
+
+    public void setUserAccountList(ArrayList<UserAccount> userAccountList) {
+        this.userAccountList = userAccountList;
+    }
 }
