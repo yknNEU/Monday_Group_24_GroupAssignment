@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.supplier;
+package ui.marketing;
 
 /**
  *
@@ -42,6 +42,7 @@ public class AddProduct extends javax.swing.JPanel {
         lblDescription = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
+        lblSupplierName = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 204));
 
@@ -85,6 +86,8 @@ public class AddProduct extends javax.swing.JPanel {
         txtDescription.setRows(5);
         jScrollPane1.setViewportView(txtDescription);
 
+        lblSupplierName.setText("Supplier:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,7 +96,9 @@ public class AddProduct extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnBack))
+                        .addComponent(btnBack)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblSupplierName))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(146, 146, 146)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -125,7 +130,9 @@ public class AddProduct extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addComponent(lblTitle)
                 .addGap(10, 10, 10)
-                .addComponent(btnBack)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
+                    .addComponent(lblSupplierName))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -174,6 +181,7 @@ public class AddProduct extends javax.swing.JPanel {
     private javax.swing.JLabel lblFPrice;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblProdAvail;
+    private javax.swing.JLabel lblSupplierName;
     private javax.swing.JLabel lblTPrice;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextArea txtDescription;

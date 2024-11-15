@@ -28,7 +28,7 @@ public class WorkArea extends javax.swing.JPanel {
 
         btnLogout = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
-        btnManageSupplier = new javax.swing.JButton();
+        btnManagePerson = new javax.swing.JButton();
         btnViewProdReport = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 204));
@@ -43,7 +43,7 @@ public class WorkArea extends javax.swing.JPanel {
         lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTitle.setText("Welcome, Administrator!");
 
-        btnManageSupplier.setText("Manage Supplier");
+        btnManagePerson.setText("Manage Person");
 
         btnViewProdReport.setText("View Product report");
 
@@ -61,7 +61,7 @@ public class WorkArea extends javax.swing.JPanel {
                         .addComponent(btnLogout))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addComponent(btnManageSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnManagePerson, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(btnViewProdReport)))
@@ -75,7 +75,7 @@ public class WorkArea extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(btnLogout)
                 .addGap(18, 18, 18)
-                .addComponent(btnManageSupplier)
+                .addComponent(btnManagePerson)
                 .addGap(18, 18, 18)
                 .addComponent(btnViewProdReport)
                 .addContainerGap(68, Short.MAX_VALUE))
@@ -89,7 +89,7 @@ public class WorkArea extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnManageSupplier;
+    private javax.swing.JButton btnManagePerson;
     private javax.swing.JButton btnViewProdReport;
     private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables

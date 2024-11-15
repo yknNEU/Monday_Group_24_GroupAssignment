@@ -8,12 +8,12 @@ package ui.admin;
  *
  * @author prasa
  */
-public class ManageSupplier extends javax.swing.JPanel {
+public class ManagePerson extends javax.swing.JPanel {
 
     /**
      * Creates new form ManageSupplier
      */
-    public ManageSupplier() {
+    public ManagePerson() {
         initComponents();
     }
 
@@ -28,11 +28,12 @@ public class ManageSupplier extends javax.swing.JPanel {
 
         btnBack = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        btnView = new javax.swing.JButton();
-        btnAddSupplier = new javax.swing.JButton();
+        btnViewPerson = new javax.swing.JButton();
+        btnAddPerson = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        supplierTable = new javax.swing.JTable();
+        personTable = new javax.swing.JTable();
+        btnSearch = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 204));
 
@@ -43,32 +44,32 @@ public class ManageSupplier extends javax.swing.JPanel {
             }
         });
 
-        btnRemove.setText("Delete");
+        btnRemove.setText("Delete Person");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
             }
         });
 
-        btnView.setText("View Products");
-        btnView.addActionListener(new java.awt.event.ActionListener() {
+        btnViewPerson.setText("View Person");
+        btnViewPerson.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewActionPerformed(evt);
+                btnViewPersonActionPerformed(evt);
             }
         });
 
-        btnAddSupplier.setText("Add Supplier");
-        btnAddSupplier.addActionListener(new java.awt.event.ActionListener() {
+        btnAddPerson.setText("Add Person");
+        btnAddPerson.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddSupplierActionPerformed(evt);
+                btnAddPersonActionPerformed(evt);
             }
         });
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Manage Suppliers");
+        lblTitle.setText("Manage Person");
 
-        supplierTable.setModel(new javax.swing.table.DefaultTableModel(
+        personTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -76,7 +77,7 @@ public class ManageSupplier extends javax.swing.JPanel {
                 {null, null}
             },
             new String [] {
-                "Supplier Name", "Number of Products"
+                "Name", "Role"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -87,7 +88,9 @@ public class ManageSupplier extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(supplierTable);
+        jScrollPane1.setViewportView(personTable);
+
+        btnSearch.setText("Search");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -100,11 +103,13 @@ public class ManageSupplier extends javax.swing.JPanel {
                     .addComponent(btnBack)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAddSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnView)
+                        .addComponent(btnViewPerson)
                         .addGap(18, 18, 18)
-                        .addComponent(btnRemove)))
+                        .addComponent(btnRemove)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -118,9 +123,11 @@ public class ManageSupplier extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddSupplier)
-                    .addComponent(btnView)
-                    .addComponent(btnRemove))
+                    .addComponent(btnAddPerson)
+                    .addComponent(btnViewPerson)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnRemove)
+                        .addComponent(btnSearch)))
                 .addContainerGap(201, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -136,24 +143,25 @@ public class ManageSupplier extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnRemoveActionPerformed
 
-    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+    private void btnViewPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPersonActionPerformed
 
 
-    }//GEN-LAST:event_btnViewActionPerformed
+    }//GEN-LAST:event_btnViewPersonActionPerformed
 
-    private void btnAddSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSupplierActionPerformed
+    private void btnAddPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPersonActionPerformed
 
 
-    }//GEN-LAST:event_btnAddSupplierActionPerformed
+    }//GEN-LAST:event_btnAddPersonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddSupplier;
+    private javax.swing.JButton btnAddPerson;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JButton btnView;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnViewPerson;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTable supplierTable;
+    private javax.swing.JTable personTable;
     // End of variables declaration//GEN-END:variables
 }

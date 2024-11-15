@@ -26,30 +26,41 @@ public class WorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnBrowseCatalog = new javax.swing.JButton();
-        btnLogout = new javax.swing.JButton();
-        btnViewCart = new javax.swing.JButton();
-        btnViewTransactions = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
+        btnManageSupplier = new javax.swing.JButton();
+        btnProductPerformance = new javax.swing.JButton();
+        btnUpdateProfile = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 204));
 
-        btnBrowseCatalog.setText("Browse Product Catalog >>");
-        btnBrowseCatalog.addActionListener(new java.awt.event.ActionListener() {
+        lblTitle.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        lblTitle.setText("Welcome, Marketing Person!");
+        lblTitle.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lblTitle.setIconTextGap(100);
+
+        btnManageSupplier.setText("Manage Supplier >>");
+        btnManageSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBrowseCatalogActionPerformed(evt);
+                btnManageSupplierActionPerformed(evt);
+            }
+        });
+
+        btnProductPerformance.setText("Review Product Performance >>");
+        btnProductPerformance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductPerformanceActionPerformed(evt);
+            }
+        });
+
+        btnUpdateProfile.setText("Update Personal Profile >>");
+        btnUpdateProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateProfileActionPerformed(evt);
             }
         });
 
         btnLogout.setText("Logout");
-
-        btnViewCart.setText("View your cart");
-
-        btnViewTransactions.setText("View your transactions");
-
-        lblTitle.setBackground(new java.awt.Color(0, 0, 0));
-        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitle.setIconTextGap(20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -59,46 +70,53 @@ public class WorkArea extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBrowseCatalog))
+                        .addComponent(btnManageSupplier))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(26, 26, 26)
                         .addComponent(lblTitle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 523, Short.MAX_VALUE)
-                        .addComponent(btnLogout))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnViewTransactions)
-                            .addComponent(btnViewCart))))
-                .addGap(42, 42, 42))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnProductPerformance)
+                                .addComponent(btnUpdateProfile, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitle)
                     .addComponent(btnLogout))
-                .addGap(81, 81, 81)
-                .addComponent(btnBrowseCatalog)
-                .addGap(18, 18, 18)
-                .addComponent(btnViewCart)
-                .addGap(18, 18, 18)
-                .addComponent(btnViewTransactions)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addGap(76, 76, 76)
+                .addComponent(btnManageSupplier)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnProductPerformance)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUpdateProfile)
+                .addContainerGap(209, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBrowseCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseCatalogActionPerformed
+    private void btnManageSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageSupplierActionPerformed
 
-    }//GEN-LAST:event_btnBrowseCatalogActionPerformed
+    }//GEN-LAST:event_btnManageSupplierActionPerformed
+
+    private void btnProductPerformanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductPerformanceActionPerformed
+
+    }//GEN-LAST:event_btnProductPerformanceActionPerformed
+
+    private void btnUpdateProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProfileActionPerformed
+
+    }//GEN-LAST:event_btnUpdateProfileActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBrowseCatalog;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnViewCart;
-    private javax.swing.JButton btnViewTransactions;
+    private javax.swing.JButton btnManageSupplier;
+    private javax.swing.JButton btnProductPerformance;
+    private javax.swing.JButton btnUpdateProfile;
     private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
 }

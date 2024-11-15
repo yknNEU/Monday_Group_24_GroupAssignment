@@ -38,7 +38,7 @@ public class LoginScreen extends javax.swing.JPanel {
 
         lblRole.setText("Select a Role:");
 
-        cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Supplier", "Customer" }));
+        cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Marketing", "Sales", "Customer" }));
 
         lblUsername.setText("Username:");
 
