@@ -5,21 +5,17 @@ import java.util.ArrayList;
 import model.MarketModel.Market;
 import model.OrderManagement.Order;
 import model.Personnel.Person;
+import model.Personnel.Profile;
 
-public class CustomerProfile {
+public class CustomerProfile extends Profile {
     
-    private Person person;
     private ArrayList<Order> orders;
     private ArrayList<Market> markets;
     
     public CustomerProfile(Person person) {
-        this.person = person;
+        super(person);
         this.orders = new ArrayList<Order>();
         this.markets = new ArrayList<Market>();
-    }
-
-    public Person getPerson() {
-        return person;
     }
 
     public ArrayList<Order> getOrders() {
@@ -31,7 +27,7 @@ public class CustomerProfile {
     }
 
     public String getCustomerId() {
-        return person.getPersonId();
+        return this.getPerson().getPersonId();
     }
 
     public int getTotalPricePerformance() {
@@ -64,7 +60,7 @@ public class CustomerProfile {
     }
         
     public boolean isMatch(String id) {
-        if (person.getPersonId().equals(id)) {
+        if (this.getPerson().getPersonId().equals(id)) {
             return true;
         }
         return false;
@@ -72,10 +68,6 @@ public class CustomerProfile {
 
     public void addCustomerOrder(Order order) {
         orders.add(order);
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
     public void setOrders(ArrayList<Order> orders) {
@@ -87,7 +79,12 @@ public class CustomerProfile {
     }
 
     @Override
+    public String getRole() {
+        return "Customer";
+    }
+
+    @Override
     public String toString() {
-        return person.getPersonId();
+        return this.getPerson().getPersonId();
     }
 }
