@@ -46,8 +46,6 @@ public class LoginScreen extends javax.swing.JPanel {
 
         btnLogin.setText("Login");
 
-        txtPassword.setText("jPasswordField1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
