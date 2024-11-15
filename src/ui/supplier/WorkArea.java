@@ -31,13 +31,15 @@ public class WorkArea extends javax.swing.JPanel {
         btnManageProductCatalog = new javax.swing.JButton();
         btnProductPerformance = new javax.swing.JButton();
         btnUpdateProfile = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 204));
 
         btnUpdateStaff.setText("Manage Staff");
         btnUpdateStaff.setEnabled(false);
 
         lblTitle.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        lblTitle.setText("Welcome, xxx");
+        lblTitle.setText("Welcome, Supplier!");
         lblTitle.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         lblTitle.setIconTextGap(100);
 
@@ -64,26 +66,28 @@ public class WorkArea extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Logout");
+        btnLogout.setText("Logout");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(400, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnProductPerformance)
-                    .addComponent(btnUpdateProfile)
-                    .addComponent(btnUpdateStaff)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton1)
-                        .addComponent(btnManageProductCatalog)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnManageProductCatalog))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(lblTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnProductPerformance)
+                                .addComponent(btnUpdateProfile, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnUpdateStaff, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(29, 29, 29))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(lblTitle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,7 +95,7 @@ public class WorkArea extends javax.swing.JPanel {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitle)
-                    .addComponent(jButton1))
+                    .addComponent(btnLogout))
                 .addGap(76, 76, 76)
                 .addComponent(btnManageProductCatalog)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -118,11 +122,11 @@ public class WorkArea extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnManageProductCatalog;
     private javax.swing.JButton btnProductPerformance;
     private javax.swing.JButton btnUpdateProfile;
     private javax.swing.JButton btnUpdateStaff;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
 }

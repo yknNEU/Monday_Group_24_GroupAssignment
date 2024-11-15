@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.customer;
+package ui.sales;
 
 /**
  *
@@ -26,18 +26,12 @@ public class WorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTitle = new javax.swing.JLabel();
         btnBrowseCatalog = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         btnViewCart = new javax.swing.JButton();
         btnViewTransactions = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 204));
-
-        lblTitle.setBackground(new java.awt.Color(0, 0, 0));
-        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitle.setText("Welcome valuable Customer!");
-        lblTitle.setIconTextGap(20);
 
         btnBrowseCatalog.setText("Browse Product Catalog >>");
         btnBrowseCatalog.addActionListener(new java.awt.event.ActionListener() {
@@ -57,36 +51,26 @@ public class WorkArea extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(435, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBrowseCatalog))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(lblTitle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 303, Short.MAX_VALUE)
-                        .addComponent(btnLogout))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnViewTransactions)
-                            .addComponent(btnViewCart))))
-                .addGap(42, 42, 42))
+                    .addComponent(btnBrowseCatalog)
+                    .addComponent(btnLogout)
+                    .addComponent(btnViewTransactions)
+                    .addComponent(btnViewCart))
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTitle)
-                    .addComponent(btnLogout))
+                .addGap(30, 30, 30)
+                .addComponent(btnLogout)
                 .addGap(81, 81, 81)
                 .addComponent(btnBrowseCatalog)
                 .addGap(18, 18, 18)
                 .addComponent(btnViewCart)
                 .addGap(18, 18, 18)
                 .addComponent(btnViewTransactions)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -100,6 +84,5 @@ public class WorkArea extends javax.swing.JPanel {
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnViewCart;
     private javax.swing.JButton btnViewTransactions;
-    private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
 }

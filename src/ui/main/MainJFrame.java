@@ -27,6 +27,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 204));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         pack();
