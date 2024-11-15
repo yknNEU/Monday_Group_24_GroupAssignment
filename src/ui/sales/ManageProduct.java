@@ -84,6 +84,11 @@ public class ManageProduct extends javax.swing.JPanel {
         });
 
         btnAddToMarket.setText("Add to Market");
+        btnAddToMarket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddToMarketActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,6 +142,10 @@ public class ManageProduct extends javax.swing.JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
 
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnAddToMarketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToMarketActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddToMarketActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

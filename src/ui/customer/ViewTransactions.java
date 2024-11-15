@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.sales;
+package ui.customer;
 
 /**
  *
  * @author prasa
  */
-public class ManageTransactions extends javax.swing.JPanel {
+public class ViewTransactions extends javax.swing.JPanel {
 
     /**
-     * Creates new form ManageTransactions
+     * Creates new form ViewTransactions
      */
-    public ManageTransactions() {
+    public ViewTransactions() {
         initComponents();
     }
 
@@ -26,20 +26,15 @@ public class ManageTransactions extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTitle = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
-        btnApprove = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
+        btnViewOrderItem = new javax.swing.JButton();
+        lblTotalPrice = new javax.swing.JLabel();
+        btnDecline = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCart = new javax.swing.JTable();
-        btnDecline = new javax.swing.JButton();
-        lblTotalPrice = new javax.swing.JLabel();
-        btnViewOrderItem = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 204));
-
-        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("View Product Summary");
 
         btnBack.setText("<<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -48,10 +43,23 @@ public class ManageTransactions extends javax.swing.JPanel {
             }
         });
 
-        btnApprove.setText("Approve Transaction");
-        btnApprove.addActionListener(new java.awt.event.ActionListener() {
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("View Product Summary");
+
+        btnViewOrderItem.setText("View Item");
+        btnViewOrderItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnApproveActionPerformed(evt);
+                btnViewOrderItemActionPerformed(evt);
+            }
+        });
+
+        lblTotalPrice.setText("Total Price:");
+
+        btnDecline.setText("Decline Transaction");
+        btnDecline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeclineActionPerformed(evt);
             }
         });
 
@@ -76,22 +84,6 @@ public class ManageTransactions extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblCart);
 
-        btnDecline.setText("Decline Transaction");
-        btnDecline.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeclineActionPerformed(evt);
-            }
-        });
-
-        lblTotalPrice.setText("Total Price:");
-
-        btnViewOrderItem.setText("View Item");
-        btnViewOrderItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewOrderItemActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,13 +101,11 @@ public class ManageTransactions extends javax.swing.JPanel {
                         .addGap(84, 84, 84))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnViewOrderItem)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDecline)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnApprove)))
+                                .addComponent(btnDecline)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -131,10 +121,9 @@ public class ManageTransactions extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnApprove)
                     .addComponent(btnDecline)
                     .addComponent(btnViewOrderItem))
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -150,13 +139,8 @@ public class ManageTransactions extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDeclineActionPerformed
 
-    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnApproveActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDecline;
     private javax.swing.JButton btnViewOrderItem;

@@ -120,6 +120,11 @@ public class BrowseProducts extends javax.swing.JPanel {
         });
 
         btnViewCart.setText("View your cart");
+        btnViewCart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewCartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -227,6 +232,10 @@ public class BrowseProducts extends javax.swing.JPanel {
     private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductActionPerformed
 
     }//GEN-LAST:event_btnSearchProductActionPerformed
+
+    private void btnViewCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnViewCartActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -216,6 +216,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblSupplierName">
       <Properties>
@@ -235,6 +238,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Add to Market"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddToMarketActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
