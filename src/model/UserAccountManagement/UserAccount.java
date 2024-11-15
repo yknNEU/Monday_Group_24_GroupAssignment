@@ -8,7 +8,7 @@ public class UserAccount {
     private String userName;
     private String password;
     
-    public UserAccount (Profile profile, String userName, String password) {
+    public UserAccount(Profile profile, String userName, String password) {
         this.profile = profile;
         this.userName = userName;
         this.password = password;
