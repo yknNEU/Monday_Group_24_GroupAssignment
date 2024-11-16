@@ -4,16 +4,29 @@
  */
 package ui.admin;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+
 /**
  *
  * @author prasa
  */
 public class CreatePerson extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+
     /**
      * Creates new form CreateSupplier
      */
-    public CreatePerson() {
+    public CreatePerson(Container ui, Business business) {
+        this.ui = ui;
+        this.business = business;
         initComponents();
     }
 
@@ -124,11 +137,32 @@ public class CreatePerson extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
+        if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name is required", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (business.getPersonDirectory().findPerson(txtName.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Person already exists", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        business.getPersonDirectory().newPerson(txtName.getText());
+        JOptionPane.showMessageDialog(this, "Person added successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+        txtName.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+        txtDescription.setText("");
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof ManagePerson) {
+            ManagePerson managePerson = (ManagePerson) component;
+            managePerson.populateTable();
+        }
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
 

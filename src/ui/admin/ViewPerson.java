@@ -4,17 +4,36 @@
  */
 package ui.admin;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.Personnel.Person;
+
 /**
  *
  * @author prasa
  */
 public class ViewPerson extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private Person person;
+
     /**
      * Creates new form ViewSupplier
      */
-    public ViewPerson() {
+    public ViewPerson(Container ui, Business business, Person person) {
+        this.ui = ui;
+        this.business = business;
+        this.person = person;
         initComponents();
+        setViewMode();
+        txtName.setText(person.getPersonId());
+        txtRole.setText(person.getRole());
     }
 
     /**
@@ -167,23 +186,67 @@ public class ViewPerson extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
-
+        setEditMode();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
-
+        ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof ManagePerson) {
+            ManagePerson managePerson = (ManagePerson) component;
+            managePerson.populateTable();
+        }
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+        if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name is required", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (business.getPersonDirectory().findPerson(txtName.getText()) != null && !txtName.getText().equals(person.getPersonId())) {
+            JOptionPane.showMessageDialog(this, "Person already exists", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        person.setPersonId(txtName.getText());
+        JOptionPane.showMessageDialog(this, "Person updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+        setViewMode();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
-        // TODO add your handling code here:
+        ViewAccount viewAccount = new ViewAccount(ui, business, person);
+        ui.add("ViewAccount" + viewAccount.toString(), viewAccount);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnCreateAccountActionPerformed
 
+    private void setViewMode() {
+        txtName.setEditable(false);
+        txtRole.setEditable(false);
+        txtPhone.setEditable(false);
+        txtEmail.setEditable(false);
+        txtDescription.setEditable(false);
+        btnUpdate.setEnabled(true);
+        btnSave.setEnabled(false);
+        btnCreateAccount.setEnabled(true);
+    }
+
+    private void setEditMode() {
+        txtName.setEditable(true);
+        // txtRole.setEditable(true); // Should be auto updated when creating account
+        txtPhone.setEditable(true);
+        txtEmail.setEditable(true);
+        txtDescription.setEditable(true);
+        btnUpdate.setEnabled(false);
+        btnSave.setEnabled(true);
+        btnCreateAccount.setEnabled(false); // Should be enabled after saving
+    }
+
+    public void setRole(String role) {
+        txtRole.setText(role);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

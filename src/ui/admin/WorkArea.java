@@ -4,17 +4,33 @@
  */
 package ui.admin;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class WorkArea extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form WorkArea
      */
-    public WorkArea() {
+    public WorkArea(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
+        setWelcomeName(userAccount.getProfile().getPerson().getPersonId());
     }
 
     /**
@@ -93,17 +109,26 @@ public class WorkArea extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        // TODO add your handling code here:
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnManagePersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePersonActionPerformed
-        // TODO add your handling code here:
+        ManagePerson managePerson = new ManagePerson(ui, business, userAccount);
+        ui.add("ManagePerson" + managePerson.toString(), managePerson);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnManagePersonActionPerformed
 
     private void btnViewProdReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewProdReportActionPerformed
-        // TODO add your handling code here:
+        // TODO: Unimplemented
+        JOptionPane.showMessageDialog(this, "Not implemented.", "Information", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnViewProdReportActionPerformed
 
+    public void setWelcomeName(String name) {
+        lblTitle.setText("Welcome, " + name + "!");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogout;

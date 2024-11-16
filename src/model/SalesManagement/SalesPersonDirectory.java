@@ -25,6 +25,7 @@ public class SalesPersonDirectory {
 
     public SalesPersonProfile newSalesPersonProfile(Person person) {
         SalesPersonProfile sp = new SalesPersonProfile(person);
+        person.setProfile(sp);
         salesPersonList.add(sp);
         return sp;
     }

@@ -26,7 +26,7 @@ public class MainJFrame extends javax.swing.JFrame {
         initComponents();
         this.setSize(1024, 576);
         LoginScreen loginScreen = new LoginScreen(this, this.business);
-        this.add("LoginScreen" + loginScreen.toString(), loginScreen);
+        this.getContentPane().add("LoginScreen" + loginScreen.toString(), loginScreen);
         CardLayout cardLayout = (CardLayout) this.getContentPane().getLayout();
         cardLayout.next(this.getContentPane());
     }

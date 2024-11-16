@@ -4,7 +4,10 @@
  */
 package ui.main;
 
+import javax.swing.JOptionPane;
+import java.awt.CardLayout;
 import model.Business.Business;
+import model.UserAccountManagement.UserAccount;
 
 /**
  *
@@ -100,7 +103,57 @@ public class LoginScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+        // Authentication
+        if (txtUsername.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please input your username.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        UserAccount userAccount = business.getUserAccountDirectory().getUserAccount(txtUsername.getText());
+        if (userAccount == null) {
+            JOptionPane.showMessageDialog(this, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String role = userAccount.getProfile().getRole();
+        if (!role.equals(cmbRole.getSelectedItem().toString())) {
+            JOptionPane.showMessageDialog(this, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please input your password.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        userAccount = business.getUserAccountDirectory().authenticateUser(txtUsername.getText(), txtPassword.getText());
+        if (userAccount == null) {
+            JOptionPane.showMessageDialog(this, "Invalid password.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        txtUsername.setText("");
+        txtPassword.setText("");
+        // Login
+        if ("Admin".equals(role)) {
+            ui.admin.WorkArea workArea = new ui.admin.WorkArea(mainJFrame.getContentPane(), business, userAccount);
+            mainJFrame.getContentPane().add("AdminWorkArea" + workArea.toString(), workArea);
+            CardLayout cardLayout = (CardLayout) mainJFrame.getContentPane().getLayout();
+            cardLayout.next(mainJFrame.getContentPane());
+        } else if ("Marketing".equals(role)) {
+            ui.marketing.WorkArea workArea = new ui.marketing.WorkArea(mainJFrame.getContentPane(), business, userAccount);
+            mainJFrame.getContentPane().add("MarketingWorkArea" + workArea.toString(), workArea);
+            CardLayout cardLayout = (CardLayout) mainJFrame.getContentPane().getLayout();
+            cardLayout.next(mainJFrame.getContentPane());
+        } else if ("Sales".equals(role)) {
+            ui.sales.WorkArea workArea = new ui.sales.WorkArea(mainJFrame.getContentPane(), business, userAccount);
+            mainJFrame.getContentPane().add("SalesWorkArea" + workArea.toString(), workArea);
+            CardLayout cardLayout = (CardLayout) mainJFrame.getContentPane().getLayout();
+            cardLayout.next(mainJFrame.getContentPane());
+        } else if ("Customer".equals(role)) {
+            ui.customer.WorkArea workArea = new ui.customer.WorkArea(mainJFrame.getContentPane(), business, userAccount);
+            mainJFrame.getContentPane().add("CustomerWorkArea" + workArea.toString(), workArea);
+            CardLayout cardLayout = (CardLayout) mainJFrame.getContentPane().getLayout();
+            cardLayout.next(mainJFrame.getContentPane());
+        } else {
+            JOptionPane.showMessageDialog(this, "Unrichable code.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("[Error] Unrichable code executed [Class: LoginScreen, Method: btnLoginActionPerformed]");
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
 
