@@ -78,6 +78,11 @@ public class ViewPerson extends javax.swing.JPanel {
         });
 
         btnCreateAccount.setText("Create Account");
+        btnCreateAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateAccountActionPerformed(evt);
+            }
+        });
 
         lblRole.setText("Role:");
 
@@ -174,6 +179,10 @@ public class ViewPerson extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCreateAccountActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

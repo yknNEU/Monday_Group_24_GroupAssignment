@@ -60,8 +60,18 @@ public class ViewSummary extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblViewProductSummary);
 
         btnBack.setText("<<< Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnViewTransactionDetails.setText("View Transaction Details ");
+        btnViewTransactionDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewTransactionDetailsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -94,6 +104,14 @@ public class ViewSummary extends javax.swing.JPanel {
                 .addGap(98, 98, 98))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnViewTransactionDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTransactionDetailsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnViewTransactionDetailsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

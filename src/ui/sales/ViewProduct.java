@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.marketing;
+package ui.sales;
 
 /**
  *
@@ -44,6 +44,10 @@ public class ViewProduct extends javax.swing.JPanel {
         lblName = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
         lblSupplierName = new javax.swing.JLabel();
+        txtSupplierName = new javax.swing.JTextField();
+        lblStatus = new javax.swing.JLabel();
+        txtStatus = new javax.swing.JTextField();
+        btnAddToMarket = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 204));
 
@@ -63,7 +67,7 @@ public class ViewProduct extends javax.swing.JPanel {
 
         lblFPrice.setText("Floor Price:");
 
-        btnUpdate.setText("Update Product");
+        btnUpdate.setText("Update Price");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -88,7 +92,16 @@ public class ViewProduct extends javax.swing.JPanel {
             }
         });
 
-        lblSupplierName.setText("Supplier:");
+        lblSupplierName.setText("Supplier Name:");
+
+        lblStatus.setText("Status:");
+
+        btnAddToMarket.setText("Add to Market");
+        btnAddToMarket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddToMarketActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -101,36 +114,36 @@ public class ViewProduct extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(147, 147, 147)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblProdAvail, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblSPrice, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblTPrice, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblFPrice, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(42, 42, 42)
-                                                .addComponent(lblDescription)
-                                                .addGap(1, 1, 1)))
-                                        .addGap(25, 25, 25)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(txtFPrice)
-                                                .addComponent(txtTPrice, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(txtSPrice, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(txtProdAvail, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(btnUpdate)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(btnSave))))
+                                    .addComponent(lblProdAvail, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblSPrice, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblTPrice, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblFPrice, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblSupplierName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblDescription, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtSupplierName)
+                                    .addComponent(txtName)
+                                    .addComponent(txtFPrice)
+                                    .addComponent(txtTPrice)
+                                    .addComponent(txtSPrice)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtStatus)
+                                    .addComponent(txtProdAvail)))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(btnBack)
-                                .addGap(27, 27, 27)
-                                .addComponent(lblSupplierName)))
-                        .addGap(0, 160, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAddToMarket)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnUpdate)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSave)))
+                        .addGap(108, 108, 108))
                     .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -140,10 +153,12 @@ public class ViewProduct extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addComponent(lblTitle)
                 .addGap(10, 10, 10)
+                .addComponent(btnBack)
+                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBack)
-                    .addComponent(lblSupplierName))
-                .addGap(18, 18, 18)
+                    .addComponent(lblSupplierName)
+                    .addComponent(txtSupplierName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -163,16 +178,21 @@ public class ViewProduct extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtProdAvail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProdAvail, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus)
+                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDescription)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(lblDescription)
+                        .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSave)
                             .addComponent(btnUpdate)
-                            .addComponent(btnSave))))
-                .addContainerGap(79, Short.MAX_VALUE))
+                            .addComponent(btnAddToMarket)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -184,12 +204,17 @@ public class ViewProduct extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnAddToMarketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToMarketActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddToMarketActionPerformed
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddToMarket;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
@@ -199,6 +224,7 @@ public class ViewProduct extends javax.swing.JPanel {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblProdAvail;
     private javax.swing.JLabel lblSPrice;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblSupplierName;
     private javax.swing.JLabel lblTPrice;
     private javax.swing.JLabel lblTitle;
@@ -207,6 +233,8 @@ public class ViewProduct extends javax.swing.JPanel {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtProdAvail;
     private javax.swing.JTextField txtSPrice;
+    private javax.swing.JTextField txtStatus;
+    private javax.swing.JTextField txtSupplierName;
     private javax.swing.JTextField txtTPrice;
     // End of variables declaration//GEN-END:variables
 }

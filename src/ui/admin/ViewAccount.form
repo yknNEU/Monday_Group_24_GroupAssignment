@@ -40,10 +40,7 @@
                                   <Component id="btnCreate" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace pref="3" max="-2" attributes="0"/>
-                                              <Component id="lblPassword" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="lblPassword" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="lblUsername" min="-2" max="-2" attributes="0"/>
                                           <Component id="lblRole" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -149,11 +146,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;&lt;&lt; Back"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCreate">
       <Properties>
         <Property name="text" type="java.lang.String" value="Create"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreateActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

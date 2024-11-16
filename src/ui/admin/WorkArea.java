@@ -44,8 +44,18 @@ public class WorkArea extends javax.swing.JPanel {
         lblTitle.setText("Welcome, Administrator!");
 
         btnManagePerson.setText("Manage Person");
+        btnManagePerson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManagePersonActionPerformed(evt);
+            }
+        });
 
         btnViewProdReport.setText("View Product report");
+        btnViewProdReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewProdReportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -85,6 +95,14 @@ public class WorkArea extends javax.swing.JPanel {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnManagePersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePersonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnManagePersonActionPerformed
+
+    private void btnViewProdReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewProdReportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnViewProdReportActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
