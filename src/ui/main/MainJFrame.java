@@ -4,17 +4,31 @@
  */
 package ui.main;
 
+import java.awt.CardLayout;
+import model.Business.Business;
+import model.Personnel.Person;
+import model.Personnel.Profile;
+
 /**
  *
  * @author prasa
  */
 public class MainJFrame extends javax.swing.JFrame {
 
+    private Business business;
+
     /**
      * Creates new form MainJFrame
      */
     public MainJFrame() {
+        this.business = new Business("Group Assignment 2 | Pricing Model");
+        generateDemoData();
         initComponents();
+        this.setSize(1024, 576);
+        LoginScreen loginScreen = new LoginScreen(this, this.business);
+        this.add("LoginScreen" + loginScreen.toString(), loginScreen);
+        CardLayout cardLayout = (CardLayout) this.getContentPane().getLayout();
+        cardLayout.next(this.getContentPane());
     }
 
     /**
@@ -66,6 +80,13 @@ public class MainJFrame extends javax.swing.JFrame {
                 new MainJFrame().setVisible(true);
             }
         });
+    }
+
+    private void generateDemoData() {
+        // Add default admin account
+        Person person = business.getPersonDirectory().newPerson("Group24");
+        Profile profile = business.getEmployeeDirectory().newEmployeeProfile(person);
+        business.getUserAccountDirectory().newUserAccount(profile, "admin", "admin");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

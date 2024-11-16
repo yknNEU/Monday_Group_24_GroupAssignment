@@ -4,16 +4,23 @@
  */
 package ui.main;
 
+import model.Business.Business;
+
 /**
  *
  * @author prasa
  */
 public class LoginScreen extends javax.swing.JPanel {
 
+    private MainJFrame mainJFrame;
+    private Business business;
+
     /**
      * Creates new form LoginScreen
      */
-    public LoginScreen() {
+    public LoginScreen(MainJFrame mainJFrame, Business business) {
+        this.mainJFrame = mainJFrame;
+        this.business = business;
         initComponents();
     }
 
