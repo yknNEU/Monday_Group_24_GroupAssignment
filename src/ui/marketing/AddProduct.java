@@ -4,17 +4,34 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.Supplier.Supplier;
+
 /**
  *
  * @author prasa
  */
 public class AddProduct extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private Supplier supplier;
+
     /**
      * Creates new form AddProduct
      */
-    public AddProduct() {
+    public AddProduct(Container ui, Business business, Supplier supplier) {
+        this.ui = ui;
+        this.business = business;
+        this.supplier = supplier;
         initComponents();
+        lblSupplierName.setText("Supplier: " + supplier.getName());
     }
 
     /**
@@ -164,11 +181,84 @@ public class AddProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
+        // Product name
+        if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a product name", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (supplier.getProductCatalog().findProduct(txtName.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Product already exists", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Floor price
+        if (txtFPrice.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a floor price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int floorPrice = 0;
+        try {
+            floorPrice = Integer.parseInt(txtFPrice.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid floor price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (floorPrice < 0) {
+            JOptionPane.showMessageDialog(this, "Floor price cannot be negative", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Target price
+        if (txtTPrice.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a target price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int targetPrice = 0;
+        try {
+            targetPrice = Integer.parseInt(txtTPrice.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid target price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (targetPrice < floorPrice) {
+            JOptionPane.showMessageDialog(this, "Target price cannot be less than floor price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Ceiling price
+        if (txtSPrice.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a ceiling price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int ceilingPrice = 0;
+        try {
+            ceilingPrice = Integer.parseInt(txtSPrice.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid ceiling price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (ceilingPrice < targetPrice) {
+            JOptionPane.showMessageDialog(this, "Ceiling price cannot be less than target price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // TODO: Product availability
+        supplier.getProductCatalog().newProduct(txtName.getText(), floorPrice, ceilingPrice, targetPrice);
+        JOptionPane.showMessageDialog(this, "Product added successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+        txtName.setText("");
+        txtFPrice.setText("");
+        txtTPrice.setText("");
+        txtSPrice.setText("");
+        txtProdAvail.setText("");
+        txtDescription.setText("");
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        Component[] components = ui.getComponents();
+        Component component = components[components.length - 1];
+        if (component instanceof ManageProduct) {
+            ManageProduct manageProduct = (ManageProduct) component;
+            manageProduct.populateTable();
+        }
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
 

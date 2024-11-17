@@ -4,17 +4,32 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import model.Business.Business;
+import model.Supplier.Supplier;
+
 /**
  *
  * @author prasa
  */
 public class ManageSupplier extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+
     /**
      * Creates new form ManageSupplier
      */
-    public ManageSupplier() {
+    public ManageSupplier(Container ui, Business business) {
+        this.ui = ui;
+        this.business = business;
         initComponents();
+        populateTable();
     }
 
     /**
@@ -144,25 +159,63 @@ public class ManageSupplier extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-
+        SearchSupplier searchSupplier = new SearchSupplier(ui, business);
+        ui.add("SearchSupplier" + searchSupplier.toString(), searchSupplier);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int row = tblProductCatalog.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a supplier you want to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        Supplier supplier = (Supplier) tblProductCatalog.getValueAt(row, 0);
+        business.getSuppliers().getSupplierList().remove(supplier);
+        JOptionPane.showMessageDialog(null, "Supplier deleted successfully.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        int row = tblProductCatalog.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a supplier you want to view.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        Supplier supplier = (Supplier) tblProductCatalog.getValueAt(row, 0);
+        ViewSupplier viewSupplier = new ViewSupplier(ui, business, supplier);
+        ui.add("ViewSupplier" + viewSupplier.toString(), viewSupplier);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-
+        AddSupplier addSupplier = new AddSupplier(ui, business);
+        ui.add("AddSupplier" + addSupplier.toString(), addSupplier);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnCreateActionPerformed
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblProductCatalog.getModel();
+        model.setRowCount(0);
+
+        for (Supplier supplier : business.getSuppliers().getSupplierList()) {
+            Object[] row = new Object[2];
+            row[0] = supplier;
+            row[1] = supplier.getProductCatalog().getProducts().size();
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

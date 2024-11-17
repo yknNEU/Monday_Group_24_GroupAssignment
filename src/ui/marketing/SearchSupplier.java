@@ -4,16 +4,29 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.Supplier.Supplier;
+
 /**
  *
  * @author prasa
  */
 public class SearchSupplier extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+
     /**
      * Creates new form SearchSupplier
      */
-    public SearchSupplier() {
+    public SearchSupplier(Container ui, Business business) {
+        this.ui = ui;
+        this.business = business;
         initComponents();
     }
 
@@ -96,11 +109,28 @@ public class SearchSupplier extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-
+        // SHOULD NOT BE SEARCHED BY PRODUCT NAME, SHOULD BE SEARCHED BY SUPPLIER NAME
+        if (txtProductName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter the supplier you want to view.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Supplier supplier = business.getSuppliers().findSupplier(txtProductName.getText());
+        if (supplier == null) {
+            JOptionPane.showMessageDialog(this, "Supplier not found.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
+        ViewSupplier viewSupplier = new ViewSupplier(ui, business, supplier);
+        ui.add("ViewSupplier" + viewSupplier.toString(), viewSupplier);
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
 

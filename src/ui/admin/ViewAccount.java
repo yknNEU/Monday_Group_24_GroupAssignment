@@ -37,8 +37,10 @@ public class ViewAccount extends javax.swing.JPanel {
         String role = person.getRole();
         if ("None".equals(role)) {
             cmbRole.setSelectedIndex(0);
+            btnCreate.setText("Create");
         } else {
             cmbRole.setEnabled(false); // Role cannot be changed once set
+            btnCreate.setText("Update");
             if ("Admin".equals(role)) {
                 cmbRole.setSelectedIndex(1);
             } else if ("Marketing".equals(role)) {
@@ -198,21 +200,25 @@ public class ViewAccount extends javax.swing.JPanel {
                 Profile profile = business.getEmployeeDirectory().newEmployeeProfile(person);
                 business.getUserAccountDirectory().newUserAccount(profile, txtUsername.getText(), txtPassword.getText());
                 JOptionPane.showMessageDialog(this, "Admin account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                btnCreate.setText("Update");
                 cmbRole.setEnabled(false);
             } else if ("Marketing".equals(cmbRole.getSelectedItem().toString())) {
                 Profile profile = business.getMarketingPersonDirectory().newMarketingPersonProfile(person);
                 business.getUserAccountDirectory().newUserAccount(profile, txtUsername.getText(), txtPassword.getText());
                 JOptionPane.showMessageDialog(this, "Marketing account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                btnCreate.setText("Update");
                 cmbRole.setEnabled(false);
             } else if ("Sales".equals(cmbRole.getSelectedItem().toString())) {
                 Profile profile = business.getSalesPersonDirectory().newSalesPersonProfile(person);
                 business.getUserAccountDirectory().newUserAccount(profile, txtUsername.getText(), txtPassword.getText());
                 JOptionPane.showMessageDialog(this, "Sales account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                btnCreate.setText("Update");
                 cmbRole.setEnabled(false);
             } else if ("Customer".equals(cmbRole.getSelectedItem().toString())) {
                 Profile profile = business.getCustomerDirectory().newCustomerProfile(person);
                 business.getUserAccountDirectory().newUserAccount(profile, txtUsername.getText(), txtPassword.getText());
                 JOptionPane.showMessageDialog(this, "Customer account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                btnCreate.setText("Update");
                 cmbRole.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Unrichable code.", "Error", JOptionPane.ERROR_MESSAGE);

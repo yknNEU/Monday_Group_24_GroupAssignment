@@ -4,16 +4,28 @@
  */
 package ui.sales;
 
+import java.awt.Container;
+
+import model.Business.Business;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class ViewProduct extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form ViewProduct
      */
-    public ViewProduct() {
+    public ViewProduct(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
     }
 

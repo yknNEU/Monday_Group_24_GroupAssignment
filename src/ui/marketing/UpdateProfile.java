@@ -4,17 +4,35 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class UpdateProfile extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form UpdateProfile
      */
-    public UpdateProfile() {
+    public UpdateProfile(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
+        txtName.setText(userAccount.getPersonId());
+        txtUsername.setText(userAccount.getUserName());
     }
 
     /**
@@ -129,11 +147,45 @@ public class UpdateProfile extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        ui.remove(this);
+        Component[] components = ui.getComponents();
+        Component component = components[components.length - 1];
+        if (component instanceof WorkArea) {
+            WorkArea workArea = (WorkArea) component;
+            workArea.setWelcomeName(userAccount.getProfile().getPerson().getPersonId());
+        }
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+        if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtUsername.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (business.getUserAccountDirectory().getUserAccount(txtUsername.getText()) != null && !txtUsername.getText().equals(userAccount.getUserName())) {
+            JOptionPane.showMessageDialog(this, "Username already exists", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtOldPassword.getText().isEmpty() || txtNewPassword.getText().isEmpty()) {    
+            userAccount.getProfile().getPerson().setPersonId(txtName.getText());
+            userAccount.setUserName(txtUsername.getText());
+            JOptionPane.showMessageDialog(this, "Profile updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        } else if (business.getUserAccountDirectory().authenticateUser(userAccount.getUserName(), txtOldPassword.getText()) == userAccount) {
+            userAccount.getProfile().getPerson().setPersonId(txtName.getText());
+            userAccount.setUserName(txtUsername.getText());
+            userAccount.setPassword(txtNewPassword.getText());
+            JOptionPane.showMessageDialog(this, "Password updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        } else {
+            JOptionPane.showMessageDialog(this, "Old password is incorrect", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
 

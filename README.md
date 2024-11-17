@@ -70,7 +70,17 @@ git log --graph --oneline
 
 ### Kaining Yang Work
 
+- Create Product, should be ceiling price not selling price
+
+- Search Supplier should be search by supplier name not product name
+
+- Search Person in admin panel not implemented
+
 - Finish branch configuration
+
+- Product quantity need to be implemented
+
+- MarketingPerson Review Product Performance need to be implemented 
 
 ### Prasad Shinde Work
 

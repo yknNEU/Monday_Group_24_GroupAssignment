@@ -5,9 +5,11 @@
 package ui.main;
 
 import java.awt.CardLayout;
+
 import model.Business.Business;
 import model.Personnel.Person;
 import model.Personnel.Profile;
+import model.Supplier.Supplier;
 
 /**
  *
@@ -84,9 +86,30 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void generateDemoData() {
         // Add default admin account
-        Person person = business.getPersonDirectory().newPerson("Group24");
+        Person person = business.getPersonDirectory().newPerson("Admin");
         Profile profile = business.getEmployeeDirectory().newEmployeeProfile(person);
-        business.getUserAccountDirectory().newUserAccount(profile, "admin", "admin");
+        business.getUserAccountDirectory().newUserAccount(profile, "a", "a");
+        // Add some account for testing
+        Person person2 = business.getPersonDirectory().newPerson("MarketingPerson");
+        Profile profile2 = business.getMarketingPersonDirectory().newMarketingPersonProfile(person2);
+        business.getUserAccountDirectory().newUserAccount(profile2, "m", "m");
+
+        Person person3 = business.getPersonDirectory().newPerson("SalesPerson");
+        Profile profile3 = business.getSalesPersonDirectory().newSalesPersonProfile(person3);
+        business.getUserAccountDirectory().newUserAccount(profile3, "s", "s");
+
+        Person person4 = business.getPersonDirectory().newPerson("Customer");
+        Profile profile4 = business.getCustomerDirectory().newCustomerProfile(person4);
+        business.getUserAccountDirectory().newUserAccount(profile4, "c", "c");
+        // Add some suppliers
+        Supplier supplier1 = business.getSuppliers().newSupplier("ProductPerson");
+        Supplier supplier2 = business.getSuppliers().newSupplier("SupplierPerson");
+        supplier1.getProductCatalog().newProduct("Main Product", 10, 20, 15);
+        supplier1.getProductCatalog().newProduct("Extra Product", 5, 10, 7);
+        supplier1.getProductCatalog().newProduct("Expensive Product", 100, 200, 150);
+        supplier1.getProductCatalog().newProduct("Cheap Product", 1, 3, 2);
+        supplier1.getProductCatalog().newProduct("Product", 114, 514, 191);
+        supplier2.getProductCatalog().newProduct("Template Product", 3, 9, 6);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

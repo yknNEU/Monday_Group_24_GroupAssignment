@@ -38,6 +38,15 @@ public class ProductCatalog {
         return p;
     }
 
+    public Product findProduct(String name) {
+        for (Product p : products) {
+            if (p.getName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
     public ProductsReport generatProductPerformanceReport() {
         ProductsReport productsreport = new ProductsReport();
         for (Product p : products) {

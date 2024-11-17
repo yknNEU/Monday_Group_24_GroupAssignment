@@ -4,11 +4,16 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
 /**
  *
  * @author prasa
  */
 public class ViewSummary extends javax.swing.JPanel {
+
+    private Container ui;
 
     /**
      * Creates new form ViewSummary
@@ -106,7 +111,9 @@ public class ViewSummary extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnViewTransactionDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTransactionDetailsActionPerformed

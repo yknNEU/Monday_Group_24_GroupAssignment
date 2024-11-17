@@ -4,17 +4,34 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.Supplier.Supplier;
+
 /**
  *
  * @author prasa
  */
 public class ViewSupplier extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private Supplier supplier;
+
     /**
      * Creates new form ViewSupplier
      */
-    public ViewSupplier() {
+    public ViewSupplier(Container ui, Business business, Supplier supplier) {
+        this.ui = ui;
+        this.business = business;
+        this.supplier = supplier;
         initComponents();
+        this.txtName.setText(supplier.getName());
+        setViewMode();
     }
 
     /**
@@ -136,21 +153,51 @@ public class ViewSupplier extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        setEditMode();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+        if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name is required.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (business.getSuppliers().findSupplier(txtName.getText()) != null && !txtName.getText().equals(supplier.getName())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Supplier already exists", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        supplier.setName(txtName.getText());
+        JOptionPane.showMessageDialog(this, "Supplier updated successfully.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        setViewMode();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-        // TODO add your handling code here:
+        ManageProduct viewProduct = new ManageProduct(ui, business, supplier);
+        ui.add("ViewProduct" + viewProduct.toString(), viewProduct);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewActionPerformed
 
+    private void setViewMode() {
+        txtName.setEditable(false);
+        txtDescription.setEditable(false);
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
+        btnView.setEnabled(true);
+    }
+
+    private void setEditMode() {
+        txtName.setEditable(true);
+        txtDescription.setEditable(true);
+        btnSave.setEnabled(true);
+        btnUpdate.setEnabled(false);
+        btnView.setEnabled(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
