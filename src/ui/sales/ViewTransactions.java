@@ -7,7 +7,14 @@ package ui.sales;
 import java.awt.CardLayout;
 import java.awt.Container;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 import model.Business.Business;
+import model.OrderManagement.Order;
+import model.OrderManagement.OrderItem;
+import model.ProductManagement.Product;
+import model.ProductManagement.SolutionOffer;
 import model.UserAccountManagement.UserAccount;
 
 /**
@@ -19,14 +26,18 @@ public class ViewTransactions extends javax.swing.JPanel {
     private Container ui;
     private Business business;
     private UserAccount userAccount;
+    private Order order;
+    private SolutionOffer solutionOffer;
 
     /**
      * Creates new form ManageTransactions
      */
-    public ViewTransactions(Container ui, Business business, UserAccount userAccount) {
+    public ViewTransactions(Container ui, Business business, UserAccount userAccount, Order order, SolutionOffer solutionOffer) {
         this.ui = ui;
         this.business = business;
         this.userAccount = userAccount;
+        this.order = order;
+        this.solutionOffer = solutionOffer;
         initComponents();
     }
 
@@ -152,7 +163,18 @@ public class ViewTransactions extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnViewOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrderItemActionPerformed
+        int row = tblCart.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Please select an item to view", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        OrderItem orderItem = (OrderItem) tblCart.getValueAt(row, 0);
+        Product product = orderItem.getSelectedProduct();
+        ViewProduct viewProduct = new ViewProduct(ui, business, userAccount, product, business.getSuppliers().findSupplier(product), solutionOffer);
+        ui.add("ViewProduct" + viewProduct.toString(), viewProduct);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewOrderItemActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -162,13 +184,42 @@ public class ViewTransactions extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnDeclineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineActionPerformed
-        // TODO add your handling code here:
+        if ("Pending".equals(order.getStatus())) {
+            order.cancelOrder();
+            JOptionPane.showMessageDialog(null, "Transaction Declined", "Success", JOptionPane.INFORMATION_MESSAGE);
+            ui.remove(this);
+            CardLayout cardLayout = (CardLayout) ui.getLayout();
+            cardLayout.previous(ui);
+        } else {
+            JOptionPane.showMessageDialog(null, "Transaction already processed", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnDeclineActionPerformed
 
     private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
-        // TODO add your handling code here:
+        if ("Pending".equals(order.getStatus())) {
+            order.approve();
+            JOptionPane.showMessageDialog(null, "Transaction Approved", "Success", JOptionPane.INFORMATION_MESSAGE);
+            ui.remove(this);
+            CardLayout cardLayout = (CardLayout) ui.getLayout();
+            cardLayout.previous(ui);
+        } else {
+            JOptionPane.showMessageDialog(null, "Transaction already processed", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnApproveActionPerformed
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblCart.getModel();
+        model.setRowCount(0);
+        lblTotalPrice.setText("Total Price: " + order.getOrderTotal());
+        for (OrderItem orderItem : order.getOrderItems()) {
+            Object[] row = new Object[4];
+            row[0] = orderItem;
+            row[1] = orderItem.getQuantity();
+            row[2] = orderItem.getActualPrice();
+            row[3] = orderItem.getActualPrice() * orderItem.getQuantity();
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApprove;

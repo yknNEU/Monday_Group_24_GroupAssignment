@@ -126,7 +126,7 @@ public class WorkArea extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewCartActionPerformed
 
     private void btnViewTransactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTransactionsActionPerformed
-        ManageTransactions manageTransactions = new ManageTransactions(ui, business, userAccount);
+        ManageTransactions manageTransactions = new ManageTransactions(ui, business, userAccount, solutionOffer);
         ui.add("ManageTransactions" + manageTransactions.toString(), manageTransactions);
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.next(ui);
