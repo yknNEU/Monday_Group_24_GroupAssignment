@@ -43,7 +43,7 @@ public class SearchSupplier extends javax.swing.JPanel {
         btnSearch = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
-        lblProductName = new javax.swing.JLabel();
+        lblSupplierName = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 204));
 
@@ -65,7 +65,7 @@ public class SearchSupplier extends javax.swing.JPanel {
             }
         });
 
-        lblProductName.setText("Product Name:");
+        lblSupplierName.setText("Supplier Name:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -85,10 +85,10 @@ public class SearchSupplier extends javax.swing.JPanel {
                                     .addComponent(btnBack))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(180, 180, 180)
-                                    .addComponent(lblProductName)
+                                    .addComponent(lblSupplierName)
                                     .addGap(70, 70, 70)
                                     .addComponent(txtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 94, Short.MAX_VALUE)))
+                        .addGap(0, 90, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -100,7 +100,7 @@ public class SearchSupplier extends javax.swing.JPanel {
                 .addComponent(btnBack)
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblProductName)
+                    .addComponent(lblSupplierName)
                     .addComponent(txtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addComponent(btnSearch)
@@ -137,7 +137,7 @@ public class SearchSupplier extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JLabel lblProductName;
+    private javax.swing.JLabel lblSupplierName;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtProductName;
     // End of variables declaration//GEN-END:variables

@@ -17,6 +17,7 @@ public class Order {
 
     public Order() {
         this.orderItems = new ArrayList<OrderItem>();
+        this.status = "Pending";
         // TODO
     }
     
@@ -65,6 +66,14 @@ public class Order {
         return oi;
     }
 
+    public int getProductTotal() {
+        int sum = 0;
+        for (OrderItem oi : orderItems) {
+            sum = sum + oi.getQuantity();
+        }
+        return sum;
+    }
+
     // order total is the sumer of the order item totals
     public int getOrderTotal() {
         int sum = 0;
@@ -107,10 +116,18 @@ public class Order {
 
     public void cancelOrder() {
         status = "Cancelled";
+        // Reset quantities of products
+        for (OrderItem orderItem : this.getOrderItems()) {
+            orderItem.getSelectedProduct().getAvailable().setQuantity(orderItem.getSelectedProduct().getAvailable().getQuantity() + orderItem.getQuantity());
+        }
     }
 
-    public void submit() {
-        status = "Submitted";
+    public void approve() {
+        status = "Approved";
+        // Add to product sales log
+        for (OrderItem orderItem : this.getOrderItems()) {
+            orderItem.getSelectedProduct().getOrderItems().add(orderItem);
+        }
     }
 
     public void setOrderItems(ArrayList<OrderItem> orderItems) {
@@ -131,5 +148,20 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        // Overview of the order
+        // ItemName * Quantity, ItemName * Quantity, ItemName * Quantity
+        String orderOverview = "";
+        for (OrderItem oi : orderItems) {
+            orderOverview = orderOverview + oi.toString() + "*" + oi.getQuantity() + ", ";
+        }
+        if (orderOverview.length() < 2) {
+            return "No items in order";
+        }
+        orderOverview = orderOverview.substring(0, orderOverview.length() - 2);
+        return orderOverview;
     }
 }

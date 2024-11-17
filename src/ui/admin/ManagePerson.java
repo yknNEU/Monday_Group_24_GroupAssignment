@@ -90,6 +90,7 @@ public class ManagePerson extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Manage Person");
 
+        personTable.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         personTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},

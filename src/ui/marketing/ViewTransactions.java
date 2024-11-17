@@ -7,6 +7,9 @@ package ui.marketing;
 import java.awt.CardLayout;
 import java.awt.Container;
 
+import model.CustomerManagement.CustomerProfile;
+import model.OrderManagement.OrderItem;
+
 /**
  *
  * @author prasa
@@ -14,12 +17,23 @@ import java.awt.Container;
 public class ViewTransactions extends javax.swing.JPanel {
 
     private Container ui;
+    private OrderItem orderItem;
+    private CustomerProfile customerProfile;
 
     /**
      * Creates new form ViewTransactions
      */
-    public ViewTransactions() {
+    public ViewTransactions(Container ui, OrderItem orderItem, CustomerProfile customerProfile) {
+        this.ui = ui;
+        this.orderItem = orderItem;
+        this.customerProfile = customerProfile;
         initComponents();
+        txtName.setText(orderItem.getSelectedProduct().getName());
+        txtCName.setText(customerProfile.getCustomerId());
+        txtAPrice.setText(String.valueOf(orderItem.getActualPrice()));
+        txtTPrice.setText(String.valueOf(orderItem.getSelectedProduct().getTargetPrice()));
+        txtQuantity.setText(String.valueOf(orderItem.getQuantity()));
+        txtProfitLoss.setText(String.valueOf(orderItem.calculatePricePerformance()));
     }
 
     /**
@@ -47,6 +61,11 @@ public class ViewTransactions extends javax.swing.JPanel {
         txtProfitLoss = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 204));
+        setEnabled(false);
+
+        txtTPrice.setEnabled(false);
+
+        txtQuantity.setEnabled(false);
 
         lblQuantity.setText("Quantity:");
 
@@ -69,8 +88,15 @@ public class ViewTransactions extends javax.swing.JPanel {
 
         lblTPrice.setText("Target Price:");
 
+        txtName.setEnabled(false);
+
+        txtCName.setEnabled(false);
+
+        txtAPrice.setEnabled(false);
+
         lblCustName.setText("Customer Name");
 
+        txtProfitLoss.setEnabled(false);
         txtProfitLoss.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtProfitLossActionPerformed(evt);

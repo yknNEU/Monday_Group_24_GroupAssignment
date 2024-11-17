@@ -7,7 +7,14 @@ package ui.customer;
 import java.awt.CardLayout;
 import java.awt.Container;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 import model.Business.Business;
+import model.CustomerManagement.CustomerProfile;
+import model.OrderManagement.Order;
+import model.OrderManagement.OrderItem;
+import model.ProductManagement.Product;
 import model.UserAccountManagement.UserAccount;
 
 /**
@@ -19,15 +26,18 @@ public class ViewTransactions extends javax.swing.JPanel {
     private Container ui;
     private Business business;
     private UserAccount userAccount;
+    private Order order;
 
     /**
      * Creates new form ManageTransactions
      */
-    public ViewTransactions(Container ui, Business business, UserAccount userAccount) {
+    public ViewTransactions(Container ui, Business business, UserAccount userAccount, Order order) {
         this.ui = ui;
         this.business = business;
         this.userAccount = userAccount;
+        this.order = order;
         initComponents();
+        populateTable();
     }
 
     /**
@@ -49,6 +59,7 @@ public class ViewTransactions extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 204));
 
+        tblCart.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         tblCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -105,11 +116,14 @@ public class ViewTransactions extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnView)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 380, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 474, Short.MAX_VALUE)
                                 .addComponent(btnDecline)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -117,7 +131,6 @@ public class ViewTransactions extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTotalPrice)
                         .addGap(40, 40, 40))))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,16 +147,35 @@ public class ViewTransactions extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDecline)
                     .addComponent(btnView))
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeclineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineActionPerformed
-        // TODO add your handling code here:
+        if ("Pending".equals(order.getStatus())) {
+            order.cancelOrder();
+            JOptionPane.showMessageDialog(null, "Transaction Declined", "Success", JOptionPane.INFORMATION_MESSAGE);
+            ui.remove(this);
+            CardLayout cardLayout = (CardLayout) ui.getLayout();
+            cardLayout.previous(ui);
+        } else {
+            JOptionPane.showMessageDialog(null, "Transaction already processed", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnDeclineActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        int row = tblCart.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Please select an item to view", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        OrderItem orderItem = (OrderItem) tblCart.getValueAt(row, 0);
+        Product product = orderItem.getSelectedProduct();
+        ViewProduct viewProduct = new ViewProduct(ui, business, product);
+        ui.add("ViewProduct" + viewProduct.toString(), viewProduct);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -152,6 +184,19 @@ public class ViewTransactions extends javax.swing.JPanel {
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblCart.getModel();
+        model.setRowCount(0);
+        lblTotalPrice.setText("Total Price: " + order.getOrderTotal());
+        for (OrderItem orderItem : order.getOrderItems()) {
+            Object[] row = new Object[4];
+            row[0] = orderItem;
+            row[1] = orderItem.getQuantity();
+            row[2] = orderItem.getActualPrice();
+            row[3] = orderItem.getActualPrice() * orderItem.getQuantity();
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

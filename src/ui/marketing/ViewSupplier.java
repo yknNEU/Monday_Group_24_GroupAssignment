@@ -5,6 +5,7 @@
 package ui.marketing;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.JOptionPane;
@@ -154,6 +155,12 @@ public class ViewSupplier extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof ManageSupplier) {
+            ManageSupplier manageSupplier = (ManageSupplier) component;
+            manageSupplier.populateTable();
+        }
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed

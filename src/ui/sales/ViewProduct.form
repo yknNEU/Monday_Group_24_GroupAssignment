@@ -29,7 +29,7 @@
                               <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblProdAvail" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblSPrice" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblCPrice" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblTPrice" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblFPrice" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblName" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -56,6 +56,8 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnRemove" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnAddToMarket" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
@@ -100,7 +102,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblSPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCPrice" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtSPrice" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -122,6 +124,7 @@
                           <Component id="btnSave" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnAddToMarket" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRemove" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="61" max="-2" attributes="0"/>
@@ -143,6 +146,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -166,14 +170,20 @@
         <Property name="text" type="java.lang.String" value="Target Price:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblSPrice">
+    <Component class="javax.swing.JLabel" name="lblCPrice">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Selling Price:"/>
+        <Property name="text" type="java.lang.String" value="Ceiling Price:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtName">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFPrice">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTPrice">
     </Component>
@@ -183,6 +193,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtSPrice">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnUpdate">
       <Properties>
@@ -193,6 +206,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtProdAvail">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnBack">
       <Properties>
@@ -226,6 +242,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtSupplierName">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblStatus">
       <Properties>
@@ -233,6 +252,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtStatus">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnAddToMarket">
       <Properties>
@@ -240,6 +262,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddToMarketActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRemove">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Remove from Market"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoveActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

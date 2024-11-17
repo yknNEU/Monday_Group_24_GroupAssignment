@@ -5,6 +5,7 @@
 package ui.customer;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.JOptionPane;
@@ -64,6 +65,7 @@ public class ViewCart extends javax.swing.JPanel {
 
         lblItemsInCart.setText("Items in cart:");
 
+        tblCart.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         tblCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -181,7 +183,7 @@ public class ViewCart extends javax.swing.JPanel {
                 .addComponent(lblItemsInCart)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtSearch)
                         .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
@@ -254,7 +256,15 @@ public class ViewCart extends javax.swing.JPanel {
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         CustomerProfile yourOwnProfile = (CustomerProfile) userAccount.getProfile();
-        int total = yourOwnProfile.checkout();
+        if (yourOwnProfile.getCart().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Your cart is empty", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (yourOwnProfile.validateCart() == false) {
+            JOptionPane.showMessageDialog(null, "Some items in your cart are not available in the required quantity", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int total = yourOwnProfile.checkout(business.getMasterOrderList());
         JOptionPane.showMessageDialog(null, "Your order has been placed successfully. Total amount: " + total, "Information", JOptionPane.INFORMATION_MESSAGE);
         populateTable();
     }//GEN-LAST:event_btnCheckOutActionPerformed
@@ -270,6 +280,12 @@ public class ViewCart extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof BrowseProducts) {
+            BrowseProducts managePerson = (BrowseProducts) component;
+            managePerson.populateTable();
+        }
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed

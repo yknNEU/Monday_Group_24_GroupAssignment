@@ -31,7 +31,7 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="lblProdAvail" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblSPrice" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblCPrice" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="lblTPrice" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="lblFPrice" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="lblName" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -102,7 +102,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblSPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCPrice" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtSPrice" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -162,9 +162,9 @@
         <Property name="text" type="java.lang.String" value="Target Price:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblSPrice">
+    <Component class="javax.swing.JLabel" name="lblCPrice">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Selling Price:"/>
+        <Property name="text" type="java.lang.String" value="Ceiling Price:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtName">

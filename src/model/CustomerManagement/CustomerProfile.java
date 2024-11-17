@@ -3,6 +3,7 @@ package model.CustomerManagement;
 import java.util.ArrayList;
 
 import model.MarketModel.Market;
+import model.OrderManagement.MasterOrderList;
 import model.OrderManagement.Order;
 import model.OrderManagement.OrderItem;
 import model.Personnel.Person;
@@ -78,7 +79,7 @@ public class CustomerProfile extends Profile {
         orders.add(order);
     }
 
-    public void addItemToCart(OrderItem orderItem, SalesPersonProfile salesPersonProfile) {
+    public void addItemToCart(OrderItem orderItem, CustomerProfile customerProfile, SalesPersonProfile salesPersonProfile) {
         for (Order order : cart) {
             if (order.getSalesPerson().isMatch(salesPersonProfile.getPerson().getPersonId())) {
                 for (OrderItem item : order.getOrderItems()) {
@@ -92,6 +93,7 @@ public class CustomerProfile extends Profile {
             }
         }
         Order order = new Order();
+        order.setCustomer(customerProfile);
         order.setSalesPerson(salesPersonProfile);
         order.getOrderItems().add(orderItem);
         cart.add(order);
@@ -108,15 +110,26 @@ public class CustomerProfile extends Profile {
         }
     }
 
-    public int checkout() {
+    public boolean validateCart() {
+        for (Order order : cart) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                if (orderItem.getQuantity() > orderItem.getSelectedProduct().getAvailable().getQuantity()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public int checkout(MasterOrderList masterOrderList) {
         int total = 0;
         for (Order order : cart) {
             for (OrderItem orderItem : order.getOrderItems()) {
-                orderItem.getSelectedProduct().getOrderItems().add(orderItem);
                 orderItem.getSelectedProduct().getAvailable().setQuantity(orderItem.getSelectedProduct().getAvailable().getQuantity() - orderItem.getQuantity());
                 total += orderItem.getActualPrice() * orderItem.getQuantity();
             }
             orders.add(order);
+            masterOrderList.getOrders().add(order);
         }
         cart.clear();
         return total;

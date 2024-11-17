@@ -55,6 +55,7 @@ public class ManageProduct extends javax.swing.JPanel {
         btnView = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
         btnAddToMarket = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 204));
 
@@ -69,7 +70,7 @@ public class ManageProduct extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("View Product Catalog");
 
-        tblProductCatalog.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tblProductCatalog.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         tblProductCatalog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -112,6 +113,13 @@ public class ManageProduct extends javax.swing.JPanel {
             }
         });
 
+        btnRemove.setText("Remove from Market");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,6 +136,8 @@ public class ManageProduct extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnRemove)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnAddToMarket)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,7 +158,8 @@ public class ManageProduct extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
                     .addComponent(btnView)
-                    .addComponent(btnAddToMarket))
+                    .addComponent(btnAddToMarket)
+                    .addComponent(btnRemove))
                 .addContainerGap(115, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -190,8 +201,27 @@ public class ManageProduct extends javax.swing.JPanel {
         }
 
         Product product = (Product) tblProductCatalog.getValueAt(row, 0);
+        if (solutionOffer.getProducts().contains(product)) {
+            JOptionPane.showMessageDialog(this, "Product already added to the market.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         solutionOffer.addProduct(product);
     }//GEN-LAST:event_btnAddToMarketActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        int row = tblProductCatalog.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a product to view details.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Product product = (Product) tblProductCatalog.getValueAt(row, 0);
+        if (!solutionOffer.getProducts().contains(product)) {
+            JOptionPane.showMessageDialog(this, "Product not in the market.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        solutionOffer.getProducts().remove(product);
+    }//GEN-LAST:event_btnRemoveActionPerformed
 
     public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblProductCatalog.getModel();
@@ -217,6 +247,7 @@ public class ManageProduct extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToMarket;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnView;
     private javax.swing.JScrollPane jScrollPane1;

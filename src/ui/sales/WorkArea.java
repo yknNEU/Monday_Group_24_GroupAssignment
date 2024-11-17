@@ -44,8 +44,9 @@ public class WorkArea extends javax.swing.JPanel {
 
         btnBrowseCatalog = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
-        btnViewCart = new javax.swing.JButton();
+        btnUpdateProfile = new javax.swing.JButton();
         btnViewTransactions = new javax.swing.JButton();
+        lblTitle1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 204));
 
@@ -63,10 +64,10 @@ public class WorkArea extends javax.swing.JPanel {
             }
         });
 
-        btnViewCart.setText("View your cart");
-        btnViewCart.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdateProfile.setText("Update Profile");
+        btnUpdateProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewCartActionPerformed(evt);
+                btnUpdateProfileActionPerformed(evt);
             }
         });
 
@@ -77,28 +78,39 @@ public class WorkArea extends javax.swing.JPanel {
             }
         });
 
+        lblTitle1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTitle1.setText("Welcome, Administrator!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(435, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnBrowseCatalog)
-                    .addComponent(btnLogout)
-                    .addComponent(btnViewTransactions)
-                    .addComponent(btnViewCart))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(435, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnBrowseCatalog)
+                            .addComponent(btnViewTransactions)
+                            .addComponent(btnUpdateProfile)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(lblTitle1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLogout)))
                 .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(btnLogout)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogout)
+                    .addComponent(lblTitle1))
                 .addGap(81, 81, 81)
                 .addComponent(btnBrowseCatalog)
                 .addGap(18, 18, 18)
-                .addComponent(btnViewCart)
+                .addComponent(btnUpdateProfile)
                 .addGap(18, 18, 18)
                 .addComponent(btnViewTransactions)
                 .addContainerGap(199, Short.MAX_VALUE))
@@ -118,15 +130,15 @@ public class WorkArea extends javax.swing.JPanel {
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    private void btnViewCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCartActionPerformed
+    private void btnUpdateProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProfileActionPerformed
         UpdateProfile updateProfile = new UpdateProfile(ui, business, userAccount);
         ui.add("UpdateProfile" + updateProfile.toString(), updateProfile);
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.next(ui);
-    }//GEN-LAST:event_btnViewCartActionPerformed
+    }//GEN-LAST:event_btnUpdateProfileActionPerformed
 
     private void btnViewTransactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTransactionsActionPerformed
-        ManageTransactions manageTransactions = new ManageTransactions(ui, business, userAccount);
+        ManageTransactions manageTransactions = new ManageTransactions(ui, business, userAccount, solutionOffer);
         ui.add("ManageTransactions" + manageTransactions.toString(), manageTransactions);
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.next(ui);
@@ -136,7 +148,8 @@ public class WorkArea extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowseCatalog;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnViewCart;
+    private javax.swing.JButton btnUpdateProfile;
     private javax.swing.JButton btnViewTransactions;
+    private javax.swing.JLabel lblTitle1;
     // End of variables declaration//GEN-END:variables
 }

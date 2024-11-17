@@ -5,6 +5,7 @@
 package ui.sales;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.JOptionPane;
@@ -14,6 +15,7 @@ import model.ProductManagement.Product;
 import model.ProductManagement.SolutionOffer;
 import model.Supplier.Supplier;
 import model.UserAccountManagement.UserAccount;
+import ui.admin.ManagePerson;
 
 /**
  *
@@ -64,7 +66,7 @@ public class ViewProduct extends javax.swing.JPanel {
         lblProdAvail = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         lblTPrice = new javax.swing.JLabel();
-        lblSPrice = new javax.swing.JLabel();
+        lblCPrice = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         txtFPrice = new javax.swing.JTextField();
         txtTPrice = new javax.swing.JTextField();
@@ -81,11 +83,13 @@ public class ViewProduct extends javax.swing.JPanel {
         lblStatus = new javax.swing.JLabel();
         txtStatus = new javax.swing.JTextField();
         btnAddToMarket = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 204));
 
         txtDescription.setColumns(20);
         txtDescription.setRows(5);
+        txtDescription.setEnabled(false);
         jScrollPane1.setViewportView(txtDescription);
 
         lblProdAvail.setText("Product Availability:");
@@ -96,9 +100,15 @@ public class ViewProduct extends javax.swing.JPanel {
 
         lblTPrice.setText("Target Price:");
 
-        lblSPrice.setText("Selling Price:");
+        lblCPrice.setText("Ceiling Price:");
+
+        txtName.setEnabled(false);
+
+        txtFPrice.setEnabled(false);
 
         lblFPrice.setText("Floor Price:");
+
+        txtSPrice.setEnabled(false);
 
         btnUpdate.setText("Update Price");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +116,8 @@ public class ViewProduct extends javax.swing.JPanel {
                 btnUpdateActionPerformed(evt);
             }
         });
+
+        txtProdAvail.setEnabled(false);
 
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -127,12 +139,23 @@ public class ViewProduct extends javax.swing.JPanel {
 
         lblSupplierName.setText("Supplier Name:");
 
+        txtSupplierName.setEnabled(false);
+
         lblStatus.setText("Status:");
+
+        txtStatus.setEnabled(false);
 
         btnAddToMarket.setText("Add to Market");
         btnAddToMarket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddToMarketActionPerformed(evt);
+            }
+        });
+
+        btnRemove.setText("Remove from Market");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
             }
         });
 
@@ -148,7 +171,7 @@ public class ViewProduct extends javax.swing.JPanel {
                                 .addGap(147, 147, 147)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblProdAvail, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblSPrice, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblCPrice, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblTPrice, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblFPrice, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -171,6 +194,8 @@ public class ViewProduct extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRemove)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnAddToMarket)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnUpdate)
@@ -205,7 +230,7 @@ public class ViewProduct extends javax.swing.JPanel {
                     .addComponent(txtTPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSPrice)
+                    .addComponent(lblCPrice)
                     .addComponent(txtSPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,7 +248,8 @@ public class ViewProduct extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSave)
                             .addComponent(btnUpdate)
-                            .addComponent(btnAddToMarket)))
+                            .addComponent(btnAddToMarket)
+                            .addComponent(btnRemove)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
@@ -235,11 +261,21 @@ public class ViewProduct extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof ManageProduct) {
+            ManageProduct managePerson = (ManageProduct) component;
+            managePerson.populateTable();
+        }
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddToMarketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToMarketActionPerformed
+        if (solutionOffer.getProducts().contains(product)) {
+            JOptionPane.showMessageDialog(this, "Product already added to the market.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         solutionOffer.addProduct(product);
         txtStatus.setText(product.getStatus(solutionOffer));
     }//GEN-LAST:event_btnAddToMarketActionPerformed
@@ -265,6 +301,15 @@ public class ViewProduct extends javax.swing.JPanel {
         setViewMode();
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        if (!solutionOffer.getProducts().contains(product)) {
+            JOptionPane.showMessageDialog(this, "Product not in the market.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        solutionOffer.getProducts().remove(product);
+        txtStatus.setText(product.getStatus(solutionOffer));
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
     private void setViewMode() {
         txtTPrice.setEditable(false);
         btnAddToMarket.setEnabled(true);
@@ -282,14 +327,15 @@ public class ViewProduct extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToMarket;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCPrice;
     private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblFPrice;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblProdAvail;
-    private javax.swing.JLabel lblSPrice;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblSupplierName;
     private javax.swing.JLabel lblTPrice;
