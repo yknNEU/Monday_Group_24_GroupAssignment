@@ -68,6 +68,7 @@ public class ViewTransactions extends javax.swing.JPanel {
             }
         });
 
+        tblCart.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         tblCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

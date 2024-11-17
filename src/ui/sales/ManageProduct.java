@@ -69,7 +69,7 @@ public class ManageProduct extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("View Product Catalog");
 
-        tblProductCatalog.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tblProductCatalog.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         tblProductCatalog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
