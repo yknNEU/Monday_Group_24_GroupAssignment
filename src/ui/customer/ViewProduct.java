@@ -28,6 +28,9 @@ public class ViewProduct extends javax.swing.JPanel {
         this.business = business;
         this.product = product;
         initComponents();
+        txtName.setText(product.getName());
+        txtPrice.setText(String.valueOf(product.getAvailable().getActualPrice()));
+        txtProdAvail.setText(String.valueOf(product.getAvailable().getQuantity()));
     }
 
     /**

@@ -4,18 +4,26 @@ import java.util.ArrayList;
 
 import model.MarketModel.Market;
 import model.OrderManagement.Order;
+import model.OrderManagement.OrderItem;
 import model.Personnel.Person;
 import model.Personnel.Profile;
+import model.SalesManagement.SalesPersonProfile;
 
 public class CustomerProfile extends Profile {
     
+    private ArrayList<Order> cart;
     private ArrayList<Order> orders;
     private ArrayList<Market> markets;
     
     public CustomerProfile(Person person) {
         super(person);
+        this.cart = new ArrayList<Order>();
         this.orders = new ArrayList<Order>();
         this.markets = new ArrayList<Market>();
+    }
+
+    public ArrayList<Order> getCart() {
+        return cart;
     }
 
     public ArrayList<Order> getOrders() {
@@ -68,6 +76,64 @@ public class CustomerProfile extends Profile {
 
     public void addCustomerOrder(Order order) {
         orders.add(order);
+    }
+
+    public void addItemToCart(OrderItem orderItem, SalesPersonProfile salesPersonProfile) {
+        for (Order order : cart) {
+            if (order.getSalesPerson().isMatch(salesPersonProfile.getPerson().getPersonId())) {
+                for (OrderItem item : order.getOrderItems()) {
+                    if (item.getSelectedProduct() == orderItem.getSelectedProduct()) {
+                        item.setQuantity(item.getQuantity() + orderItem.getQuantity());
+                        return;
+                    }
+                }
+                order.getOrderItems().add(orderItem);
+                return;
+            }
+        }
+        Order order = new Order();
+        order.setSalesPerson(salesPersonProfile);
+        order.getOrderItems().add(orderItem);
+        cart.add(order);
+    }
+
+    public void removeItemFromCart(OrderItem orderItem) {
+        for (Order order : cart) {
+            for (OrderItem item : order.getOrderItems()) {
+                if (item.getSelectedProduct() == orderItem.getSelectedProduct()) {
+                    order.getOrderItems().remove(item);
+                    return;
+                }
+            }
+        }
+    }
+
+    public int checkout() {
+        int total = 0;
+        for (Order order : cart) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                orderItem.getSelectedProduct().getOrderItems().add(orderItem);
+                orderItem.getSelectedProduct().getAvailable().setQuantity(orderItem.getSelectedProduct().getAvailable().getQuantity() - orderItem.getQuantity());
+                total += orderItem.getActualPrice() * orderItem.getQuantity();
+            }
+            orders.add(order);
+        }
+        cart.clear();
+        return total;
+    }
+
+    public int calculateTotalAmount() {
+        int total = 0;
+        for (Order order : cart) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                total += orderItem.getActualPrice() * orderItem.getQuantity();
+            }
+        }
+        return total;
+    }
+
+    public void setCart(ArrayList<Order> cart) {
+        this.cart = cart;
     }
 
     public void setOrders(ArrayList<Order> orders) {
