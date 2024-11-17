@@ -65,7 +65,7 @@ public class SearchSupplier extends javax.swing.JPanel {
             }
         });
 
-        lblProductName.setText("Supplier Name:");
+        lblProductName.setText("Product Name:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -88,7 +88,7 @@ public class SearchSupplier extends javax.swing.JPanel {
                                     .addComponent(lblProductName)
                                     .addGap(70, 70, 70)
                                     .addComponent(txtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 91, Short.MAX_VALUE)))
+                        .addGap(0, 94, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
