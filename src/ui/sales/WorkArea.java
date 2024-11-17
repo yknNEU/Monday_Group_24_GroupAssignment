@@ -79,7 +79,7 @@ public class WorkArea extends javax.swing.JPanel {
         });
 
         lblTitle1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTitle1.setText("Welcome, Administrator!");
+        lblTitle1.setText("Welcome, Sales Person!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

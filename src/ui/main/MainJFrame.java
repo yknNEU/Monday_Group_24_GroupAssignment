@@ -100,9 +100,46 @@ public class MainJFrame extends javax.swing.JFrame {
         Profile profile3 = business.getSalesPersonDirectory().newSalesPersonProfile(person3);
         business.getUserAccountDirectory().newUserAccount(profile3, "s", "s");
 
-        Person person4 = business.getPersonDirectory().newPerson("Customer");
+        Person person4 = business.getPersonDirectory().newPerson("Customer1");
         Profile profile4 = business.getCustomerDirectory().newCustomerProfile(person4);
-        business.getUserAccountDirectory().newUserAccount(profile4, "c", "c");
+        business.getUserAccountDirectory().newUserAccount(profile4, "c1", "c1");
+        
+        Person person5 = business.getPersonDirectory().newPerson("Customer2");
+        Profile profile5 = business.getCustomerDirectory().newCustomerProfile(person5);
+        business.getUserAccountDirectory().newUserAccount(profile5, "c2", "c2");
+        
+        Person person6 = business.getPersonDirectory().newPerson("Customer3");
+        Profile profile6 = business.getCustomerDirectory().newCustomerProfile(person6);
+        business.getUserAccountDirectory().newUserAccount(profile6, "c3", "c3");
+        
+        Person person7 = business.getPersonDirectory().newPerson("Customer4");
+        Profile profile7 = business.getCustomerDirectory().newCustomerProfile(person7);
+        business.getUserAccountDirectory().newUserAccount(profile7, "c4", "c4");
+        
+        Person person8 = business.getPersonDirectory().newPerson("Customer5");
+        Profile profile8 = business.getCustomerDirectory().newCustomerProfile(person8);
+        business.getUserAccountDirectory().newUserAccount(profile8, "c5", "c5");
+        
+        Person person9 = business.getPersonDirectory().newPerson("Customer6");
+        Profile profile9 = business.getCustomerDirectory().newCustomerProfile(person9);
+        business.getUserAccountDirectory().newUserAccount(profile9, "c6", "c6");
+        
+        Person person10 = business.getPersonDirectory().newPerson("Customer7");
+        Profile profile10 = business.getCustomerDirectory().newCustomerProfile(person10);
+        business.getUserAccountDirectory().newUserAccount(profile10, "c7", "c7");
+        
+        Person person11 = business.getPersonDirectory().newPerson("Customer8");
+        Profile profile11 = business.getCustomerDirectory().newCustomerProfile(person11);
+        business.getUserAccountDirectory().newUserAccount(profile11, "c8", "c8");
+        
+        Person person12 = business.getPersonDirectory().newPerson("Customer9");
+        Profile profile12 = business.getCustomerDirectory().newCustomerProfile(person12);
+        business.getUserAccountDirectory().newUserAccount(profile12, "c9", "c9");
+        
+        Person person13 = business.getPersonDirectory().newPerson("Customer10");
+        Profile profile13 = business.getCustomerDirectory().newCustomerProfile(person13);
+        business.getUserAccountDirectory().newUserAccount(profile13, "c10", "c10");
+        
         // Add some suppliers
         Supplier supplier1 = business.getSuppliers().newSupplier("Ford");
         Supplier supplier2 = business.getSuppliers().newSupplier("Toyota");
