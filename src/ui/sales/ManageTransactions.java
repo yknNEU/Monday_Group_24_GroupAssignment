@@ -57,6 +57,7 @@ public class ManageTransactions extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 204));
 
+        tblCart.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         tblCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -142,11 +143,11 @@ public class ManageTransactions extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnView)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnApprove)
-                        .addComponent(btnDecline3)))
+                        .addComponent(btnDecline3))
+                    .addComponent(btnView))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -227,8 +228,6 @@ public class ManageTransactions extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnDecline;
-    private javax.swing.JButton btnDecline1;
     private javax.swing.JButton btnDecline3;
     private javax.swing.JButton btnView;
     private javax.swing.JScrollPane jScrollPane2;

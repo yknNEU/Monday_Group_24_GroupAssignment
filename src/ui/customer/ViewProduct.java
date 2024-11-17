@@ -60,6 +60,7 @@ public class ViewProduct extends javax.swing.JPanel {
 
         txtDescription.setColumns(20);
         txtDescription.setRows(5);
+        txtDescription.setEnabled(false);
         jScrollPane1.setViewportView(txtDescription);
 
         lblProdAvail.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -81,8 +82,14 @@ public class ViewProduct extends javax.swing.JPanel {
         lblName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         lblName.setText("Product Name:");
 
+        txtName.setEnabled(false);
+
+        txtPrice.setEnabled(false);
+
         lblPrice.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         lblPrice.setText("Price:");
+
+        txtProdAvail.setEnabled(false);
 
         lblPeopleBought.setText("0 people already bought this");
 

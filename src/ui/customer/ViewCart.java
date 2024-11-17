@@ -64,6 +64,7 @@ public class ViewCart extends javax.swing.JPanel {
 
         lblItemsInCart.setText("Items in cart:");
 
+        tblCart.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         tblCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -181,7 +182,7 @@ public class ViewCart extends javax.swing.JPanel {
                 .addComponent(lblItemsInCart)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtSearch)
                         .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
