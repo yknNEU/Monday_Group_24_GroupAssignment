@@ -10,7 +10,7 @@ public class OrderItem {
 
     public OrderItem(Product product, int actualPrice, int quantity) {
         this.selectedProduct = product;
-        product.addOrderItem(this); // make sure product links back to the item
+        // product.addOrderItem(this); // make sure product links back to the item
         this.actualPrice = actualPrice;
         this.quantity = quantity;
     }

@@ -27,6 +27,8 @@ public class SalesPersonDirectory {
         SalesPersonProfile sp = new SalesPersonProfile(person);
         person.setProfile(sp);
         salesPersonList.add(sp);
+        // need to add a relevant solutionOffer
+        business.getSolutionOfferCatalog().newSolutionOffer(person);
         return sp;
     }
 

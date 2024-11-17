@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Business.Business;
 import model.Personnel.Person;
 import model.Personnel.Profile;
+import model.SalesManagement.SalesPersonProfile;
 import model.UserAccountManagement.UserAccount;
 
 /**
@@ -184,6 +185,9 @@ public class ManagePerson extends javax.swing.JPanel {
         // Person related account should be deleted
         // For security reasons, we still need to access the transaction history of the user, so we cannot delete the user instance
         if (person.getProfile() != null) {
+            if (person.getProfile() instanceof SalesPersonProfile) {
+                business.getSolutionOfferCatalog().getSolutionOffers().remove(business.getSolutionOfferCatalog().findSolutionOffer(person.getPersonId()));
+            }
             business.getUserAccountDirectory().getUserAccountList().remove(business.getUserAccountDirectory().findUserAccount(person.getPersonId()));
         }
         business.getPersonDirectory().getPersonList().remove(person);

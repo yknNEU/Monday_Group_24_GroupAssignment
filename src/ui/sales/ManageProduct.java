@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Business.Business;
 import model.ProductManagement.Product;
+import model.ProductManagement.SolutionOffer;
 import model.Supplier.Supplier;
 import model.UserAccountManagement.UserAccount;
 
@@ -24,14 +25,16 @@ public class ManageProduct extends javax.swing.JPanel {
     private Container ui;
     private Business business;
     private UserAccount userAccount;
+    private SolutionOffer solutionOffer;
 
     /**
      * Creates new form ManageProduct
      */
-    public ManageProduct(Container ui, Business business, UserAccount userAccount) {
+    public ManageProduct(Container ui, Business business, UserAccount userAccount, SolutionOffer solutionOffer) {
         this.ui = ui;
         this.business = business;
         this.userAccount = userAccount;
+        this.solutionOffer = solutionOffer;
         initComponents();
         populateTable();
     }
@@ -165,7 +168,7 @@ public class ManageProduct extends javax.swing.JPanel {
 
         Product product = (Product) tblProductCatalog.getValueAt(row, 0);
         Supplier supplier = (Supplier) tblProductCatalog.getValueAt(row, 1);
-        ViewProduct viewProduct = new ViewProduct(ui, business, product, supplier);
+        ViewProduct viewProduct = new ViewProduct(ui, business, userAccount, product, supplier, solutionOffer);
         ui.add("ViewProduct" + viewProduct.toString(), viewProduct);
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.next(ui);
@@ -186,7 +189,8 @@ public class ManageProduct extends javax.swing.JPanel {
             return;
         }
 
-        tblProductCatalog.setValueAt("On Sale", row, 4); // TODO: set status
+        Product product = (Product) tblProductCatalog.getValueAt(row, 0);
+        solutionOffer.addProduct(product);
     }//GEN-LAST:event_btnAddToMarketActionPerformed
 
     public void populateTable() {
@@ -198,9 +202,9 @@ public class ManageProduct extends javax.swing.JPanel {
                 Object[] row = new Object[5];
                 row[0] = product;
                 row[1] = supplier;
-                row[2] = product.getTargetPrice();
-                row[3] = -1; // TODO: get availability
-                row[4] = "Off Sale"; // TODO: get status
+                row[2] = product.getAvailable().getActualPrice();
+                row[3] = product.getAvailable().getQuantity();
+                row[4] = product.getStatus(solutionOffer);
                 model.addRow(row);
             }
         }

@@ -38,6 +38,7 @@ public class ViewProduct extends javax.swing.JPanel {
         txtFPrice.setText(String.valueOf(product.getFloorPrice()));
         txtTPrice.setText(String.valueOf(product.getTargetPrice()));
         txtSPrice.setText(String.valueOf(product.getCeilingPrice()));
+        txtProdAvail.setText(String.valueOf(product.getAvailable().getQuantity()));
         setViewMode();
     }
 
@@ -268,11 +269,28 @@ public class ViewProduct extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Ceiling price cannot be less than target price", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        // TODO: Product availability
+        int available = 0;
+        try {
+            available = Integer.parseInt(txtProdAvail.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid product availability", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (available < 0) {
+            JOptionPane.showMessageDialog(this, "Product availability cannot be negative", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         product.setName(txtName.getText());
         product.setFloorPrice(floorPrice);
         product.setTargetPrice(targetPrice);
         product.setCeilingPrice(ceilingPrice);
+        product.getAvailable().setQuantity(available);
+        // After the new recommended price is set, if the actual price exceeds the limit, the actual price should be set to the limit
+        if (product.getAvailable().getActualPrice() < product.getFloorPrice()) {
+            product.getAvailable().setActualPrice(product.getFloorPrice());
+        } else if (product.getAvailable().getActualPrice() > product.getCeilingPrice()) {
+            product.getAvailable().setActualPrice(product.getCeilingPrice());
+        }
         JOptionPane.showMessageDialog(this, "Product updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
         setViewMode();
     }//GEN-LAST:event_btnSaveActionPerformed

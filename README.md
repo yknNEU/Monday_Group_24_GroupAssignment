@@ -70,9 +70,11 @@ git log --graph --oneline
 
 ### Kaining Yang Work
 
+- Customer cannot set the sales price
+
 - Sales WorkArea Panel miss welcome message, button name is incorrect, miss update profile button
 
-- Sales Person view Product should not be editable.
+- Sales Person view Product should not be editable, and should not be the target price, should be actual price.
 
 - Create Product, should be ceiling price not selling price
 
@@ -82,9 +84,9 @@ git log --graph --oneline
 
 - Finish branch configuration
 
-- Product quantity & status need to be implemented
+- Product status need to be implemented
 
-- MarketingPerson Review Product Performance need to be implemented
+- MarketingPerson Review Product Summary need to be implemented
 
 ### Prasad Shinde Work
 

@@ -7,6 +7,9 @@ package ui.marketing;
 import java.awt.CardLayout;
 import java.awt.Container;
 
+import model.Business.Business;
+import model.ProductManagement.Product;
+
 /**
  *
  * @author prasa
@@ -14,11 +17,16 @@ import java.awt.Container;
 public class ViewSummary extends javax.swing.JPanel {
 
     private Container ui;
+    private Business business;
+    private Product product;
 
     /**
      * Creates new form ViewSummary
      */
-    public ViewSummary() {
+    public ViewSummary(Container ui, Business business, Product product) {
+        this.ui = ui;
+        this.business = business;
+        this.product = product;
         initComponents();
     }
 
@@ -120,6 +128,9 @@ public class ViewSummary extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnViewTransactionDetailsActionPerformed
 
+    public void populateTable() {
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

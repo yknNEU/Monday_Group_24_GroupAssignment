@@ -11,7 +11,9 @@ import javax.swing.JOptionPane;
 
 import model.Business.Business;
 import model.ProductManagement.Product;
+import model.ProductManagement.SolutionOffer;
 import model.Supplier.Supplier;
+import model.UserAccountManagement.UserAccount;
 
 /**
  *
@@ -21,23 +23,29 @@ public class ViewProduct extends javax.swing.JPanel {
 
     private Container ui;
     private Business business;
+    private UserAccount userAccount;
     private Product product;
     private Supplier supplier;
+    private SolutionOffer solutionOffer;
 
     /**
      * Creates new form ViewProduct
      */
-    public ViewProduct(Container ui, Business business, Product product, Supplier supplier) {
+    public ViewProduct(Container ui, Business business, UserAccount userAccount, Product product, Supplier supplier, SolutionOffer solutionOffer) {
         this.ui = ui;
         this.business = business;
+        this.userAccount = userAccount;
         this.product = product;
         this.supplier = supplier;
+        this.solutionOffer = solutionOffer;
         initComponents();
         txtSupplierName.setText(supplier.getName());
         txtName.setText(product.getName());
         txtFPrice.setText(String.valueOf(product.getFloorPrice()));
         txtTPrice.setText(String.valueOf(product.getTargetPrice()));
         txtSPrice.setText(String.valueOf(product.getCeilingPrice()));
+        txtProdAvail.setText(String.valueOf(product.getAvailable().getQuantity()));
+        txtStatus.setText(product.getStatus(solutionOffer));
         // TODO: availability and status
         setViewMode();
     }
@@ -232,27 +240,27 @@ public class ViewProduct extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddToMarketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToMarketActionPerformed
-        // TODO: implement status
-        txtStatus.setText("On Sale");
+        solutionOffer.addProduct(product);
+        txtStatus.setText(product.getStatus(solutionOffer));
     }//GEN-LAST:event_btnAddToMarketActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if (txtTPrice.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a target price", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter a actual price", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        int targetPrice = 0;
+        int actualPrice = 0;
         try {
-            targetPrice = Integer.parseInt(txtTPrice.getText());
+            actualPrice = Integer.parseInt(txtTPrice.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid target price", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter a valid actual price", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (targetPrice < product.getFloorPrice() || targetPrice > product.getCeilingPrice()) {
-            JOptionPane.showMessageDialog(this, "Target price must be between floor price and ceiling price", "Error", JOptionPane.ERROR_MESSAGE);
+        if (actualPrice < product.getFloorPrice() || actualPrice > product.getCeilingPrice()) {
+            JOptionPane.showMessageDialog(this, "Actual price must be between floor price and ceiling price", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        product.setTargetPrice(targetPrice);
+        product.getAvailable().setActualPrice(actualPrice);
         JOptionPane.showMessageDialog(this, "Product price updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
         setViewMode();
     }//GEN-LAST:event_btnSaveActionPerformed

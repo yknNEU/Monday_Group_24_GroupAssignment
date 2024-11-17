@@ -11,6 +11,7 @@ import java.awt.Container;
 import javax.swing.JOptionPane;
 
 import model.Business.Business;
+import model.ProductManagement.Product;
 import model.Supplier.Supplier;
 
 /**
@@ -238,8 +239,19 @@ public class AddProduct extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Ceiling price cannot be less than target price", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        // TODO: Product availability
-        supplier.getProductCatalog().newProduct(txtName.getText(), floorPrice, ceilingPrice, targetPrice);
+        int available = 0;
+        try {
+            available = Integer.parseInt(txtProdAvail.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid product availability", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (available < 0) {
+            JOptionPane.showMessageDialog(this, "Product availability cannot be negative", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Product product = supplier.getProductCatalog().newProduct(txtName.getText(), floorPrice, ceilingPrice, targetPrice);
+        product.setAvailable(targetPrice, available);
         JOptionPane.showMessageDialog(this, "Product added successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
         txtName.setText("");
         txtFPrice.setText("");

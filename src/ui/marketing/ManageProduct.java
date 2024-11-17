@@ -232,7 +232,7 @@ public class ManageProduct extends javax.swing.JPanel {
             row[1] = product.getFloorPrice();
             row[2] = product.getTargetPrice();
             row[3] = product.getCeilingPrice();
-            row[4] = -1; // TODO: get availability
+            row[4] = product.getAvailable().getQuantity();
             model.addRow(row);
         }
     }

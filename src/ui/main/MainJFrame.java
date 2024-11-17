@@ -9,6 +9,8 @@ import java.awt.CardLayout;
 import model.Business.Business;
 import model.Personnel.Person;
 import model.Personnel.Profile;
+import model.ProductManagement.Product;
+import model.ProductManagement.SolutionOffer;
 import model.Supplier.Supplier;
 
 /**
@@ -104,12 +106,24 @@ public class MainJFrame extends javax.swing.JFrame {
         // Add some suppliers
         Supplier supplier1 = business.getSuppliers().newSupplier("ProductPerson");
         Supplier supplier2 = business.getSuppliers().newSupplier("SupplierPerson");
-        supplier1.getProductCatalog().newProduct("Main Product", 10, 20, 15);
-        supplier1.getProductCatalog().newProduct("Extra Product", 5, 10, 7);
-        supplier1.getProductCatalog().newProduct("Expensive Product", 100, 200, 150);
-        supplier1.getProductCatalog().newProduct("Cheap Product", 1, 3, 2);
-        supplier1.getProductCatalog().newProduct("Product", 114, 514, 191);
-        supplier2.getProductCatalog().newProduct("Template Product", 3, 9, 6);
+        Product product1 = supplier1.getProductCatalog().newProduct("Main Product", 10, 20, 15);
+        product1.setAvailable(15, 100);
+        Product product2 = supplier1.getProductCatalog().newProduct("Extra Product", 5, 10, 7);
+        product2.setAvailable(7, 80);
+        Product product3 = supplier1.getProductCatalog().newProduct("Expensive Product", 100, 200, 150);
+        product3.setAvailable(150, 50);
+        Product product4 = supplier1.getProductCatalog().newProduct("Cheap Product", 1, 3, 2);
+        product4.setAvailable(2, 200);
+        Product product5 = supplier1.getProductCatalog().newProduct("Product", 114, 514, 191);
+        product5.setAvailable(191, 100);
+        Product product6 = supplier2.getProductCatalog().newProduct("Template Product", 3, 9,   6);
+        product6.setAvailable(6, 10);
+        // Add some product to market
+        SolutionOffer solutionOffer = business.getSolutionOfferCatalog().findSolutionOffer(person3.getPersonId());
+        solutionOffer.addProduct(product1);
+        solutionOffer.addProduct(product2);
+        solutionOffer.addProduct(product5);
+        solutionOffer.addProduct(product6);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

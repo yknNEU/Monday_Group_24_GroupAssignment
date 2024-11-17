@@ -8,6 +8,7 @@ import java.awt.CardLayout;
 import java.awt.Container;
 
 import model.Business.Business;
+import model.ProductManagement.SolutionOffer;
 import model.UserAccountManagement.UserAccount;
 
 /**
@@ -19,6 +20,7 @@ public class WorkArea extends javax.swing.JPanel {
     private Container ui;
     private Business business;
     private UserAccount userAccount;
+    private SolutionOffer solutionOffer;
 
     /**
      * Creates new form WorkArea
@@ -27,6 +29,7 @@ public class WorkArea extends javax.swing.JPanel {
         this.ui = ui;
         this.business = business;
         this.userAccount = userAccount;
+        this.solutionOffer = business.getSolutionOfferCatalog().findSolutionOffer(userAccount.getProfile().getPerson().getPersonId());
         initComponents();
     }
 
@@ -103,7 +106,7 @@ public class WorkArea extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBrowseCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseCatalogActionPerformed
-        ManageProduct manageProduct = new ManageProduct(ui, business, userAccount);
+        ManageProduct manageProduct = new ManageProduct(ui, business, userAccount, solutionOffer);
         ui.add("ManageProduct" + manageProduct.toString(), manageProduct);
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.next(ui);
