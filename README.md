@@ -70,6 +70,10 @@ git log --graph --oneline
 
 ### Kaining Yang Work
 
+- Sales WorkArea Panel miss welcome message, button name is incorrect, miss update profile button
+
+- Sales Person view Product should not be editable.
+
 - Create Product, should be ceiling price not selling price
 
 - Search Supplier should be search by supplier name not product name
@@ -78,9 +82,9 @@ git log --graph --oneline
 
 - Finish branch configuration
 
-- Product quantity need to be implemented
+- Product quantity & status need to be implemented
 
-- MarketingPerson Review Product Performance need to be implemented 
+- MarketingPerson Review Product Performance need to be implemented
 
 ### Prasad Shinde Work
 

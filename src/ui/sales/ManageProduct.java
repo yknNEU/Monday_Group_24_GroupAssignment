@@ -4,17 +4,36 @@
  */
 package ui.sales;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import model.Business.Business;
+import model.ProductManagement.Product;
+import model.Supplier.Supplier;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class ManageProduct extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form ManageProduct
      */
-    public ManageProduct() {
+    public ManageProduct(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
+        populateTable();
     }
 
     /**
@@ -132,21 +151,64 @@ public class ManageProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        int row = tblProductCatalog.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a product to view details.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        Product product = (Product) tblProductCatalog.getValueAt(row, 0);
+        Supplier supplier = (Supplier) tblProductCatalog.getValueAt(row, 1);
+        ViewProduct viewProduct = new ViewProduct(ui, business, product, supplier);
+        ui.add("ViewProduct" + viewProduct.toString(), viewProduct);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-
+        populateTable();
+        SearchProduct searchProduct = new SearchProduct(ui, business, userAccount);
+        ui.add("SearchProduct" + searchProduct.toString(), searchProduct);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddToMarketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToMarketActionPerformed
-        // TODO add your handling code here:
+        int row = tblProductCatalog.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a product to view details.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        tblProductCatalog.setValueAt("On Sale", row, 4); // TODO: set status
     }//GEN-LAST:event_btnAddToMarketActionPerformed
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblProductCatalog.getModel();
+        model.setRowCount(0);
+
+        for (Supplier supplier : business.getSuppliers().getSupplierList()) {
+            for (Product product : supplier.getProductCatalog().getProducts()) {
+                Object[] row = new Object[5];
+                row[0] = product;
+                row[1] = supplier;
+                row[2] = product.getTargetPrice();
+                row[3] = -1; // TODO: get availability
+                row[4] = "Off Sale"; // TODO: get status
+                model.addRow(row);
+            }
+        }
+    }
+
+    public javax.swing.JTable getTable() {
+        return tblProductCatalog;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToMarket;

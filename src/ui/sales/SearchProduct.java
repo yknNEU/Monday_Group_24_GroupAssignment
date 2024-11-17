@@ -4,16 +4,33 @@
  */
 package ui.sales;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import model.Business.Business;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class SearchProduct extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form SearchProduct
      */
-    public SearchProduct() {
+    public SearchProduct(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
     }
 
@@ -175,11 +192,118 @@ public class SearchProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // Read data from the table in the previous panel
+        Component[] components = ui.getComponents();
+        Component component = components[components.length - 2];
+        DefaultTableModel model = null;
+        if (component instanceof ManageProduct) {
+            ManageProduct manageProduct = (ManageProduct) component;
+            model = (DefaultTableModel) manageProduct.getTable().getModel();
+        } else {
+            JOptionPane.showMessageDialog(this, "Unexpected panel detected, unable to show the search result.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("[Warning] Unexpected panel detected, unable to show the search result. [Class: SearchProduct, Method: btnSearchActionPerformed]");
+            return;
+        }
+        // Prase search criteria
+        String productNameKeyword = txtProductName.getText();
+        String supplierNameKeyword = jTextField2.getText();
+        int minPrice = -1;
+        int maxPrice = -1;
+        int minAvailability = -1;
+        int maxAvailability = -1;
+        String selectedStatus = cmbStatus.getSelectedItem().toString();
 
+        try {
+            if (!txtLow.getText().isEmpty()) {
+                minPrice = Integer.parseInt(txtLow.getText());
+            }
+            if (!txtHigh.getText().isEmpty()) {
+                maxPrice = Integer.parseInt(txtHigh.getText());
+            }
+            if (!txtLow1.getText().isEmpty()) {
+                minAvailability = Integer.parseInt(txtLow1.getText());
+            }
+            if (!txtHigh1.getText().isEmpty()) {
+                maxAvailability = Integer.parseInt(txtHigh1.getText());
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numbers for price and availability.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if ((minPrice < 0 && !txtLow.getText().isEmpty()) || (maxPrice < 0 && !txtHigh.getText().isEmpty())) {
+            JOptionPane.showMessageDialog(this, "Price must be positive numbers.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if ((minAvailability < 0 && !txtLow1.getText().isEmpty()) || (maxAvailability < 0 && !txtHigh1.getText().isEmpty())) {
+            JOptionPane.showMessageDialog(this, "Availability must be positive numbers.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (minPrice > maxPrice && maxPrice != -1 && minPrice != -1) {
+            JOptionPane.showMessageDialog(this, "Minimum price cannot be greater than maximum price.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (minAvailability > maxAvailability && maxAvailability != -1 && minAvailability != -1) {
+            JOptionPane.showMessageDialog(this, "Minimum availability cannot be greater than maximum availability.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Remove rows that do not match the search criteria
+        try {
+            for (int i = 0; i < model.getRowCount(); i++) {
+                String productName = model.getValueAt(i, 0).toString();
+                String supplierName = model.getValueAt(i, 1).toString();
+                int price = Integer.parseInt(model.getValueAt(i, 2).toString());
+                int availability = Integer.parseInt(model.getValueAt(i, 3).toString());
+                String status = model.getValueAt(i, 4).toString();
+                
+                if (!productNameKeyword.isEmpty() && !productName.toLowerCase().contains(productNameKeyword.toLowerCase())) {
+                    model.removeRow(i);
+                    i--;
+                    continue;
+                }
+                if (!supplierNameKeyword.isEmpty() && !supplierName.toLowerCase().contains(supplierNameKeyword.toLowerCase())) {
+                    model.removeRow(i);
+                    i--;
+                    continue;
+                }
+                if (minPrice != -1 && price < minPrice) {
+                    model.removeRow(i);
+                    i--;
+                    continue;
+                }
+                if (maxPrice != -1 && price > maxPrice) {
+                    model.removeRow(i);
+                    i--;
+                    continue;
+                }
+                if (minAvailability != -1 && availability < minAvailability) {
+                    model.removeRow(i);
+                    i--;
+                    continue;
+                }
+                if (maxAvailability != -1 && availability > maxAvailability) {
+                    model.removeRow(i);
+                    i--;
+                    continue;
+                }
+                if (!selectedStatus.equals(status)) {
+                    model.removeRow(i);
+                    i--;
+                    continue;
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Unable to read data from the table. Search failed.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("[Warning] Unable to read data from the table. Search failed. [Class: SearchProduct, Method: btnSearchActionPerformed]");
+        }
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
 

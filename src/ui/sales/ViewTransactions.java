@@ -4,16 +4,29 @@
  */
 package ui.sales;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import model.Business.Business;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class ViewTransactions extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form ManageTransactions
      */
-    public ViewTransactions() {
+    public ViewTransactions(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
     }
 
@@ -143,7 +156,9 @@ public class ViewTransactions extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewOrderItemActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnDeclineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineActionPerformed

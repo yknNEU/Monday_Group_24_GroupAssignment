@@ -184,8 +184,7 @@ public class ManagePerson extends javax.swing.JPanel {
         // Person related account should be deleted
         // For security reasons, we still need to access the transaction history of the user, so we cannot delete the user instance
         if (person.getProfile() != null) {
-            JOptionPane.showMessageDialog(this, "The user has associated account, you cannot delete it for security reasons.", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
+            business.getUserAccountDirectory().getUserAccountList().remove(business.getUserAccountDirectory().findUserAccount(person.getPersonId()));
         }
         business.getPersonDirectory().getPersonList().remove(person);
         JOptionPane.showMessageDialog(this, "Person deleted successfully.", "Information", JOptionPane.INFORMATION_MESSAGE);
