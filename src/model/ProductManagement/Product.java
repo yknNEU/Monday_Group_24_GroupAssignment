@@ -12,7 +12,7 @@ public class Product {
     private int targetPrice;
     private OrderItem available;
     private ArrayList<OrderItem> orderItems;
-
+    
     public Product(int floorPrice, int ceilingPrice, int targetPrice) {
         // this.name = null;
         this.floorPrice = floorPrice;
@@ -49,6 +49,7 @@ public class Product {
         this.available = orderItem;
         this.orderItems = new ArrayList<OrderItem>();
     }
+
 
     public String getName() {
         return name;
