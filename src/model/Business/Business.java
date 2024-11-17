@@ -22,7 +22,6 @@ public class Business {
     private String name;
     private PersonDirectory personDirectory;
     private MasterOrderList masterOrderList;
-    private CustomerDirectory customers;
     private SupplierDirectory suppliers;
     private MarketCatalog marketCatalog;
     private ChannelCatalog channelCatalog;
@@ -37,7 +36,6 @@ public class Business {
         this.name = name;
         this.personDirectory = new PersonDirectory();
         this.masterOrderList = new MasterOrderList();
-        // this.customers = new CustomerDirectory();
         this.suppliers = new SupplierDirectory();
         this.marketCatalog = new MarketCatalog();
         this.channelCatalog = new ChannelCatalog();
@@ -59,10 +57,6 @@ public class Business {
 
     public MasterOrderList getMasterOrderList() {
         return masterOrderList;
-    }
-
-    public CustomerDirectory getCustomers() {
-        return customers;
     }
 
     public SupplierDirectory getSuppliers() {
@@ -134,10 +128,6 @@ public class Business {
 
     public void setMasterOrderList(MasterOrderList masterorderlist) {
         this.masterOrderList = masterorderlist;
-    }
-
-    public void setCustomers(CustomerDirectory customers) {
-        this.customers = customers;
     }
 
     public void setSuppliers(SupplierDirectory suppliers) {

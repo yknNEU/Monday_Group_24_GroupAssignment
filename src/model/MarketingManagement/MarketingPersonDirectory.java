@@ -25,6 +25,7 @@ public class MarketingPersonDirectory {
 
     public MarketingPersonProfile newMarketingPersonProfile(Person person) {
         MarketingPersonProfile sp = new MarketingPersonProfile(person);
+        person.setProfile(sp);
         marketingPersonList.add(sp);
         return sp;
     }

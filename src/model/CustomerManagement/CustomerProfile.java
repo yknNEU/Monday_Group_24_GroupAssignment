@@ -3,23 +3,28 @@ package model.CustomerManagement;
 import java.util.ArrayList;
 
 import model.MarketModel.Market;
+import model.OrderManagement.MasterOrderList;
 import model.OrderManagement.Order;
+import model.OrderManagement.OrderItem;
 import model.Personnel.Person;
+import model.Personnel.Profile;
+import model.SalesManagement.SalesPersonProfile;
 
-public class CustomerProfile {
+public class CustomerProfile extends Profile {
     
-    private Person person;
+    private ArrayList<Order> cart;
     private ArrayList<Order> orders;
     private ArrayList<Market> markets;
     
     public CustomerProfile(Person person) {
-        this.person = person;
+        super(person);
+        this.cart = new ArrayList<Order>();
         this.orders = new ArrayList<Order>();
         this.markets = new ArrayList<Market>();
     }
 
-    public Person getPerson() {
-        return person;
+    public ArrayList<Order> getCart() {
+        return cart;
     }
 
     public ArrayList<Order> getOrders() {
@@ -31,7 +36,7 @@ public class CustomerProfile {
     }
 
     public String getCustomerId() {
-        return person.getPersonId();
+        return this.getPerson().getPersonId();
     }
 
     public int getTotalPricePerformance() {
@@ -64,7 +69,7 @@ public class CustomerProfile {
     }
         
     public boolean isMatch(String id) {
-        if (person.getPersonId().equals(id)) {
+        if (this.getPerson().getPersonId().equals(id)) {
             return true;
         }
         return false;
@@ -74,8 +79,74 @@ public class CustomerProfile {
         orders.add(order);
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void addItemToCart(OrderItem orderItem, CustomerProfile customerProfile, SalesPersonProfile salesPersonProfile) {
+        for (Order order : cart) {
+            if (order.getSalesPerson().isMatch(salesPersonProfile.getPerson().getPersonId())) {
+                for (OrderItem item : order.getOrderItems()) {
+                    if (item.getSelectedProduct() == orderItem.getSelectedProduct()) {
+                        item.setQuantity(item.getQuantity() + orderItem.getQuantity());
+                        return;
+                    }
+                }
+                order.getOrderItems().add(orderItem);
+                return;
+            }
+        }
+        Order order = new Order();
+        order.setCustomer(customerProfile);
+        order.setSalesPerson(salesPersonProfile);
+        order.getOrderItems().add(orderItem);
+        cart.add(order);
+    }
+
+    public void removeItemFromCart(OrderItem orderItem) {
+        for (Order order : cart) {
+            for (OrderItem item : order.getOrderItems()) {
+                if (item.getSelectedProduct() == orderItem.getSelectedProduct()) {
+                    order.getOrderItems().remove(item);
+                    return;
+                }
+            }
+        }
+    }
+
+    public boolean validateCart() {
+        for (Order order : cart) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                if (orderItem.getQuantity() > orderItem.getSelectedProduct().getAvailable().getQuantity()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public int checkout(MasterOrderList masterOrderList) {
+        int total = 0;
+        for (Order order : cart) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                orderItem.getSelectedProduct().getAvailable().setQuantity(orderItem.getSelectedProduct().getAvailable().getQuantity() - orderItem.getQuantity());
+                total += orderItem.getActualPrice() * orderItem.getQuantity();
+            }
+            orders.add(order);
+            masterOrderList.getOrders().add(order);
+        }
+        cart.clear();
+        return total;
+    }
+
+    public int calculateTotalAmount() {
+        int total = 0;
+        for (Order order : cart) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                total += orderItem.getActualPrice() * orderItem.getQuantity();
+            }
+        }
+        return total;
+    }
+
+    public void setCart(ArrayList<Order> cart) {
+        this.cart = cart;
     }
 
     public void setOrders(ArrayList<Order> orders) {
@@ -87,7 +158,12 @@ public class CustomerProfile {
     }
 
     @Override
+    public String getRole() {
+        return "Customer";
+    }
+
+    @Override
     public String toString() {
-        return person.getPersonId();
+        return this.getPerson().getPersonId();
     }
 }

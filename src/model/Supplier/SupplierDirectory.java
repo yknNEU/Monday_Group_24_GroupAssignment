@@ -2,6 +2,8 @@ package model.Supplier;
 
 import java.util.ArrayList;
 
+import model.ProductManagement.Product;
+
 public class SupplierDirectory {
 
     private ArrayList<Supplier> suppliers;
@@ -29,7 +31,16 @@ public class SupplierDirectory {
         return null;
     }
 
-    public ArrayList<Supplier> getSuplierList() {
+    public Supplier findSupplier(Product product) {
+        for (Supplier supplier : suppliers) {
+            if (supplier.getProductCatalog().findProduct(product.getName()) != null) {
+                return supplier;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Supplier> getSupplierList() {
         return suppliers;
     }
 
