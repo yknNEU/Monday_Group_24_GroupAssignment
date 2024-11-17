@@ -7,7 +7,14 @@ package ui.marketing;
 import java.awt.CardLayout;
 import java.awt.Container;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 import model.Business.Business;
+import model.CustomerManagement.CustomerProfile;
+import model.OrderManagement.MasterOrderList;
+import model.OrderManagement.Order;
+import model.OrderManagement.OrderItem;
 import model.ProductManagement.Product;
 
 /**
@@ -28,6 +35,7 @@ public class ViewSummary extends javax.swing.JPanel {
         this.business = business;
         this.product = product;
         initComponents();
+        populateTable();
     }
 
     /**
@@ -126,11 +134,38 @@ public class ViewSummary extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnViewTransactionDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTransactionDetailsActionPerformed
-        // TODO add your handling code here:
+        int row = tblViewProductSummary.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row from the table", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        OrderItem orderItem = (OrderItem) tblViewProductSummary.getValueAt(row, 0);
+        CustomerProfile customer = (CustomerProfile) tblViewProductSummary.getValueAt(row, 1);
+        ViewTransactions viewTransactions = new ViewTransactions(ui, orderItem, customer);
+        ui.add("ViewTransactions" + viewTransactions.toString(), viewTransactions);
+        CardLayout layout = (CardLayout) ui.getLayout();
+        layout.next(ui);
     }//GEN-LAST:event_btnViewTransactionDetailsActionPerformed
 
     public void populateTable() {
-        
+        DefaultTableModel model = (DefaultTableModel) tblViewProductSummary.getModel();
+        model.setRowCount(0);
+
+        MasterOrderList masterOrderList = business.getMasterOrderList();
+        for (Order order : masterOrderList.getOrders()) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                if (orderItem.getSelectedProduct() == product) {
+                    Object[] row = new Object[5];
+                    row[0] = orderItem;
+                    row[1] = order.getCustomer();
+                    row[2] = orderItem.getActualPrice();
+                    row[3] = orderItem.getQuantity();
+                    row[4] = orderItem.calculatePricePerformance();
+                    model.addRow(row);
+                }
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

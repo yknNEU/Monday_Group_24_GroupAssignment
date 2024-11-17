@@ -39,6 +39,7 @@ public class ViewTransactions extends javax.swing.JPanel {
         this.order = order;
         this.solutionOffer = solutionOffer;
         initComponents();
+        populateTable();
     }
 
     /**
