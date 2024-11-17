@@ -81,6 +81,7 @@ public class ViewProduct extends javax.swing.JPanel {
         lblStatus = new javax.swing.JLabel();
         txtStatus = new javax.swing.JTextField();
         btnAddToMarket = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 204));
 
@@ -149,6 +150,13 @@ public class ViewProduct extends javax.swing.JPanel {
             }
         });
 
+        btnRemove.setText("Remove from Market");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,6 +192,8 @@ public class ViewProduct extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRemove)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnAddToMarket)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnUpdate)
@@ -236,7 +246,8 @@ public class ViewProduct extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSave)
                             .addComponent(btnUpdate)
-                            .addComponent(btnAddToMarket)))
+                            .addComponent(btnAddToMarket)
+                            .addComponent(btnRemove)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
@@ -278,6 +289,10 @@ public class ViewProduct extends javax.swing.JPanel {
         setViewMode();
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
     private void setViewMode() {
         txtTPrice.setEditable(false);
         btnAddToMarket.setEnabled(true);
@@ -295,6 +310,7 @@ public class ViewProduct extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToMarket;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane1;
