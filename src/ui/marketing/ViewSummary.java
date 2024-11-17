@@ -51,6 +51,7 @@ public class ViewSummary extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("View Product Summary");
 
+        tblViewProductSummary.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         tblViewProductSummary.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

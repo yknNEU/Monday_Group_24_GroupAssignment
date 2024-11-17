@@ -56,7 +56,7 @@ public class ViewProduct extends javax.swing.JPanel {
         lblProdAvail = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         lblTPrice = new javax.swing.JLabel();
-        lblSPrice = new javax.swing.JLabel();
+        lblCPrice = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         txtFPrice = new javax.swing.JTextField();
         txtTPrice = new javax.swing.JTextField();
@@ -84,7 +84,7 @@ public class ViewProduct extends javax.swing.JPanel {
 
         lblTPrice.setText("Target Price:");
 
-        lblSPrice.setText("Selling Price:");
+        lblCPrice.setText("Ceiling Price:");
 
         lblFPrice.setText("Floor Price:");
 
@@ -129,7 +129,7 @@ public class ViewProduct extends javax.swing.JPanel {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblProdAvail, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblSPrice, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblCPrice, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(lblTPrice, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(lblFPrice, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -182,7 +182,7 @@ public class ViewProduct extends javax.swing.JPanel {
                     .addComponent(txtTPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSPrice)
+                    .addComponent(lblCPrice)
                     .addComponent(txtSPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,11 +322,11 @@ public class ViewProduct extends javax.swing.JPanel {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCPrice;
     private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblFPrice;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblProdAvail;
-    private javax.swing.JLabel lblSPrice;
     private javax.swing.JLabel lblSupplierName;
     private javax.swing.JLabel lblTPrice;
     private javax.swing.JLabel lblTitle;

@@ -37,13 +37,13 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
-                                  <Component id="lblProductName" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblSupplierName" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                                   <Component id="txtProductName" min="-2" pref="213" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="94" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="90" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -59,7 +59,7 @@
               <Component id="btnBack" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblProductName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSupplierName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtProductName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
@@ -97,9 +97,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblProductName">
+    <Component class="javax.swing.JLabel" name="lblSupplierName">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Product Name:"/>
+        <Property name="text" type="java.lang.String" value="Supplier Name:"/>
       </Properties>
     </Component>
   </SubComponents>

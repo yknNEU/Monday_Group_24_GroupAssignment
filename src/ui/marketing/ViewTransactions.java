@@ -47,6 +47,11 @@ public class ViewTransactions extends javax.swing.JPanel {
         txtProfitLoss = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 204));
+        setEnabled(false);
+
+        txtTPrice.setEnabled(false);
+
+        txtQuantity.setEnabled(false);
 
         lblQuantity.setText("Quantity:");
 
@@ -69,8 +74,15 @@ public class ViewTransactions extends javax.swing.JPanel {
 
         lblTPrice.setText("Target Price:");
 
+        txtName.setEnabled(false);
+
+        txtCName.setEnabled(false);
+
+        txtAPrice.setEnabled(false);
+
         lblCustName.setText("Customer Name");
 
+        txtProfitLoss.setEnabled(false);
         txtProfitLoss.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtProfitLossActionPerformed(evt);
