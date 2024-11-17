@@ -4,17 +4,38 @@
  */
 package ui.customer;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import model.Business.Business;
+import model.CustomerManagement.CustomerProfile;
+import model.OrderManagement.Order;
+import model.OrderManagement.OrderItem;
+import model.ProductManagement.Product;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class ViewCart extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form ViewCart
      */
-    public ViewCart() {
+    public ViewCart(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
+        populateTable();
     }
 
     /**
@@ -180,29 +201,116 @@ public class ViewCart extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModifyQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyQuantityActionPerformed
-
+        String newQuantity = txtNewQuantity.getText();
+        if (newQuantity.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter a quantity to modify", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int quantity = 0;
+        try {
+            quantity = Integer.parseInt(newQuantity);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please enter a valid quantity", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (quantity <= 0) {
+            JOptionPane.showMessageDialog(null, "Please enter a valid quantity", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        OrderItem orderItem = (OrderItem) tblCart.getValueAt(tblCart.getSelectedRow(), 0);
+        orderItem.setQuantity(quantity);
+        JOptionPane.showMessageDialog(null, "Quantity modified successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
     }//GEN-LAST:event_btnModifyQuantityActionPerformed
 
     private void btnViewOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrderItemActionPerformed
+        int row = tblCart.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Please select an item to view", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        OrderItem orderItem = (OrderItem) tblCart.getValueAt(row, 0);
+        Product product = orderItem.getSelectedProduct();
+        ViewProduct viewProduct = new ViewProduct(ui, business, product);
+        ui.add("ViewProduct" + viewProduct.toString(), viewProduct);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewOrderItemActionPerformed
 
     private void btnRemoveOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveOrderItemActionPerformed
+        int row = tblCart.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Please select an item to remove", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        OrderItem orderItem = (OrderItem) tblCart.getValueAt(row, 0);
+        CustomerProfile yourOwnProfile = (CustomerProfile) userAccount.getProfile();
+        yourOwnProfile.removeItemFromCart(orderItem);
+        JOptionPane.showMessageDialog(null, "Item removed successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
     }//GEN-LAST:event_btnRemoveOrderItemActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
-
+        CustomerProfile yourOwnProfile = (CustomerProfile) userAccount.getProfile();
+        int total = yourOwnProfile.checkout();
+        JOptionPane.showMessageDialog(null, "Your order has been placed successfully. Total amount: " + total, "Information", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
     private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductActionPerformed
-
+        String keyword = txtSearch.getText();
+        if (keyword.isEmpty()) {
+            populateTable();
+        } else {
+            populateTable(keyword);
+        }
     }//GEN-LAST:event_btnSearchProductActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblCart.getModel();
+        model.setRowCount(0);
+
+        CustomerProfile yourOwnProfile = (CustomerProfile) userAccount.getProfile();
+        lblItemsInCart.setText("Items in cart: " + yourOwnProfile.calculateTotalAmount());
+        for (Order order : yourOwnProfile.getCart()) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                Object[] row = new Object[4];
+                row[0] = orderItem;
+                row[1] = orderItem.getActualPrice();
+                row[2] = orderItem.getQuantity();
+                row[3] = orderItem.getActualPrice() * orderItem.getQuantity();
+                model.addRow(row);
+            }
+        }
+    }
+
+    public void populateTable(String keyword) {
+        DefaultTableModel model = (DefaultTableModel) tblCart.getModel();
+        model.setRowCount(0);
+
+        CustomerProfile yourOwnProfile = (CustomerProfile) userAccount.getProfile();
+        lblItemsInCart.setText("Items in cart: " + yourOwnProfile.calculateTotalAmount());
+        for (Order order : yourOwnProfile.getCart()) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                if (orderItem.getSelectedProduct().getName().toLowerCase().contains(keyword.toLowerCase())) {
+                    Object[] row = new Object[4];
+                    row[0] = orderItem;
+                    row[1] = orderItem.getActualPrice();
+                    row[2] = orderItem.getQuantity();
+                    row[3] = orderItem.getActualPrice() * orderItem.getQuantity();
+                    model.addRow(row);
+                }
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

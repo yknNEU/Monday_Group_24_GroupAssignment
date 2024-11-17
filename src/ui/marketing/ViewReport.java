@@ -4,17 +4,37 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import model.Business.Business;
+import model.OrderManagement.OrderItem;
+import model.ProductManagement.Product;
+import model.Supplier.Supplier;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class ViewReport extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form ViewReport
      */
-    public ViewReport() {
+    public ViewReport(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
+        populateTable();
     }
 
     /**
@@ -108,13 +128,58 @@ public class ViewReport extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnViewReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewReportActionPerformed
-        // TODO add your handling code here:
+        int row = tblViewProductSummary.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Please select the product you want to view", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Product product = (Product) tblViewProductSummary.getValueAt(row, 0);
+        ViewSummary viewSummary = new ViewSummary(ui, business, product);
+        ui.add("ViewSummary" + viewSummary.toString(), viewSummary);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewReportActionPerformed
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblViewProductSummary.getModel();
+        model.setRowCount(0);
+
+        for (Supplier supplier : business.getSuppliers().getSupplierList()) {
+            for (Product product : supplier.getProductCatalog().getProducts()) {
+                int profit = 0;
+                int profitUnitsSold = 0;
+                int lossUnitsSold = 0;
+                int totalUnitsSold = 0;
+
+                for (OrderItem orderItem : product.getOrderItems()) {
+                    // Profit may be negative
+                    profit += (orderItem.getActualPrice() - product.getTargetPrice()) * orderItem.getQuantity();
+                    if (orderItem.getActualPrice() > product.getTargetPrice()) {
+                        profitUnitsSold += orderItem.getQuantity();
+                    } else if (orderItem.getActualPrice() < product.getTargetPrice()) {
+                        lossUnitsSold += orderItem.getQuantity();
+                    }
+                    // Sold with exact the target price will not be regarded as either profit or loss
+                    totalUnitsSold += orderItem.getQuantity();
+                }
+
+                Object[] row = new Object[5];
+                row[0] = product;
+                row[1] = profit;
+                row[2] = profitUnitsSold;
+                row[3] = lossUnitsSold;
+                row[4] = totalUnitsSold;
+                model.addRow(row);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

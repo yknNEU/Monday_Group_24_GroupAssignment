@@ -4,17 +4,59 @@
  */
 package ui.admin;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.Personnel.Person;
+import model.Personnel.Profile;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class ViewAccount extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private Person person;
+
     /**
      * Creates new form ViewAccount
      */
-    public ViewAccount() {
+    public ViewAccount(Container ui, Business business, Person person) {
+        this.ui = ui;
+        this.business = business;
+        this.person = person;
         initComponents();
+        lblCreateAccountFor.setText("Create Account For: " + person.getPersonId());
+        String role = person.getRole();
+        if ("None".equals(role)) {
+            cmbRole.setSelectedIndex(0);
+            btnCreate.setText("Create");
+        } else {
+            cmbRole.setEnabled(false); // Role cannot be changed once set
+            btnCreate.setText("Update");
+            if ("Admin".equals(role)) {
+                cmbRole.setSelectedIndex(1);
+            } else if ("Marketing".equals(role)) {
+                cmbRole.setSelectedIndex(2);
+            } else if ("Sales".equals(role)) {
+                cmbRole.setSelectedIndex(3);
+            } else if ("Customer".equals(role)) {
+                cmbRole.setSelectedIndex(4);
+            } else {
+                cmbRole.setSelectedIndex(0);
+                System.out.println("[Error] Unrichable code executed [Class: ViewAccount, Method: Constructor]");
+            }
+            UserAccount userAccount = business.getUserAccountDirectory().findUserAccount(person.getPersonId());
+            txtUsername.setText(userAccount.getUserName());
+            // txtPassword.setText(userAccount.getPassword()); // Password should not be displayed for security reasons
+        }
     }
 
     /**
@@ -127,11 +169,68 @@ public class ViewAccount extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof ViewPerson) {
+            ViewPerson viewPerson = (ViewPerson) component;
+            viewPerson.setRole(person.getRole());
+        }
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        // TODO add your handling code here:
+        if ("Select a role".equals(cmbRole.getSelectedItem().toString())) {
+            JOptionPane.showMessageDialog(this, "Please select a role", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtUsername.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please input your username.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please set a password.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String role = person.getRole();
+        if ("None".equals(role)) {
+            // Person don't have an account yet, create one
+            if ("Admin".equals(cmbRole.getSelectedItem().toString())) {
+                Profile profile = business.getEmployeeDirectory().newEmployeeProfile(person);
+                business.getUserAccountDirectory().newUserAccount(profile, txtUsername.getText(), txtPassword.getText());
+                JOptionPane.showMessageDialog(this, "Admin account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                btnCreate.setText("Update");
+                cmbRole.setEnabled(false);
+            } else if ("Marketing".equals(cmbRole.getSelectedItem().toString())) {
+                Profile profile = business.getMarketingPersonDirectory().newMarketingPersonProfile(person);
+                business.getUserAccountDirectory().newUserAccount(profile, txtUsername.getText(), txtPassword.getText());
+                JOptionPane.showMessageDialog(this, "Marketing account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                btnCreate.setText("Update");
+                cmbRole.setEnabled(false);
+            } else if ("Sales".equals(cmbRole.getSelectedItem().toString())) {
+                Profile profile = business.getSalesPersonDirectory().newSalesPersonProfile(person);
+                business.getUserAccountDirectory().newUserAccount(profile, txtUsername.getText(), txtPassword.getText());
+                JOptionPane.showMessageDialog(this, "Sales account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                btnCreate.setText("Update");
+                cmbRole.setEnabled(false);
+            } else if ("Customer".equals(cmbRole.getSelectedItem().toString())) {
+                Profile profile = business.getCustomerDirectory().newCustomerProfile(person);
+                business.getUserAccountDirectory().newUserAccount(profile, txtUsername.getText(), txtPassword.getText());
+                JOptionPane.showMessageDialog(this, "Customer account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                btnCreate.setText("Update");
+                cmbRole.setEnabled(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Unrichable code.", "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println("[Error] Unrichable code executed [Class: ViewAccount, Method: btnCreateActionPerformed]");
+            }
+        } else {
+            // Person already have an account, modify it
+            UserAccount userAccount = business.getUserAccountDirectory().findUserAccount(person.getPersonId());
+            userAccount.setUserName(txtUsername.getText());
+            userAccount.setPassword(txtPassword.getText());
+            JOptionPane.showMessageDialog(this, "Account updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnCreateActionPerformed
 
 

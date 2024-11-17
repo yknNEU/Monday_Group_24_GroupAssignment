@@ -4,17 +4,41 @@
  */
 package ui.customer;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import model.Business.Business;
+import model.CustomerManagement.CustomerProfile;
+import model.OrderManagement.OrderItem;
+import model.Personnel.Person;
+import model.ProductManagement.Product;
+import model.ProductManagement.SolutionOffer;
+import model.SalesManagement.SalesPersonProfile;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class BrowseProducts extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form BrowseProducts
      */
-    public BrowseProducts() {
+    public BrowseProducts(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
+        populateCmb();
+        populateTable();
     }
 
     /**
@@ -213,30 +237,103 @@ public class BrowseProducts extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToCartActionPerformed
+        int selectedRow = tblProductCatalog.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a product to add to cart.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        Product product = (Product) tblProductCatalog.getValueAt(selectedRow, 0);
+        OrderItem orderItem = new OrderItem(product, product.getAvailable().getActualPrice(), (int) spnQuantity.getValue());
+        Person person = (Person) cmbSupplier.getSelectedItem();
+        SalesPersonProfile salesPersonProfile = business.getSalesPersonDirectory().findSalesPerson(person.getPersonId());
+        CustomerProfile yourOwnProfile = (CustomerProfile) userAccount.getProfile();
+        yourOwnProfile.addItemToCart(orderItem, salesPersonProfile);
+        JOptionPane.showMessageDialog(this, "Product added to cart successfully.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
     }//GEN-LAST:event_btnAddToCartActionPerformed
 
     private void cmbSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSupplierActionPerformed
-        // TODO add your handling code here:
-
+        populateTable();
     }//GEN-LAST:event_cmbSupplierActionPerformed
 
     private void btnProductDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductDetailsActionPerformed
+        int row = tblProductCatalog.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a product to view details.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        Product product = (Product) tblProductCatalog.getValueAt(row, 0);
+        ViewProduct viewProduct = new ViewProduct(ui, business, product);
+        ui.add("ViewProduct" + viewProduct.toString(), viewProduct);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnProductDetailsActionPerformed
 
     private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductActionPerformed
-
+        String keyword = txtSearch.getText();
+        if (keyword.isEmpty()) {
+            populateTable();
+        }
+        populateTable(keyword);
     }//GEN-LAST:event_btnSearchProductActionPerformed
 
     private void btnViewCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCartActionPerformed
-        // TODO add your handling code here:
+        ViewCart viewCart = new ViewCart(ui, business, userAccount);
+        ui.add("ViewCart" + viewCart.toString(), viewCart);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewCartActionPerformed
 
+    public void populateCmb() {
+        cmbSupplier.removeAllItems();
+        for (SolutionOffer solutionOffer : business.getSolutionOfferCatalog().getSolutionOffers()) {
+            cmbSupplier.addItem(solutionOffer.getSalesPerson());
+        }
+    }
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblProductCatalog.getModel();
+        model.setRowCount(0);
+        Person person = (Person) cmbSupplier.getSelectedItem();
+        if (person == null) {
+            return;
+        }
+        SolutionOffer solutionOffer = business.getSolutionOfferCatalog().findSolutionOffer(person.getPersonId());
+        if (solutionOffer == null) {
+            return;
+        }
+        for (Product product : solutionOffer.getProducts()) {
+            Object[] row = new Object[3];
+            row[0] = product;
+            row[1] = product.getAvailable().getActualPrice();
+            row[2] = product.getAvailable().getQuantity();
+            model.addRow(row);
+        }
+    }
+
+    public void populateTable(String keyword) {
+        DefaultTableModel model = (DefaultTableModel) tblProductCatalog.getModel();
+        model.setRowCount(0);
+        for (SolutionOffer solutionOffer : business.getSolutionOfferCatalog().getSolutionOffers()) {
+            for (Product product : solutionOffer.getProducts()) {
+                if (product.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                    Object[] row = new Object[3];
+                    row[0] = product;
+                    row[1] = product.getAvailable().getActualPrice();
+                    row[2] = product.getAvailable().getQuantity();
+                    model.addRow(row);
+                }
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToCart;

@@ -16,6 +16,7 @@ public class Order {
     private String status;
 
     public Order() {
+        this.orderItems = new ArrayList<OrderItem>();
         // TODO
     }
     
@@ -25,7 +26,7 @@ public class Order {
         this.customer.addCustomerOrder(this); // we link the order to the customer
         this.salesPerson = null;
         // this.marketChannelAssignment = null;
-        this.status = "in process";
+        this.status = "Pending";
     }
 
     public Order(CustomerProfile customerProfile, SalesPersonProfile salesPersonProfile) {

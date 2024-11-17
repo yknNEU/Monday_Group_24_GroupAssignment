@@ -4,17 +4,50 @@
  */
 package ui.sales;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.ProductManagement.Product;
+import model.ProductManagement.SolutionOffer;
+import model.Supplier.Supplier;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class ViewProduct extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+    private Product product;
+    private Supplier supplier;
+    private SolutionOffer solutionOffer;
+
     /**
      * Creates new form ViewProduct
      */
-    public ViewProduct() {
+    public ViewProduct(Container ui, Business business, UserAccount userAccount, Product product, Supplier supplier, SolutionOffer solutionOffer) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
+        this.product = product;
+        this.supplier = supplier;
+        this.solutionOffer = solutionOffer;
         initComponents();
+        txtSupplierName.setText(supplier.getName());
+        txtName.setText(product.getName());
+        txtFPrice.setText(String.valueOf(product.getFloorPrice()));
+        txtTPrice.setText(String.valueOf(product.getTargetPrice()));
+        txtSPrice.setText(String.valueOf(product.getCeilingPrice()));
+        txtProdAvail.setText(String.valueOf(product.getAvailable().getQuantity()));
+        txtStatus.setText(product.getStatus(solutionOffer));
+        // TODO: availability and status
+        setViewMode();
     }
 
     /**
@@ -197,21 +230,54 @@ public class ViewProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
+        setEditMode();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddToMarketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToMarketActionPerformed
-        // TODO add your handling code here:
+        solutionOffer.addProduct(product);
+        txtStatus.setText(product.getStatus(solutionOffer));
     }//GEN-LAST:event_btnAddToMarketActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+        if (txtTPrice.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a actual price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int actualPrice = 0;
+        try {
+            actualPrice = Integer.parseInt(txtTPrice.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid actual price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (actualPrice < product.getFloorPrice() || actualPrice > product.getCeilingPrice()) {
+            JOptionPane.showMessageDialog(this, "Actual price must be between floor price and ceiling price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        product.getAvailable().setActualPrice(actualPrice);
+        JOptionPane.showMessageDialog(this, "Product price updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+        setViewMode();
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void setViewMode() {
+        txtTPrice.setEditable(false);
+        btnAddToMarket.setEnabled(true);
+        btnUpdate.setEnabled(true);
+        btnSave.setEnabled(false);
+    }
+
+    private void setEditMode() {
+        txtTPrice.setEditable(true);
+        btnAddToMarket.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnSave.setEnabled(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToMarket;

@@ -24,6 +24,7 @@ public class EmployeeDirectory {
 
     public EmployeeProfile newEmployeeProfile(Person person) {
         EmployeeProfile sp = new EmployeeProfile(person);
+        person.setProfile(sp);
         employeeList.add(sp);
         return sp;
     }

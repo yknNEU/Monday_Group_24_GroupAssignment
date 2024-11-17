@@ -3,11 +3,13 @@ package model.ProductManagement;
 import java.util.ArrayList;
 
 import model.MarketModel.MarketChannelAssignment;
+import model.Personnel.Person;
 
 public class SolutionOffer {
 
     private ArrayList<Product> products;
-    private int price; // floor, ceiling, and target ideas
+    // private int price; // floor, ceiling, and target ideas
+    private Person salesPerson;
     private MarketChannelAssignment marketChannelComb;
 
     public SolutionOffer(MarketChannelAssignment marketChannelComb) {
@@ -20,8 +22,8 @@ public class SolutionOffer {
         return this.products;
     }
 
-    public int getPrice() {
-        return this.price;
+    public Person getSalesPerson() {
+        return this.salesPerson;
     }
 
     public MarketChannelAssignment getMarketChannelComb() {
@@ -36,8 +38,8 @@ public class SolutionOffer {
         this.products = products;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setSalesPerson(Person salesPerson) {
+        this.salesPerson = salesPerson;
     }
 
     public void setMarketChannelComb(MarketChannelAssignment marketChannelComb) {

@@ -4,17 +4,31 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import model.Business.Business;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class WorkArea extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form WorkArea
      */
-    public WorkArea() {
+    public WorkArea(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
+        setWelcomeName(userAccount.getProfile().getPerson().getPersonId());
     }
 
     /**
@@ -105,21 +119,35 @@ public class WorkArea extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnManageSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageSupplierActionPerformed
-
+        ManageSupplier manageSupplier = new ManageSupplier(ui, business);
+        ui.add("ManageSupplier" + manageSupplier.toString(), manageSupplier);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnManageSupplierActionPerformed
 
     private void btnProductPerformanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductPerformanceActionPerformed
-
+        ViewReport viewReport = new ViewReport(ui, business, userAccount);
+        ui.add("ViewReport" + viewReport.toString(), viewReport);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnProductPerformanceActionPerformed
 
     private void btnUpdateProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProfileActionPerformed
-
+        UpdateProfile updateProfile = new UpdateProfile(ui, business, userAccount);
+        ui.add("UpdateProfile" + updateProfile.toString(), updateProfile);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnUpdateProfileActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        // TODO add your handling code here:
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    public void setWelcomeName(String name) {
+        lblTitle.setText("Welcome, " + name + "!");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogout;

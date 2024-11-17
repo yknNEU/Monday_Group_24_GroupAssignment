@@ -31,6 +31,15 @@ public class UserAccountDirectory {
         return null;
     }
 
+    public UserAccount getUserAccount(String userName) {
+        for (UserAccount ua : userAccountList) {
+            if (ua.getUserName().equals(userName)) {
+                return ua;
+            }
+        }
+        return null;
+    }
+
     public UserAccount authenticateUser(String userName, String password) {
         for (UserAccount ua : userAccountList) {
             if (ua.isValidUser(userName, password)) {

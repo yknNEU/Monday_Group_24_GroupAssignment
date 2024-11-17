@@ -4,16 +4,27 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+
+import model.Business.Business;
+
 /**
  *
  * @author prasa
  */
 public class AddSupplier extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+
     /**
      * Creates new form AddSupplier
      */
-    public AddSupplier() {
+    public AddSupplier(Container ui, Business business) {
+        this.ui = ui;
+        this.business = business;
         initComponents();
     }
 
@@ -112,11 +123,30 @@ public class AddSupplier extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof ManageSupplier) {
+            ManageSupplier manageSupplier = (ManageSupplier) component;
+            manageSupplier.populateTable();
+        }
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        if (txtName.getText().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Name is required", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (business.getSuppliers().findSupplier(txtName.getText()) != null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Supplier already exists", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        business.getSuppliers().newSupplier(txtName.getText());
+        javax.swing.JOptionPane.showMessageDialog(this, "Supplier added successfully", "Information", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        txtName.setText("");
+        txtDescription.setText("");
     }//GEN-LAST:event_btnAddActionPerformed
 
 

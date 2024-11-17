@@ -4,17 +4,33 @@
  */
 package ui.customer;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import model.Business.Business;
+import model.ProductManagement.Product;
+
 /**
  *
  * @author prasa
  */
 public class ViewProduct extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private Product product;
+
     /**
      * Creates new form ViewProduct
      */
-    public ViewProduct() {
+    public ViewProduct(Container ui, Business business, Product product) {
+        this.ui = ui;
+        this.business = business;
+        this.product = product;
         initComponents();
+        txtName.setText(product.getName());
+        txtPrice.setText(String.valueOf(product.getAvailable().getActualPrice()));
+        txtProdAvail.setText(String.valueOf(product.getAvailable().getQuantity()));
     }
 
     /**
@@ -134,7 +150,9 @@ public class ViewProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
 

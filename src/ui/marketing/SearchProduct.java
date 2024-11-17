@@ -4,16 +4,33 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import model.Business.Business;
+import model.Supplier.Supplier;
+
 /**
  *
  * @author prasa
  */
 public class SearchProduct extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private Supplier supplier;
+
     /**
      * Creates new form SearchProduct
      */
-    public SearchProduct() {
+    public SearchProduct(Container ui, Business business, Supplier supplier) {
+        this.ui = ui;
+        this.business = business;
+        this.supplier = supplier;
         initComponents();
     }
 
@@ -127,11 +144,130 @@ public class SearchProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // Read data from the table in the previous panel
+        Component[] components = ui.getComponents();
+        Component component = components[components.length - 2];
+        DefaultTableModel model = null;
+        if (component instanceof ManageProduct) {
+            ManageProduct manageProduct = (ManageProduct) component;
+            model = (DefaultTableModel) manageProduct.getTable().getModel();
+        } else {
+            JOptionPane.showMessageDialog(this, "Unexpected panel detected, unable to show the search result.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("[Warning] Unexpected panel detected, unable to show the search result. [Class: SearchProduct, Method: btnSearchActionPerformed]");
+            return;
+        }
+        if (txtProductName.getText().isEmpty() && txtLow.getText().isEmpty() && txtHigh.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "You need to enter at least one search criteria.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Prase search criteria
+        String queryName = txtProductName.getText();
+        String cmbType = cmbPrice.getSelectedItem().toString();
+        int low = -1;
+        int high = -1;
 
+        try {
+            if (!txtLow.getText().isEmpty()) {
+                low = Integer.parseInt(txtLow.getText());
+            }
+            if (!txtHigh.getText().isEmpty()) {
+                high = Integer.parseInt(txtHigh.getText());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Invalid input for the range. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if ((low < 0 && !txtLow.getText().isEmpty()) || (high < 0 && !txtHigh.getText().isEmpty())) {
+            JOptionPane.showMessageDialog(this, "Range cannot be negative. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (low > high && !txtLow.getText().isEmpty() && !txtHigh.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Low range cannot be greater than high range. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Remove rows that do not match the search criteria
+        try {
+            for (int i = 0; i < model.getRowCount(); i++) {
+                String productName = model.getValueAt(i, 0).toString();
+                int floorPrice = Integer.parseInt(model.getValueAt(i, 1).toString());
+                int targetPrice = Integer.parseInt(model.getValueAt(i, 2).toString());
+                int ceilingPrice = Integer.parseInt(model.getValueAt(i, 3).toString());
+                int availability = Integer.parseInt(model.getValueAt(i, 4).toString());
+
+                if (!queryName.isEmpty() && !productName.toLowerCase().contains(queryName.toLowerCase())) {
+                    model.removeRow(i);
+                    i--;
+                    continue;
+                } 
+                boolean isPassLow = false;
+                boolean isPassHigh = false;
+                if ("Ceiling Price".equals(cmbType)) {    
+                    if (low == -1 || ceilingPrice >= low) {
+                        isPassLow = true;
+                    }
+                    if (high == -1 || ceilingPrice <= high) {
+                        isPassHigh = true;
+                    }
+                    if (isPassLow == false || isPassHigh == false) {
+                        model.removeRow(i);
+                        i--;
+                        continue;
+                    }
+                } else if ("Target Price".equals(cmbType)) {
+                    if (low == -1 || targetPrice >= low) {
+                        isPassLow = true;
+                    }
+                    if (high == -1 || targetPrice <= high) {
+                        isPassHigh = true;
+                    }
+                    if (isPassLow == false || isPassHigh == false) {
+                        model.removeRow(i);
+                        i--;
+                        continue;
+                    }
+                } else if ("Floor Price".equals(cmbType)) {
+                    if (low == -1 || floorPrice >= low) {
+                        isPassLow = true;
+                    }
+                    if (high == -1 || floorPrice <= high) {
+                        isPassHigh = true;
+                    }
+                    if (isPassLow == false || isPassHigh == false) {
+                        model.removeRow(i);
+                        i--;
+                        continue;
+                    }
+                } else if ("Quantity".equals(cmbType)) {
+                    if (low == -1 || availability >= low) {
+                        isPassLow = true;
+                    }
+                    if (high == -1 || availability <= high) {
+                        isPassHigh = true;
+                    }
+                    if (isPassLow == false || isPassHigh == false) {
+                        model.removeRow(i);
+                        i--;
+                        continue;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Unrichable code.", "Error", JOptionPane.ERROR_MESSAGE);
+                    System.out.println("[Error] Unrichable code executed [Class: SearchProduct, Method: btnSearchActionPerformed]");
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Unable to read data from the table. Search failed.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("[Warning] Unable to read data from the table. Search failed. [Class: SearchProduct, Method: btnSearchActionPerformed]");
+        }
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
 

@@ -4,17 +4,42 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.ProductManagement.Product;
+import model.Supplier.Supplier;
+
 /**
  *
  * @author prasa
  */
 public class ViewProduct extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private Supplier supplier;
+    private Product product;
+
     /**
      * Creates new form ViewProduct
      */
-    public ViewProduct() {
+    public ViewProduct(Container ui, Business business, Supplier supplier, Product product) {
+        this.ui = ui;
+        this.business = business;
+        this.supplier = supplier;
+        this.product = product;
         initComponents();
+        lblSupplierName.setText("Supplier: " + supplier.getName());
+        txtName.setText(product.getName());
+        txtFPrice.setText(String.valueOf(product.getFloorPrice()));
+        txtTPrice.setText(String.valueOf(product.getTargetPrice()));
+        txtSPrice.setText(String.valueOf(product.getCeilingPrice()));
+        txtProdAvail.setText(String.valueOf(product.getAvailable().getQuantity()));
+        setViewMode();
     }
 
     /**
@@ -177,17 +202,120 @@ public class ViewProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
+        setEditMode();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+        // Product name
+        if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a product name", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (supplier.getProductCatalog().findProduct(txtName.getText()) != null && !txtName.getText().equals(product.getName())) {
+            JOptionPane.showMessageDialog(this, "Product already exists", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Floor price
+        if (txtFPrice.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a floor price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int floorPrice = 0;
+        try {
+            floorPrice = Integer.parseInt(txtFPrice.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid floor price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (floorPrice < 0) {
+            JOptionPane.showMessageDialog(this, "Floor price cannot be negative", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Target price
+        if (txtTPrice.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a target price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int targetPrice = 0;
+        try {
+            targetPrice = Integer.parseInt(txtTPrice.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid target price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (targetPrice < floorPrice) {
+            JOptionPane.showMessageDialog(this, "Target price cannot be less than floor price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Ceiling price
+        if (txtSPrice.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a ceiling price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int ceilingPrice = 0;
+        try {
+            ceilingPrice = Integer.parseInt(txtSPrice.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid ceiling price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (ceilingPrice < targetPrice) {
+            JOptionPane.showMessageDialog(this, "Ceiling price cannot be less than target price", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int available = 0;
+        try {
+            available = Integer.parseInt(txtProdAvail.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid product availability", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (available < 0) {
+            JOptionPane.showMessageDialog(this, "Product availability cannot be negative", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        product.setName(txtName.getText());
+        product.setFloorPrice(floorPrice);
+        product.setTargetPrice(targetPrice);
+        product.setCeilingPrice(ceilingPrice);
+        product.getAvailable().setQuantity(available);
+        // After the new recommended price is set, if the actual price exceeds the limit, the actual price should be set to the limit
+        if (product.getAvailable().getActualPrice() < product.getFloorPrice()) {
+            product.getAvailable().setActualPrice(product.getFloorPrice());
+        } else if (product.getAvailable().getActualPrice() > product.getCeilingPrice()) {
+            product.getAvailable().setActualPrice(product.getCeilingPrice());
+        }
+        JOptionPane.showMessageDialog(this, "Product updated successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+        setViewMode();
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void setViewMode() {
+        txtName.setEditable(false);
+        txtFPrice.setEditable(false);
+        txtTPrice.setEditable(false);
+        txtSPrice.setEditable(false);
+        txtProdAvail.setEditable(false);
+        txtDescription.setEditable(false);
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
+    }
+
+    private void setEditMode() {
+        txtName.setEditable(true);
+        txtFPrice.setEditable(true);
+        txtTPrice.setEditable(true);
+        txtSPrice.setEditable(true);
+        txtProdAvail.setEditable(true);
+        txtDescription.setEditable(true);
+        btnSave.setEnabled(true);
+        btnUpdate.setEnabled(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

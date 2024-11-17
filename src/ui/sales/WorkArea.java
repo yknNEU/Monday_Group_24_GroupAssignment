@@ -4,16 +4,32 @@
  */
 package ui.sales;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import model.Business.Business;
+import model.ProductManagement.SolutionOffer;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class WorkArea extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+    private SolutionOffer solutionOffer;
+
     /**
      * Creates new form WorkArea
      */
-    public WorkArea() {
+    public WorkArea(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
+        this.solutionOffer = business.getSolutionOfferCatalog().findSolutionOffer(userAccount.getProfile().getPerson().getPersonId());
         initComponents();
     }
 
@@ -90,19 +106,30 @@ public class WorkArea extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBrowseCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseCatalogActionPerformed
-
+        ManageProduct manageProduct = new ManageProduct(ui, business, userAccount, solutionOffer);
+        ui.add("ManageProduct" + manageProduct.toString(), manageProduct);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnBrowseCatalogActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        // TODO add your handling code here:
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnViewCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCartActionPerformed
-        // TODO add your handling code here:
+        UpdateProfile updateProfile = new UpdateProfile(ui, business, userAccount);
+        ui.add("UpdateProfile" + updateProfile.toString(), updateProfile);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewCartActionPerformed
 
     private void btnViewTransactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTransactionsActionPerformed
-        // TODO add your handling code here:
+        ManageTransactions manageTransactions = new ManageTransactions(ui, business, userAccount);
+        ui.add("ManageTransactions" + manageTransactions.toString(), manageTransactions);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewTransactionsActionPerformed
 
 

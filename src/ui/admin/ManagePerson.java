@@ -4,17 +4,38 @@
  */
 package ui.admin;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import model.Business.Business;
+import model.Personnel.Person;
+import model.Personnel.Profile;
+import model.SalesManagement.SalesPersonProfile;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class ManagePerson extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form ManageSupplier
      */
-    public ManagePerson() {
+    public ManagePerson(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
+        populateTable();
     }
 
     /**
@@ -138,30 +159,79 @@ public class ManagePerson extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
-
-
+        ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof WorkArea) {
+            WorkArea workArea = (WorkArea) component;
+            workArea.setWelcomeName(userAccount.getProfile().getPerson().getPersonId());
+        }
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        int row = personTable.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select the person you want to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-
+        Person person = (Person) personTable.getValueAt(row, 0);
+        if (userAccount.getProfile().getPerson() == person) {
+            JOptionPane.showMessageDialog(this, "You cannot delete yourself.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Person related account should be deleted
+        // For security reasons, we still need to access the transaction history of the user, so we cannot delete the user instance
+        if (person.getProfile() != null) {
+            if (person.getProfile() instanceof SalesPersonProfile) {
+                business.getSolutionOfferCatalog().getSolutionOffers().remove(business.getSolutionOfferCatalog().findSolutionOffer(person.getPersonId()));
+            }
+            business.getUserAccountDirectory().getUserAccountList().remove(business.getUserAccountDirectory().findUserAccount(person.getPersonId()));
+        }
+        business.getPersonDirectory().getPersonList().remove(person);
+        JOptionPane.showMessageDialog(this, "Person deleted successfully.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnViewPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPersonActionPerformed
+        int row = personTable.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select the person you want to view.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-
+        Person person = (Person) personTable.getValueAt(row, 0);
+        ViewPerson viewPerson = new ViewPerson(ui, business, person);
+        ui.add("ViewPerson" + viewPerson.toString(), viewPerson);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewPersonActionPerformed
 
     private void btnAddPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPersonActionPerformed
-
-
+        CreatePerson addPerson = new CreatePerson(ui, business);
+        ui.add("AddPerson" + addPerson.toString(), addPerson);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnAddPersonActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        // TODO: Unimplemented
+        JOptionPane.showMessageDialog(this, "Not implemented.", "Information", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) personTable.getModel();
+        model.setRowCount(0);
+
+        for (Person person : business.getPersonDirectory().getPersonList()) {
+            Object[] row = new Object[2];
+            row[0] = person;
+            row[1] = person.getRole();
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddPerson;

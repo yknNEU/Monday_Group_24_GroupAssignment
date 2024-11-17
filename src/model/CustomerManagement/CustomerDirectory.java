@@ -24,6 +24,7 @@ public class CustomerDirectory {
 
     public CustomerProfile newCustomerProfile(Person person) {
         CustomerProfile sp = new CustomerProfile(person);
+        person.setProfile(sp);
         customerList.add(sp);
         return sp;
     }

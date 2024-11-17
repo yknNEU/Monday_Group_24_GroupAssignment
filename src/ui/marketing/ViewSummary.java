@@ -4,16 +4,29 @@
  */
 package ui.marketing;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import model.Business.Business;
+import model.ProductManagement.Product;
+
 /**
  *
  * @author prasa
  */
 public class ViewSummary extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private Product product;
+
     /**
      * Creates new form ViewSummary
      */
-    public ViewSummary() {
+    public ViewSummary(Container ui, Business business, Product product) {
+        this.ui = ui;
+        this.business = business;
+        this.product = product;
         initComponents();
     }
 
@@ -106,13 +119,18 @@ public class ViewSummary extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnViewTransactionDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTransactionDetailsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnViewTransactionDetailsActionPerformed
 
+    public void populateTable() {
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

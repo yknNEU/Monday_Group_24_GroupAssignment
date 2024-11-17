@@ -4,17 +4,35 @@
  */
 package ui.main;
 
+import java.awt.CardLayout;
+
+import model.Business.Business;
+import model.Personnel.Person;
+import model.Personnel.Profile;
+import model.ProductManagement.Product;
+import model.ProductManagement.SolutionOffer;
+import model.Supplier.Supplier;
+
 /**
  *
  * @author prasa
  */
 public class MainJFrame extends javax.swing.JFrame {
 
+    private Business business;
+
     /**
      * Creates new form MainJFrame
      */
     public MainJFrame() {
+        this.business = new Business("Group Assignment 2 | Pricing Model");
+        generateDemoData();
         initComponents();
+        this.setSize(1024, 576);
+        LoginScreen loginScreen = new LoginScreen(this, this.business);
+        this.getContentPane().add("LoginScreen" + loginScreen.toString(), loginScreen);
+        CardLayout cardLayout = (CardLayout) this.getContentPane().getLayout();
+        cardLayout.next(this.getContentPane());
     }
 
     /**
@@ -66,6 +84,46 @@ public class MainJFrame extends javax.swing.JFrame {
                 new MainJFrame().setVisible(true);
             }
         });
+    }
+
+    private void generateDemoData() {
+        // Add default admin account
+        Person person = business.getPersonDirectory().newPerson("Admin");
+        Profile profile = business.getEmployeeDirectory().newEmployeeProfile(person);
+        business.getUserAccountDirectory().newUserAccount(profile, "a", "a");
+        // Add some account for testing
+        Person person2 = business.getPersonDirectory().newPerson("MarketingPerson");
+        Profile profile2 = business.getMarketingPersonDirectory().newMarketingPersonProfile(person2);
+        business.getUserAccountDirectory().newUserAccount(profile2, "m", "m");
+
+        Person person3 = business.getPersonDirectory().newPerson("SalesPerson");
+        Profile profile3 = business.getSalesPersonDirectory().newSalesPersonProfile(person3);
+        business.getUserAccountDirectory().newUserAccount(profile3, "s", "s");
+
+        Person person4 = business.getPersonDirectory().newPerson("Customer");
+        Profile profile4 = business.getCustomerDirectory().newCustomerProfile(person4);
+        business.getUserAccountDirectory().newUserAccount(profile4, "c", "c");
+        // Add some suppliers
+        Supplier supplier1 = business.getSuppliers().newSupplier("ProductPerson");
+        Supplier supplier2 = business.getSuppliers().newSupplier("SupplierPerson");
+        Product product1 = supplier1.getProductCatalog().newProduct("Main Product", 10, 20, 15);
+        product1.setAvailable(15, 100);
+        Product product2 = supplier1.getProductCatalog().newProduct("Extra Product", 5, 10, 7);
+        product2.setAvailable(7, 80);
+        Product product3 = supplier1.getProductCatalog().newProduct("Expensive Product", 100, 200, 150);
+        product3.setAvailable(150, 50);
+        Product product4 = supplier1.getProductCatalog().newProduct("Cheap Product", 1, 3, 2);
+        product4.setAvailable(2, 200);
+        Product product5 = supplier1.getProductCatalog().newProduct("Product", 114, 514, 191);
+        product5.setAvailable(191, 100);
+        Product product6 = supplier2.getProductCatalog().newProduct("Template Product", 3, 9,   6);
+        product6.setAvailable(6, 10);
+        // Add some product to market
+        SolutionOffer solutionOffer = business.getSolutionOfferCatalog().findSolutionOffer(person3.getPersonId());
+        solutionOffer.addProduct(product1);
+        solutionOffer.addProduct(product2);
+        solutionOffer.addProduct(product5);
+        solutionOffer.addProduct(product6);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
