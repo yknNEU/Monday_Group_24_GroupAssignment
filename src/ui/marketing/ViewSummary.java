@@ -62,17 +62,17 @@ public class ViewSummary extends javax.swing.JPanel {
         tblViewProductSummary.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         tblViewProductSummary.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Customer", "Price", "Quantity", "Profit"
+                "Items", "Customer", "Price", "Quantity", "Profit"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
