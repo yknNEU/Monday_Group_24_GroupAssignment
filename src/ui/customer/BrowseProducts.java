@@ -4,16 +4,32 @@
  */
 package ui.customer;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.ProductManagement.Product;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author prasa
  */
 public class BrowseProducts extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form BrowseProducts
      */
-    public BrowseProducts() {
+    public BrowseProducts(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
     }
 
@@ -213,7 +229,9 @@ public class BrowseProducts extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToCartActionPerformed
@@ -226,7 +244,17 @@ public class BrowseProducts extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbSupplierActionPerformed
 
     private void btnProductDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductDetailsActionPerformed
+        int row = tblProductCatalog.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a product to view details.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        Product product = (Product) tblProductCatalog.getValueAt(row, 0);
+        ViewProduct viewProduct = new ViewProduct(ui, business, product);
+        ui.add("ViewProduct" + viewProduct.toString(), viewProduct);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnProductDetailsActionPerformed
 
     private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductActionPerformed
@@ -234,7 +262,10 @@ public class BrowseProducts extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchProductActionPerformed
 
     private void btnViewCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCartActionPerformed
-        // TODO add your handling code here:
+        ViewCart viewCart = new ViewCart(ui, business, userAccount);
+        ui.add("ViewCart" + viewCart.toString(), viewCart);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewCartActionPerformed
 
 
