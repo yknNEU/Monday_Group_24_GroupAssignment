@@ -5,6 +5,7 @@
 package ui.sales;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.JOptionPane;
@@ -14,6 +15,7 @@ import model.ProductManagement.Product;
 import model.ProductManagement.SolutionOffer;
 import model.Supplier.Supplier;
 import model.UserAccountManagement.UserAccount;
+import ui.admin.ManagePerson;
 
 /**
  *
@@ -259,11 +261,21 @@ public class ViewProduct extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof ManageProduct) {
+            ManageProduct managePerson = (ManageProduct) component;
+            managePerson.populateTable();
+        }
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddToMarketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToMarketActionPerformed
+        if (solutionOffer.getProducts().contains(product)) {
+            JOptionPane.showMessageDialog(this, "Product already added to the market.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         solutionOffer.addProduct(product);
         txtStatus.setText(product.getStatus(solutionOffer));
     }//GEN-LAST:event_btnAddToMarketActionPerformed
@@ -290,7 +302,12 @@ public class ViewProduct extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        // TODO add your handling code here:
+        if (!solutionOffer.getProducts().contains(product)) {
+            JOptionPane.showMessageDialog(this, "Product not in the market.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        solutionOffer.getProducts().remove(product);
+        txtStatus.setText(product.getStatus(solutionOffer));
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void setViewMode() {

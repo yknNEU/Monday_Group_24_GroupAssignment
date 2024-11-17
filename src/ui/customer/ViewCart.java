@@ -5,6 +5,7 @@
 package ui.customer;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.JOptionPane;
@@ -279,6 +280,12 @@ public class ViewCart extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof BrowseProducts) {
+            BrowseProducts managePerson = (BrowseProducts) component;
+            managePerson.populateTable();
+        }
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
