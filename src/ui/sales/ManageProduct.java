@@ -206,6 +206,8 @@ public class ManageProduct extends javax.swing.JPanel {
             return;
         }
         solutionOffer.addProduct(product);
+        JOptionPane.showMessageDialog(this, "Product added from market sucessfully.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
     }//GEN-LAST:event_btnAddToMarketActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
@@ -221,6 +223,8 @@ public class ManageProduct extends javax.swing.JPanel {
             return;
         }
         solutionOffer.getProducts().remove(product);
+        JOptionPane.showMessageDialog(this, "Product removed from market sucessfully.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        populateTable();
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     public void populateTable() {
