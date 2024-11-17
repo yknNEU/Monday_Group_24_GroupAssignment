@@ -7,7 +7,12 @@ package ui.customer;
 import java.awt.CardLayout;
 import java.awt.Container;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 import model.Business.Business;
+import model.CustomerManagement.CustomerProfile;
+import model.OrderManagement.Order;
 import model.UserAccountManagement.UserAccount;
 
 /**
@@ -28,6 +33,7 @@ public class ManageTransactions extends javax.swing.JPanel {
         this.business = business;
         this.userAccount = userAccount;
         initComponents();
+        populateTable();
     }
 
     /**
@@ -133,7 +139,17 @@ public class ManageTransactions extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        int row = tblCart.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a transation to view", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        Order order = (Order) tblCart.getValueAt(row, 0);
+        ViewTransactions viewTransactions = new ViewTransactions(ui, business, userAccount, order);
+        ui.add("ViewTransactions" + viewTransactions.toString(), viewTransactions);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -143,9 +159,37 @@ public class ManageTransactions extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnDeclineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeclineActionPerformed
-        // TODO add your handling code here:
+        int row = tblCart.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a transation to decline", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Order order = (Order) tblCart.getValueAt(row, 0);
+        String status = order.getStatus();
+        if ("Pending".equals(status)) {
+            order.cancelOrder();
+            JOptionPane.showMessageDialog(null, "Transaction declined successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+            populateTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "Transaction already processed", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnDeclineActionPerformed
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblCart.getModel();
+        model.setRowCount(0);
+
+        CustomerProfile yourOwnProfile = (CustomerProfile) userAccount.getProfile();
+        for (Order order : yourOwnProfile.getOrders()) {
+            Object[] row = new Object[4];
+            row[0] = order;
+            row[1] = order.getOrderTotal();
+            row[2] = order.getProductTotal();
+            row[3] = order.getStatus();
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

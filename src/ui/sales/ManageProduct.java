@@ -201,11 +201,26 @@ public class ManageProduct extends javax.swing.JPanel {
         }
 
         Product product = (Product) tblProductCatalog.getValueAt(row, 0);
+        if (solutionOffer.getProducts().contains(product)) {
+            JOptionPane.showMessageDialog(this, "Product already added to the market.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         solutionOffer.addProduct(product);
     }//GEN-LAST:event_btnAddToMarketActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        // TODO add your handling code here:
+        int row = tblProductCatalog.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a product to view details.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Product product = (Product) tblProductCatalog.getValueAt(row, 0);
+        if (!solutionOffer.getProducts().contains(product)) {
+            JOptionPane.showMessageDialog(this, "Product not in the market.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        solutionOffer.getProducts().remove(product);
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     public void populateTable() {

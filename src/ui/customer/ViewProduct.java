@@ -6,8 +6,12 @@ package ui.customer;
 
 import java.awt.CardLayout;
 import java.awt.Container;
+import java.util.ArrayList;
 
 import model.Business.Business;
+import model.CustomerManagement.CustomerProfile;
+import model.OrderManagement.Order;
+import model.OrderManagement.OrderItem;
 import model.ProductManagement.Product;
 
 /**
@@ -31,6 +35,7 @@ public class ViewProduct extends javax.swing.JPanel {
         txtName.setText(product.getName());
         txtPrice.setText(String.valueOf(product.getAvailable().getActualPrice()));
         txtProdAvail.setText(String.valueOf(product.getAvailable().getQuantity()));
+        updateSummarizeLabel();
     }
 
     /**
@@ -162,6 +167,25 @@ public class ViewProduct extends javax.swing.JPanel {
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    public void updateSummarizeLabel() {
+        int sold = 0;
+        int peopleBought = 0;
+        for (OrderItem orderItem : product.getOrderItems()) {
+            sold += orderItem.getQuantity();
+        }
+        ArrayList<CustomerProfile> existCustomer = new ArrayList<CustomerProfile>();
+        for (Order order : business.getMasterOrderList().getOrders()) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                if (orderItem.getSelectedProduct() == product && !existCustomer.contains(order.getCustomer())) {
+                    existCustomer.add(order.getCustomer());
+                    peopleBought++;
+                    break;
+                }
+            }
+        }
+        lblProductSold.setText(sold + " products have been sold");
+        lblPeopleBought.setText(peopleBought + " people already bought this");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

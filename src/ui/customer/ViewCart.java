@@ -5,6 +5,7 @@
 package ui.customer;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.JOptionPane;
@@ -255,7 +256,15 @@ public class ViewCart extends javax.swing.JPanel {
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         CustomerProfile yourOwnProfile = (CustomerProfile) userAccount.getProfile();
-        int total = yourOwnProfile.checkout();
+        if (yourOwnProfile.getCart().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Your cart is empty", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (yourOwnProfile.validateCart() == false) {
+            JOptionPane.showMessageDialog(null, "Some items in your cart are not available in the required quantity", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int total = yourOwnProfile.checkout(business.getMasterOrderList());
         JOptionPane.showMessageDialog(null, "Your order has been placed successfully. Total amount: " + total, "Information", JOptionPane.INFORMATION_MESSAGE);
         populateTable();
     }//GEN-LAST:event_btnCheckOutActionPerformed
@@ -271,6 +280,12 @@ public class ViewCart extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         ui.remove(this);
+        Component[] componentArray = ui.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        if (component instanceof BrowseProducts) {
+            BrowseProducts managePerson = (BrowseProducts) component;
+            managePerson.populateTable();
+        }
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed

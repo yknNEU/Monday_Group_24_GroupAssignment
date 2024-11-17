@@ -240,7 +240,7 @@ public class BrowseProducts extends javax.swing.JPanel {
         Person person = (Person) cmbSupplier.getSelectedItem();
         SalesPersonProfile salesPersonProfile = business.getSalesPersonDirectory().findSalesPerson(person.getPersonId());
         CustomerProfile yourOwnProfile = (CustomerProfile) userAccount.getProfile();
-        yourOwnProfile.addItemToCart(orderItem, salesPersonProfile);
+        yourOwnProfile.addItemToCart(orderItem, yourOwnProfile, salesPersonProfile);
         JOptionPane.showMessageDialog(this, "Product added to cart successfully.", "Information", JOptionPane.INFORMATION_MESSAGE);
         populateTable();
     }//GEN-LAST:event_btnAddToCartActionPerformed
