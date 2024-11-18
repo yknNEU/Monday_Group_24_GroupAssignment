@@ -15,7 +15,7 @@ public class Supplier {
     public Supplier(String name) {
         this.name = name;
         this.productCatalog = new ProductCatalog("software");
-        // this.productsReport = new ProductsReport();
+        this.productsReport = new ProductsReport();
     }
     
     public String getName() {

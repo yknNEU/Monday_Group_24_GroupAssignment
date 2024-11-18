@@ -88,57 +88,68 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void generateDemoData() {
         // Add default admin account
-        Person person = business.getPersonDirectory().newPerson("Admin");
-        Profile profile = business.getEmployeeDirectory().newEmployeeProfile(person);
-        business.getUserAccountDirectory().newUserAccount(profile, "a", "a");
+        Person admin = business.getPersonDirectory().newPerson("Admin");
+        Profile padmin = business.getEmployeeDirectory().newEmployeeProfile(admin);
+        business.getUserAccountDirectory().newUserAccount(padmin, "a", "a");
         // Add some account for testing
-        Person person2 = business.getPersonDirectory().newPerson("MarketingPerson");
-        Profile profile2 = business.getMarketingPersonDirectory().newMarketingPersonProfile(person2);
-        business.getUserAccountDirectory().newUserAccount(profile2, "m", "m");
+        Person market = business.getPersonDirectory().newPerson("MarketingPerson");
+        Profile pmarket = business.getMarketingPersonDirectory().newMarketingPersonProfile(market);
+        business.getUserAccountDirectory().newUserAccount(pmarket, "m", "m");
 
-        Person person3 = business.getPersonDirectory().newPerson("SalesPerson");
-        Profile profile3 = business.getSalesPersonDirectory().newSalesPersonProfile(person3);
-        business.getUserAccountDirectory().newUserAccount(profile3, "s", "s");
+        Person sales1 = business.getPersonDirectory().newPerson("ykn");
+        Profile psales1 = business.getSalesPersonDirectory().newSalesPersonProfile(sales1);
+        business.getUserAccountDirectory().newUserAccount(psales1, "ykn", "ykn");
+        SolutionOffer solutionOffer1 = business.getSolutionOfferCatalog().findSolutionOffer(sales1.getPersonId());
 
-        Person person4 = business.getPersonDirectory().newPerson("Customer1");
-        Profile profile4 = business.getCustomerDirectory().newCustomerProfile(person4);
-        business.getUserAccountDirectory().newUserAccount(profile4, "c1", "c1");
+        Person sales2 = business.getPersonDirectory().newPerson("Prasad");
+        Profile psales2 = business.getSalesPersonDirectory().newSalesPersonProfile(sales2);
+        business.getUserAccountDirectory().newUserAccount(psales2, "Prasad", "Prasad");
+        SolutionOffer solutionOffer2 = business.getSolutionOfferCatalog().findSolutionOffer(sales2.getPersonId());
+
+        Person sales3 = business.getPersonDirectory().newPerson("yao");
+        Profile psales3 = business.getSalesPersonDirectory().newSalesPersonProfile(sales3);
+        business.getUserAccountDirectory().newUserAccount(psales3, "yao", "yao");
+        SolutionOffer solutionOffer3 = business.getSolutionOfferCatalog().findSolutionOffer(sales3.getPersonId());
+
+        Person customer1 = business.getPersonDirectory().newPerson("Customer1");
+        Profile pcustomer1 = business.getCustomerDirectory().newCustomerProfile(customer1);
+        business.getUserAccountDirectory().newUserAccount(pcustomer1, "c1", "c1");
         
-        Person person5 = business.getPersonDirectory().newPerson("Customer2");
-        Profile profile5 = business.getCustomerDirectory().newCustomerProfile(person5);
-        business.getUserAccountDirectory().newUserAccount(profile5, "c2", "c2");
+        Person customer2 = business.getPersonDirectory().newPerson("Customer2");
+        Profile pcustomer2 = business.getCustomerDirectory().newCustomerProfile(customer2);
+        business.getUserAccountDirectory().newUserAccount(pcustomer2, "c2", "c2");
         
-        Person person6 = business.getPersonDirectory().newPerson("Customer3");
-        Profile profile6 = business.getCustomerDirectory().newCustomerProfile(person6);
-        business.getUserAccountDirectory().newUserAccount(profile6, "c3", "c3");
+        Person customer3 = business.getPersonDirectory().newPerson("Customer3");
+        Profile pcustomer3 = business.getCustomerDirectory().newCustomerProfile(customer3);
+        business.getUserAccountDirectory().newUserAccount(pcustomer3, "c3", "c3");
         
-        Person person7 = business.getPersonDirectory().newPerson("Customer4");
-        Profile profile7 = business.getCustomerDirectory().newCustomerProfile(person7);
-        business.getUserAccountDirectory().newUserAccount(profile7, "c4", "c4");
+        Person customer4 = business.getPersonDirectory().newPerson("Customer4");
+        Profile pcustomer4 = business.getCustomerDirectory().newCustomerProfile(customer4);
+        business.getUserAccountDirectory().newUserAccount(pcustomer4, "c4", "c4");
         
-        Person person8 = business.getPersonDirectory().newPerson("Customer5");
-        Profile profile8 = business.getCustomerDirectory().newCustomerProfile(person8);
-        business.getUserAccountDirectory().newUserAccount(profile8, "c5", "c5");
+        Person customer5 = business.getPersonDirectory().newPerson("Customer5");
+        Profile pcustomer5 = business.getCustomerDirectory().newCustomerProfile(customer5);
+        business.getUserAccountDirectory().newUserAccount(pcustomer5, "c5", "c5");
         
-        Person person9 = business.getPersonDirectory().newPerson("Customer6");
-        Profile profile9 = business.getCustomerDirectory().newCustomerProfile(person9);
-        business.getUserAccountDirectory().newUserAccount(profile9, "c6", "c6");
+        Person custom6 = business.getPersonDirectory().newPerson("Customer6");
+        Profile pcustomer6 = business.getCustomerDirectory().newCustomerProfile(custom6);
+        business.getUserAccountDirectory().newUserAccount(pcustomer6, "c6", "c6");
         
-        Person person10 = business.getPersonDirectory().newPerson("Customer7");
-        Profile profile10 = business.getCustomerDirectory().newCustomerProfile(person10);
-        business.getUserAccountDirectory().newUserAccount(profile10, "c7", "c7");
+        Person customer7 = business.getPersonDirectory().newPerson("Customer7");
+        Profile pcustomer7 = business.getCustomerDirectory().newCustomerProfile(customer7);
+        business.getUserAccountDirectory().newUserAccount(pcustomer7, "c7", "c7");
         
-        Person person11 = business.getPersonDirectory().newPerson("Customer8");
-        Profile profile11 = business.getCustomerDirectory().newCustomerProfile(person11);
-        business.getUserAccountDirectory().newUserAccount(profile11, "c8", "c8");
+        Person customer8 = business.getPersonDirectory().newPerson("Customer8");
+        Profile pcustomer8 = business.getCustomerDirectory().newCustomerProfile(customer8);
+        business.getUserAccountDirectory().newUserAccount(pcustomer8, "c8", "c8");
         
-        Person person12 = business.getPersonDirectory().newPerson("Customer9");
-        Profile profile12 = business.getCustomerDirectory().newCustomerProfile(person12);
-        business.getUserAccountDirectory().newUserAccount(profile12, "c9", "c9");
+        Person customer9 = business.getPersonDirectory().newPerson("Customer9");
+        Profile pcustomer9 = business.getCustomerDirectory().newCustomerProfile(customer9);
+        business.getUserAccountDirectory().newUserAccount(pcustomer9, "c9", "c9");
         
-        Person person13 = business.getPersonDirectory().newPerson("Customer10");
-        Profile profile13 = business.getCustomerDirectory().newCustomerProfile(person13);
-        business.getUserAccountDirectory().newUserAccount(profile13, "c10", "c10");
+        Person customer10 = business.getPersonDirectory().newPerson("Customer10");
+        Profile pcustomer10 = business.getCustomerDirectory().newCustomerProfile(customer10);
+        business.getUserAccountDirectory().newUserAccount(pcustomer10, "c10", "c10");
         
         // Add some suppliers
         Supplier supplier1 = business.getSuppliers().newSupplier("Ford");
@@ -251,57 +262,57 @@ public class MainJFrame extends javax.swing.JFrame {
         Product product50 = supplier5.getProductCatalog().newProduct("Nissan Ariya", 40000, 60000, 50000);
         product50.setAvailable(50000, 28);
         // Add some product to market
-        SolutionOffer solutionOffer = business.getSolutionOfferCatalog().findSolutionOffer(person3.getPersonId());
-        solutionOffer.addProduct(product1);
-        solutionOffer.addProduct(product2);
-        solutionOffer.addProduct(product3);
-        solutionOffer.addProduct(product4);
-        solutionOffer.addProduct(product5);
-        solutionOffer.addProduct(product6);
-        solutionOffer.addProduct(product7);
-        solutionOffer.addProduct(product8);
-        solutionOffer.addProduct(product9);
-        solutionOffer.addProduct(product10);
-        solutionOffer.addProduct(product11);
-        solutionOffer.addProduct(product12);
-        solutionOffer.addProduct(product13);
-        solutionOffer.addProduct(product14);
-        solutionOffer.addProduct(product15);
-        solutionOffer.addProduct(product16);
-        solutionOffer.addProduct(product17);
-        solutionOffer.addProduct(product18);
-        solutionOffer.addProduct(product19);
-        solutionOffer.addProduct(product20);
-        solutionOffer.addProduct(product21);
-        solutionOffer.addProduct(product22);
-        solutionOffer.addProduct(product23);
-        solutionOffer.addProduct(product24);
-        solutionOffer.addProduct(product25);
-        solutionOffer.addProduct(product26);
-        solutionOffer.addProduct(product27);
-        solutionOffer.addProduct(product28);
-        solutionOffer.addProduct(product29);
-        solutionOffer.addProduct(product30);
-        solutionOffer.addProduct(product31);
-        solutionOffer.addProduct(product32);
-        solutionOffer.addProduct(product33);
-        solutionOffer.addProduct(product34);
-        solutionOffer.addProduct(product35);
-        solutionOffer.addProduct(product36);
-        solutionOffer.addProduct(product37);
-        solutionOffer.addProduct(product38);
-        solutionOffer.addProduct(product39);
-        solutionOffer.addProduct(product40);
-        solutionOffer.addProduct(product41);
-        solutionOffer.addProduct(product42);
-        solutionOffer.addProduct(product43);
-        solutionOffer.addProduct(product44);
-        solutionOffer.addProduct(product45);
-        solutionOffer.addProduct(product46);
-        solutionOffer.addProduct(product47);
-        solutionOffer.addProduct(product48);
-        solutionOffer.addProduct(product49);
-        solutionOffer.addProduct(product50);
+        
+        solutionOffer1.addProduct(product1);
+        solutionOffer1.addProduct(product2);
+        solutionOffer1.addProduct(product3);
+        solutionOffer3.addProduct(product4);
+        solutionOffer1.addProduct(product5);
+        solutionOffer1.addProduct(product6);
+        solutionOffer1.addProduct(product7);
+        solutionOffer1.addProduct(product8);
+        solutionOffer1.addProduct(product9);
+        solutionOffer3.addProduct(product10);
+        solutionOffer1.addProduct(product11);
+        solutionOffer2.addProduct(product12);
+        solutionOffer2.addProduct(product13);
+        solutionOffer2.addProduct(product14);
+        solutionOffer2.addProduct(product15);
+        solutionOffer3.addProduct(product16);
+        solutionOffer3.addProduct(product17);
+        solutionOffer1.addProduct(product18);
+        solutionOffer2.addProduct(product19);
+        solutionOffer1.addProduct(product20);
+        solutionOffer1.addProduct(product21);
+        solutionOffer1.addProduct(product22);
+        solutionOffer2.addProduct(product23);
+        solutionOffer2.addProduct(product24);
+        solutionOffer3.addProduct(product25);
+        solutionOffer3.addProduct(product26);
+        solutionOffer3.addProduct(product27);
+        solutionOffer1.addProduct(product28);
+        solutionOffer2.addProduct(product29);
+        solutionOffer1.addProduct(product30);
+        solutionOffer1.addProduct(product31);
+        solutionOffer1.addProduct(product32);
+        solutionOffer1.addProduct(product33);
+        solutionOffer2.addProduct(product34);
+        solutionOffer3.addProduct(product35);
+        solutionOffer3.addProduct(product36);
+        solutionOffer3.addProduct(product37);
+        solutionOffer3.addProduct(product38);
+        solutionOffer2.addProduct(product39);
+        solutionOffer3.addProduct(product40);
+        solutionOffer3.addProduct(product41);
+        solutionOffer2.addProduct(product42);
+        solutionOffer3.addProduct(product43);
+        solutionOffer2.addProduct(product44);
+        solutionOffer2.addProduct(product45);
+        solutionOffer3.addProduct(product46);
+        solutionOffer1.addProduct(product47);
+        solutionOffer1.addProduct(product48);
+        solutionOffer3.addProduct(product49);
+        solutionOffer3.addProduct(product50);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

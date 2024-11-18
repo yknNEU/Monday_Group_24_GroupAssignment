@@ -8,6 +8,7 @@ public class ProductSummary {
     private int numberOfSalesBelowTarget;
     private int productPricePerformance; // total profit above target --could be negative too
     private int acutalSalesVolume;
+    private int acutalSalesCount;
     private int rank; // will be done later
     
     public ProductSummary(Product product) {
@@ -16,6 +17,7 @@ public class ProductSummary {
         this.numberOfSalesBelowTarget = product.getNumberOfProductSalesBelowTarget();
         this.productPricePerformance = product.getOrderPricePerformance();
         this.acutalSalesVolume = product.getSalesVolume();
+        this.acutalSalesCount = product.getSalesCount();
         // this.rank = 0;
     }
 
@@ -37,6 +39,10 @@ public class ProductSummary {
 
     public int getAcutalSalesVolume() {
         return acutalSalesVolume;
+    }
+
+    public int getAcutalSalesCount() {
+        return acutalSalesCount;
     }
 
     public int getRank() {
@@ -65,6 +71,10 @@ public class ProductSummary {
 
     public void setAcutalSalesVolume(int acutalSalesVolume) {
         this.acutalSalesVolume = acutalSalesVolume;
+    }
+
+    public void setAcutalSalesCount(int acutalSalesCount) {
+        this.acutalSalesCount = acutalSalesCount;
     }
 
     public void setRank(int rank) {

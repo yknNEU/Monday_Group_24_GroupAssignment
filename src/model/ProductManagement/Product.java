@@ -146,6 +146,14 @@ public class Product {
         return sum;
     }
 
+    public int getSalesCount() {
+        int sum = 0;
+        for (OrderItem oi : orderItems) {
+            sum = sum + oi.getQuantity();
+        }
+        return sum;
+    }
+
     public String getStatus(SolutionOffer solutionOffer) {
         if (solutionOffer == null) {
             return "Off Sale";

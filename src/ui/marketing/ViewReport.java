@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Business.Business;
 import model.OrderManagement.OrderItem;
 import model.ProductManagement.Product;
+import model.ProductManagement.ProductSummary;
 import model.Supplier.Supplier;
 import model.UserAccountManagement.UserAccount;
 
@@ -61,17 +62,17 @@ public class ViewReport extends javax.swing.JPanel {
         tblViewProductSummary.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         tblViewProductSummary.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Product", "Profit & Loss", "Profit Units sold", "Loss Units sold", "Total Units Sold"
+                "Product", "Total Sales Volume", "Profit & Loss", "Number Above Target Price", "Number Below Target Price", "Total Sold Numbers"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -100,17 +101,17 @@ public class ViewReport extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnViewReport))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnViewReport)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnBack)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 29, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,11 +121,11 @@ public class ViewReport extends javax.swing.JPanel {
                 .addComponent(lblTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBack)
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnViewReport)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -154,29 +155,16 @@ public class ViewReport extends javax.swing.JPanel {
 
         for (Supplier supplier : business.getSuppliers().getSupplierList()) {
             for (Product product : supplier.getProductCatalog().getProducts()) {
-                int profit = 0;
-                int profitUnitsSold = 0;
-                int lossUnitsSold = 0;
-                int totalUnitsSold = 0;
+                ProductSummary productSummary = new ProductSummary(product);
+                supplier.getProductsReport().addProductSummary(productSummary);
 
-                for (OrderItem orderItem : product.getOrderItems()) {
-                    // Profit may be negative
-                    profit += (orderItem.getActualPrice() - product.getTargetPrice()) * orderItem.getQuantity();
-                    if (orderItem.getActualPrice() > product.getTargetPrice()) {
-                        profitUnitsSold += orderItem.getQuantity();
-                    } else if (orderItem.getActualPrice() < product.getTargetPrice()) {
-                        lossUnitsSold += orderItem.getQuantity();
-                    }
-                    // Sold with exact the target price will not be regarded as either profit or loss
-                    totalUnitsSold += orderItem.getQuantity();
-                }
-
-                Object[] row = new Object[5];
+                Object[] row = new Object[6];
                 row[0] = product;
-                row[1] = profit;
-                row[2] = profitUnitsSold;
-                row[3] = lossUnitsSold;
-                row[4] = totalUnitsSold;
+                row[1] = productSummary.getAcutalSalesVolume();
+                row[2] = productSummary.getProductPricePerformance();
+                row[3] = productSummary.getNumberAboveTarget();
+                row[4] = productSummary.getNumberBelowTarget();
+                row[5] = productSummary.getAcutalSalesCount();
                 model.addRow(row);
             }
         }
