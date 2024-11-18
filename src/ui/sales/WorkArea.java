@@ -31,6 +31,7 @@ public class WorkArea extends javax.swing.JPanel {
         this.userAccount = userAccount;
         this.solutionOffer = business.getSolutionOfferCatalog().findSolutionOffer(userAccount.getProfile().getPerson().getPersonId());
         initComponents();
+        setWelcomeName(userAccount.getProfile().getPerson().getPersonId());
     }
 
     /**
@@ -144,6 +145,9 @@ public class WorkArea extends javax.swing.JPanel {
         cardLayout.next(ui);
     }//GEN-LAST:event_btnViewTransactionsActionPerformed
 
+    public void setWelcomeName(String name) {
+        lblTitle1.setText("Welcome, " + name + "!");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowseCatalog;

@@ -34,6 +34,11 @@ public class ViewPerson extends javax.swing.JPanel {
         setViewMode();
         txtName.setText(person.getPersonId());
         txtRole.setText(person.getRole());
+        if ("None".equals(person.getRole())) {
+            btnCreateAccount.setText("Create Account");
+        } else {
+            btnCreateAccount.setText("View Account");
+        }
     }
 
     /**

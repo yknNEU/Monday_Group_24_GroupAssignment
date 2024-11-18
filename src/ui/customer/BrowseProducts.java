@@ -297,6 +297,9 @@ public class BrowseProducts extends javax.swing.JPanel {
             return;
         }
         for (Product product : solutionOffer.getProducts()) {
+            if (product.getAvailable().getQuantity() <= 0) {
+                continue;
+            }
             Object[] row = new Object[3];
             row[0] = product;
             row[1] = product.getAvailable().getActualPrice();
@@ -311,6 +314,9 @@ public class BrowseProducts extends javax.swing.JPanel {
         for (SolutionOffer solutionOffer : business.getSolutionOfferCatalog().getSolutionOffers()) {
             for (Product product : solutionOffer.getProducts()) {
                 if (product.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                    if (product.getAvailable().getQuantity() <= 0) {
+                        continue;
+                    }
                     Object[] row = new Object[3];
                     row[0] = product;
                     row[1] = product.getAvailable().getActualPrice();
