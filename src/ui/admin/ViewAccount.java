@@ -33,13 +33,16 @@ public class ViewAccount extends javax.swing.JPanel {
         this.business = business;
         this.person = person;
         initComponents();
-        lblCreateAccountFor.setText("Create Account For: " + person.getPersonId());
         String role = person.getRole();
         if ("None".equals(role)) {
             cmbRole.setSelectedIndex(0);
+            lblTitle.setText("Create Account");
+            lblCreateAccountFor.setText("Create Account For: " + person.getPersonId());
             btnCreate.setText("Create");
         } else {
             cmbRole.setEnabled(false); // Role cannot be changed once set
+            lblTitle.setText("Update Account");
+            lblCreateAccountFor.setText("Update Account For: " + person.getPersonId());
             btnCreate.setText("Update");
             if ("Admin".equals(role)) {
                 cmbRole.setSelectedIndex(1);
@@ -196,6 +199,11 @@ public class ViewAccount extends javax.swing.JPanel {
         String role = person.getRole();
         if ("None".equals(role)) {
             // Person don't have an account yet, create one
+            if (business.getUserAccountDirectory().getUserAccount(txtUsername.getText()) != null) {
+                JOptionPane.showMessageDialog(this, "Username already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
             if ("Admin".equals(cmbRole.getSelectedItem().toString())) {
                 Profile profile = business.getEmployeeDirectory().newEmployeeProfile(person);
                 business.getUserAccountDirectory().newUserAccount(profile, txtUsername.getText(), txtPassword.getText());
@@ -227,6 +235,10 @@ public class ViewAccount extends javax.swing.JPanel {
         } else {
             // Person already have an account, modify it
             UserAccount userAccount = business.getUserAccountDirectory().findUserAccount(person.getPersonId());
+            if (business.getUserAccountDirectory().getUserAccount(txtUsername.getText()) != null && !userAccount.getUserName().equals(txtUsername.getText())) {
+                JOptionPane.showMessageDialog(this, "Username already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             userAccount.setUserName(txtUsername.getText());
             userAccount.setPassword(txtPassword.getText());
             JOptionPane.showMessageDialog(this, "Account updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);

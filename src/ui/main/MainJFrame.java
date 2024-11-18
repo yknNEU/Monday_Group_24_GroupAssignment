@@ -88,42 +88,231 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void generateDemoData() {
         // Add default admin account
-        Person person = business.getPersonDirectory().newPerson("Admin");
-        Profile profile = business.getEmployeeDirectory().newEmployeeProfile(person);
-        business.getUserAccountDirectory().newUserAccount(profile, "a", "a");
+        Person admin = business.getPersonDirectory().newPerson("Admin");
+        Profile padmin = business.getEmployeeDirectory().newEmployeeProfile(admin);
+        business.getUserAccountDirectory().newUserAccount(padmin, "a", "a");
         // Add some account for testing
-        Person person2 = business.getPersonDirectory().newPerson("MarketingPerson");
-        Profile profile2 = business.getMarketingPersonDirectory().newMarketingPersonProfile(person2);
-        business.getUserAccountDirectory().newUserAccount(profile2, "m", "m");
+        Person market = business.getPersonDirectory().newPerson("MarketingPerson");
+        Profile pmarket = business.getMarketingPersonDirectory().newMarketingPersonProfile(market);
+        business.getUserAccountDirectory().newUserAccount(pmarket, "m", "m");
 
-        Person person3 = business.getPersonDirectory().newPerson("SalesPerson");
-        Profile profile3 = business.getSalesPersonDirectory().newSalesPersonProfile(person3);
-        business.getUserAccountDirectory().newUserAccount(profile3, "s", "s");
+        Person sales1 = business.getPersonDirectory().newPerson("ykn");
+        Profile psales1 = business.getSalesPersonDirectory().newSalesPersonProfile(sales1);
+        business.getUserAccountDirectory().newUserAccount(psales1, "ykn", "ykn");
+        SolutionOffer solutionOffer1 = business.getSolutionOfferCatalog().findSolutionOffer(sales1.getPersonId());
 
-        Person person4 = business.getPersonDirectory().newPerson("Customer");
-        Profile profile4 = business.getCustomerDirectory().newCustomerProfile(person4);
-        business.getUserAccountDirectory().newUserAccount(profile4, "c", "c");
+        Person sales2 = business.getPersonDirectory().newPerson("Prasad");
+        Profile psales2 = business.getSalesPersonDirectory().newSalesPersonProfile(sales2);
+        business.getUserAccountDirectory().newUserAccount(psales2, "Prasad", "Prasad");
+        SolutionOffer solutionOffer2 = business.getSolutionOfferCatalog().findSolutionOffer(sales2.getPersonId());
+
+        Person sales3 = business.getPersonDirectory().newPerson("yao");
+        Profile psales3 = business.getSalesPersonDirectory().newSalesPersonProfile(sales3);
+        business.getUserAccountDirectory().newUserAccount(psales3, "yao", "yao");
+        SolutionOffer solutionOffer3 = business.getSolutionOfferCatalog().findSolutionOffer(sales3.getPersonId());
+
+        Person customer1 = business.getPersonDirectory().newPerson("Customer1");
+        Profile pcustomer1 = business.getCustomerDirectory().newCustomerProfile(customer1);
+        business.getUserAccountDirectory().newUserAccount(pcustomer1, "c1", "c1");
+        
+        Person customer2 = business.getPersonDirectory().newPerson("Customer2");
+        Profile pcustomer2 = business.getCustomerDirectory().newCustomerProfile(customer2);
+        business.getUserAccountDirectory().newUserAccount(pcustomer2, "c2", "c2");
+        
+        Person customer3 = business.getPersonDirectory().newPerson("Customer3");
+        Profile pcustomer3 = business.getCustomerDirectory().newCustomerProfile(customer3);
+        business.getUserAccountDirectory().newUserAccount(pcustomer3, "c3", "c3");
+        
+        Person customer4 = business.getPersonDirectory().newPerson("Customer4");
+        Profile pcustomer4 = business.getCustomerDirectory().newCustomerProfile(customer4);
+        business.getUserAccountDirectory().newUserAccount(pcustomer4, "c4", "c4");
+        
+        Person customer5 = business.getPersonDirectory().newPerson("Customer5");
+        Profile pcustomer5 = business.getCustomerDirectory().newCustomerProfile(customer5);
+        business.getUserAccountDirectory().newUserAccount(pcustomer5, "c5", "c5");
+        
+        Person custom6 = business.getPersonDirectory().newPerson("Customer6");
+        Profile pcustomer6 = business.getCustomerDirectory().newCustomerProfile(custom6);
+        business.getUserAccountDirectory().newUserAccount(pcustomer6, "c6", "c6");
+        
+        Person customer7 = business.getPersonDirectory().newPerson("Customer7");
+        Profile pcustomer7 = business.getCustomerDirectory().newCustomerProfile(customer7);
+        business.getUserAccountDirectory().newUserAccount(pcustomer7, "c7", "c7");
+        
+        Person customer8 = business.getPersonDirectory().newPerson("Customer8");
+        Profile pcustomer8 = business.getCustomerDirectory().newCustomerProfile(customer8);
+        business.getUserAccountDirectory().newUserAccount(pcustomer8, "c8", "c8");
+        
+        Person customer9 = business.getPersonDirectory().newPerson("Customer9");
+        Profile pcustomer9 = business.getCustomerDirectory().newCustomerProfile(customer9);
+        business.getUserAccountDirectory().newUserAccount(pcustomer9, "c9", "c9");
+        
+        Person customer10 = business.getPersonDirectory().newPerson("Customer10");
+        Profile pcustomer10 = business.getCustomerDirectory().newCustomerProfile(customer10);
+        business.getUserAccountDirectory().newUserAccount(pcustomer10, "c10", "c10");
+        
         // Add some suppliers
-        Supplier supplier1 = business.getSuppliers().newSupplier("ProductPerson");
-        Supplier supplier2 = business.getSuppliers().newSupplier("SupplierPerson");
-        Product product1 = supplier1.getProductCatalog().newProduct("Main Product", 10, 20, 15);
-        product1.setAvailable(15, 100);
-        Product product2 = supplier1.getProductCatalog().newProduct("Extra Product", 5, 10, 7);
-        product2.setAvailable(7, 80);
-        Product product3 = supplier1.getProductCatalog().newProduct("Expensive Product", 100, 200, 150);
-        product3.setAvailable(150, 50);
-        Product product4 = supplier1.getProductCatalog().newProduct("Cheap Product", 1, 3, 2);
-        product4.setAvailable(2, 200);
-        Product product5 = supplier1.getProductCatalog().newProduct("Product", 114, 514, 191);
-        product5.setAvailable(191, 100);
-        Product product6 = supplier2.getProductCatalog().newProduct("Template Product", 3, 9,   6);
-        product6.setAvailable(6, 10);
+        Supplier supplier1 = business.getSuppliers().newSupplier("Ford");
+        Supplier supplier2 = business.getSuppliers().newSupplier("Toyota");
+        Supplier supplier3 = business.getSuppliers().newSupplier("Honda");
+        Supplier supplier4 = business.getSuppliers().newSupplier("Chevrolet");
+        Supplier supplier5 = business.getSuppliers().newSupplier("Nissan");
+        Product product1 = supplier1.getProductCatalog().newProduct("Ford F-150", 30000, 75000, 55000);
+        product1.setAvailable(57000, 22);
+        Product product2 = supplier1.getProductCatalog().newProduct("Ford Mustang", 30000, 70000, 50000);
+        product2.setAvailable(52000, 25);
+        Product product3 = supplier1.getProductCatalog().newProduct("Ford Explorer", 35000, 55000, 45000);
+        product3.setAvailable(48000, 28);
+        Product product4 = supplier1.getProductCatalog().newProduct("Ford Escape", 30000, 40000, 35000);
+        product4.setAvailable(38000, 42);
+        Product product5 = supplier1.getProductCatalog().newProduct("Ford Fusion", 25000, 35000, 30000);
+        product5.setAvailable(32000, 45);
+        Product product6 = supplier1.getProductCatalog().newProduct("Ford Edge", 40000, 50000, 45000);
+        product6.setAvailable(48000, 30);
+        Product product7 = supplier1.getProductCatalog().newProduct("Ford Ranger", 30000, 40000, 35000);
+        product7.setAvailable(38000, 45);
+        Product product8 = supplier1.getProductCatalog().newProduct("Ford Bronco", 30000, 70000, 50000);
+        product8.setAvailable(52000, 26);
+        Product product9 = supplier1.getProductCatalog().newProduct("Ford Expedition", 50000, 80000, 75000);
+        product9.setAvailable(73000, 18);
+        Product product10 = supplier1.getProductCatalog().newProduct("Ford Mustang Mach-E", 45000, 60000, 50000);
+        product10.setAvailable(50000, 28);
+        
+        Product product11 = supplier2.getProductCatalog().newProduct("Toyota Corolla", 22000, 28000, 25000);
+        product11.setAvailable(26000, 52);
+        Product product12 = supplier2.getProductCatalog().newProduct("Toyota RAV4", 30000, 35000, 33000);
+        product12.setAvailable(33000, 44);
+        Product product13 = supplier2.getProductCatalog().newProduct("Toyota Highlander", 40000, 55000, 45000);
+        product13.setAvailable(48000, 28);
+        Product product14 = supplier2.getProductCatalog().newProduct("Toyota Tacoma", 30000, 45000, 38000);
+        product14.setAvailable(38000, 42);
+        Product product15 = supplier2.getProductCatalog().newProduct("Toyota Camry", 25000, 35000, 30000);
+        product15.setAvailable(32000, 45);
+        Product product16 = supplier2.getProductCatalog().newProduct("Toyota Tundra", 35000, 65000, 50000);
+        product16.setAvailable(52000, 27);
+        Product product17 = supplier2.getProductCatalog().newProduct("Toyota Prius", 25000, 35000, 30000);
+        product17.setAvailable(31000, 48);
+        Product product18 = supplier2.getProductCatalog().newProduct("Toyota Avalon", 36000, 50000, 42000);
+        product18.setAvailable(43000, 31);
+        Product product19 = supplier2.getProductCatalog().newProduct("Toyota 4Runner", 40000, 55000, 48000);
+        product19.setAvailable(50000, 28);
+        Product product20 = supplier2.getProductCatalog().newProduct("Toyota C-HR", 25000, 30000, 28000);
+        product20.setAvailable(28000, 50);
+        
+        Product product21 = supplier3.getProductCatalog().newProduct("Honda Accord", 28000, 38000, 33000);
+        product21.setAvailable(33000, 43);
+        Product product22 = supplier3.getProductCatalog().newProduct("Honda Civic", 25000, 35000, 30000);
+        product22.setAvailable(32000, 45);
+        Product product23 = supplier3.getProductCatalog().newProduct("Honda CR-V", 30000, 40000, 35000);
+        product23.setAvailable(35000, 40);
+        Product product24 = supplier3.getProductCatalog().newProduct("Honda HR-V",25000, 30000, 28000);
+        product24.setAvailable(28000, 52);
+        Product product25 = supplier3.getProductCatalog().newProduct("Honda Pilot", 40000, 50000, 45000);
+        product25.setAvailable(45000, 35);
+        Product product26 = supplier3.getProductCatalog().newProduct("Honda Ridgeline", 40000, 50000, 45000);
+        product26.setAvailable(45000, 34);
+        Product product27 = supplier3.getProductCatalog().newProduct("Honda Insight", 25000, 30000, 28000);
+        product27.setAvailable(28000, 55);
+        Product product28 = supplier3.getProductCatalog().newProduct("Honda Odyssey", 35000, 50000, 42000);
+        product28.setAvailable(42000, 30);
+        Product product29 = supplier3.getProductCatalog().newProduct("Honda Fit",18000, 22000, 20000);
+        product29.setAvailable(20000, 58);
+        Product product30 = supplier3.getProductCatalog().newProduct("Honda Passport", 35000, 45000, 40000);
+        product30.setAvailable(40000, 33);
+        
+        Product product31 = supplier4.getProductCatalog().newProduct("Chevrolet Silverado", 30000, 70000, 55000);
+        product31.setAvailable(57000, 22);
+        Product product32 = supplier4.getProductCatalog().newProduct("Chevrolet Equinox", 28000, 37000, 32000);
+        product32.setAvailable(32000, 45);
+        Product product33 = supplier4.getProductCatalog().newProduct("Chevrolet Malibu", 24000, 32000, 28000);
+        product33.setAvailable(28000, 48);
+        Product product34 = supplier4.getProductCatalog().newProduct("Chevrolet Traverse", 35000, 52000, 44000);
+        product34.setAvailable(44000, 33);
+        Product product35 = supplier4.getProductCatalog().newProduct("Chevrolet Camaro", 27000, 60000, 40000);
+        product35.setAvailable(42000, 32);
+        Product product36 = supplier4.getProductCatalog().newProduct("Chevrolet Tahoe", 55000, 75000, 65000);
+        product36.setAvailable(65000, 21);
+        Product product37 = supplier4.getProductCatalog().newProduct("Chevrolet Suburban", 60000, 80000, 70000);
+        product37.setAvailable(70000, 15);
+        Product product38 = supplier4.getProductCatalog().newProduct("Chevrolet Corvette", 60000, 100000, 80000);
+        product38.setAvailable(82000, 9);
+        Product product39 = supplier4.getProductCatalog().newProduct("Chevrolet Blazer", 35000, 45000, 40000);
+        product39.setAvailable(40000, 24);
+        Product product40 = supplier4.getProductCatalog().newProduct("Chevrolet Spark", 13000, 20000, 18000);
+        product40.setAvailable(17000, 55);
+        
+        Product product41 = supplier5.getProductCatalog().newProduct("Nissan Altima", 25000, 35000, 30000);
+        product41.setAvailable(30000, 42);
+        Product product42 = supplier5.getProductCatalog().newProduct("Nissan Sentra", 20000, 26000,23000);
+        product42.setAvailable(22000, 52);
+        Product product43 = supplier5.getProductCatalog().newProduct("Nissan Rogue", 30000, 40000, 35000);
+        product43.setAvailable(36000, 38);
+        Product product44 = supplier5.getProductCatalog().newProduct("Nissan Murano", 35000, 45000, 40000);
+        product44.setAvailable(38000, 42);
+        Product product45 = supplier5.getProductCatalog().newProduct("Nissan Frontier", 28000, 40000, 34000);
+        product45.setAvailable(35000, 43);
+        Product product46 = supplier5.getProductCatalog().newProduct("Nissan Titan", 40000, 65000, 55000);
+        product46.setAvailable(55000, 23);
+        Product product47 = supplier5.getProductCatalog().newProduct("Nissan Juke", 25000, 30000, 28000);
+        product47.setAvailable(28000, 50);
+        Product product48 = supplier5.getProductCatalog().newProduct("Nissan Pathfinder", 35000, 50000, 42000);
+        product48.setAvailable(42000, 36);
+        Product product49 = supplier5.getProductCatalog().newProduct("Nissan Versa", 16000, 20000, 18000);
+        product49.setAvailable(18000, 68);
+        Product product50 = supplier5.getProductCatalog().newProduct("Nissan Ariya", 40000, 60000, 50000);
+        product50.setAvailable(50000, 28);
         // Add some product to market
-        SolutionOffer solutionOffer = business.getSolutionOfferCatalog().findSolutionOffer(person3.getPersonId());
-        solutionOffer.addProduct(product1);
-        solutionOffer.addProduct(product2);
-        solutionOffer.addProduct(product5);
-        solutionOffer.addProduct(product6);
+        
+        solutionOffer1.addProduct(product1);
+        solutionOffer1.addProduct(product2);
+        solutionOffer1.addProduct(product3);
+        solutionOffer3.addProduct(product4);
+        solutionOffer1.addProduct(product5);
+        solutionOffer1.addProduct(product6);
+        solutionOffer1.addProduct(product7);
+        solutionOffer1.addProduct(product8);
+        solutionOffer1.addProduct(product9);
+        solutionOffer3.addProduct(product10);
+        solutionOffer1.addProduct(product11);
+        solutionOffer2.addProduct(product12);
+        solutionOffer2.addProduct(product13);
+        solutionOffer2.addProduct(product14);
+        solutionOffer2.addProduct(product15);
+        solutionOffer3.addProduct(product16);
+        solutionOffer3.addProduct(product17);
+        solutionOffer1.addProduct(product18);
+        solutionOffer2.addProduct(product19);
+        solutionOffer1.addProduct(product20);
+        solutionOffer1.addProduct(product21);
+        solutionOffer1.addProduct(product22);
+        solutionOffer2.addProduct(product23);
+        solutionOffer2.addProduct(product24);
+        solutionOffer3.addProduct(product25);
+        solutionOffer3.addProduct(product26);
+        solutionOffer3.addProduct(product27);
+        solutionOffer1.addProduct(product28);
+        solutionOffer2.addProduct(product29);
+        solutionOffer1.addProduct(product30);
+        solutionOffer1.addProduct(product31);
+        solutionOffer1.addProduct(product32);
+        solutionOffer1.addProduct(product33);
+        solutionOffer2.addProduct(product34);
+        solutionOffer3.addProduct(product35);
+        solutionOffer3.addProduct(product36);
+        solutionOffer3.addProduct(product37);
+        solutionOffer3.addProduct(product38);
+        solutionOffer2.addProduct(product39);
+        solutionOffer3.addProduct(product40);
+        solutionOffer3.addProduct(product41);
+        solutionOffer2.addProduct(product42);
+        solutionOffer3.addProduct(product43);
+        solutionOffer2.addProduct(product44);
+        solutionOffer2.addProduct(product45);
+        solutionOffer3.addProduct(product46);
+        solutionOffer1.addProduct(product47);
+        solutionOffer1.addProduct(product48);
+        solutionOffer3.addProduct(product49);
+        solutionOffer3.addProduct(product50);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

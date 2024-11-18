@@ -31,6 +31,7 @@ public class WorkArea extends javax.swing.JPanel {
         this.userAccount = userAccount;
         this.solutionOffer = business.getSolutionOfferCatalog().findSolutionOffer(userAccount.getProfile().getPerson().getPersonId());
         initComponents();
+        setWelcomeName(userAccount.getProfile().getPerson().getPersonId());
     }
 
     /**
@@ -79,7 +80,7 @@ public class WorkArea extends javax.swing.JPanel {
         });
 
         lblTitle1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTitle1.setText("Welcome, Administrator!");
+        lblTitle1.setText("Welcome, Sales Person!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -144,6 +145,9 @@ public class WorkArea extends javax.swing.JPanel {
         cardLayout.next(ui);
     }//GEN-LAST:event_btnViewTransactionsActionPerformed
 
+    public void setWelcomeName(String name) {
+        lblTitle1.setText("Welcome, " + name + "!");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowseCatalog;

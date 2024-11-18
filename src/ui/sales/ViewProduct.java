@@ -15,7 +15,6 @@ import model.ProductManagement.Product;
 import model.ProductManagement.SolutionOffer;
 import model.Supplier.Supplier;
 import model.UserAccountManagement.UserAccount;
-import ui.admin.ManagePerson;
 
 /**
  *
@@ -278,6 +277,8 @@ public class ViewProduct extends javax.swing.JPanel {
         }
         solutionOffer.addProduct(product);
         txtStatus.setText(product.getStatus(solutionOffer));
+        JOptionPane.showMessageDialog(this, "Product added from market sucessfully.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        
     }//GEN-LAST:event_btnAddToMarketActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -308,6 +309,8 @@ public class ViewProduct extends javax.swing.JPanel {
         }
         solutionOffer.getProducts().remove(product);
         txtStatus.setText(product.getStatus(solutionOffer));
+        JOptionPane.showMessageDialog(this, "Product removed from market sucessfully.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void setViewMode() {

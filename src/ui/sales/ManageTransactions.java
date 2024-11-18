@@ -182,7 +182,7 @@ public class ManageTransactions extends javax.swing.JPanel {
         Order order = (Order) tblCart.getValueAt(row, 1);
         String status = order.getStatus();
         if ("Pending".equals(status)) {
-            order.approve();
+            order.approve(business.getMasterOrderList());
             JOptionPane.showMessageDialog(null, "Transaction approved successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
             populateTable();
         } else {
