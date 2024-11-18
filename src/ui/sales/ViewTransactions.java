@@ -197,9 +197,6 @@ public class ViewTransactions extends javax.swing.JPanel {
         if ("Pending".equals(order.getStatus())) {
             order.cancelOrder();
             JOptionPane.showMessageDialog(null, "Transaction Declined", "Success", JOptionPane.INFORMATION_MESSAGE);
-            ui.remove(this);
-            CardLayout cardLayout = (CardLayout) ui.getLayout();
-            cardLayout.previous(ui);
         } else {
             JOptionPane.showMessageDialog(null, "Transaction already processed", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -209,9 +206,6 @@ public class ViewTransactions extends javax.swing.JPanel {
         if ("Pending".equals(order.getStatus())) {
             order.approve();
             JOptionPane.showMessageDialog(null, "Transaction Approved", "Success", JOptionPane.INFORMATION_MESSAGE);
-            ui.remove(this);
-            CardLayout cardLayout = (CardLayout) ui.getLayout();
-            cardLayout.previous(ui);
         } else {
             JOptionPane.showMessageDialog(null, "Transaction already processed", "Error", JOptionPane.ERROR_MESSAGE);
         }
