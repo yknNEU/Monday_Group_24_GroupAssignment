@@ -5,6 +5,7 @@
 package ui.sales;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.JOptionPane;
@@ -146,6 +147,12 @@ public class UpdateProfile extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         ui.remove(this);
+        Component[] components = ui.getComponents();
+        Component component = components[components.length - 1];
+        if (component instanceof WorkArea) {
+            WorkArea workArea = (WorkArea) component;
+            workArea.setWelcomeName(userAccount.getProfile().getPerson().getPersonId());
+        }
         CardLayout cardLayout = (CardLayout) ui.getLayout();
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed

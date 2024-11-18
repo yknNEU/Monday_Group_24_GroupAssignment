@@ -33,13 +33,16 @@ public class ViewAccount extends javax.swing.JPanel {
         this.business = business;
         this.person = person;
         initComponents();
-        lblCreateAccountFor.setText("Create Account For: " + person.getPersonId());
         String role = person.getRole();
         if ("None".equals(role)) {
             cmbRole.setSelectedIndex(0);
+            lblTitle.setText("Create Account");
+            lblCreateAccountFor.setText("Create Account For: " + person.getPersonId());
             btnCreate.setText("Create");
         } else {
             cmbRole.setEnabled(false); // Role cannot be changed once set
+            lblTitle.setText("Update Account");
+            lblCreateAccountFor.setText("Update Account For: " + person.getPersonId());
             btnCreate.setText("Update");
             if ("Admin".equals(role)) {
                 cmbRole.setSelectedIndex(1);
