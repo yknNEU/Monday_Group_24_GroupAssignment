@@ -4,17 +4,36 @@
  */
 package ui.admin;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.table.DefaultTableModel;
+
+import model.Business.Business;
+import model.OrderManagement.Order;
+import model.OrderManagement.OrderItem;
+import model.ProductManagement.SolutionOffer;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author VMWare
  */
 public class ViewReport extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form ViewReport
      */
-    public ViewReport() {
+    public ViewReport(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
+        populateTable();
     }
 
     /**
@@ -95,6 +114,30 @@ public class ViewReport extends javax.swing.JPanel {
         cardLayout.previous(ui);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        for (Order order : business.getMasterOrderList().getOrders()) {
+            for (OrderItem orderItem : order.getOrderItems()) {
+                Object[] row = new Object[12];
+                row[0] = orderItem;
+                row[1] = business.getSuppliers().findSupplier(orderItem.getSelectedProduct());
+                row[2] = order.getCustomer().getCustomerId();
+                row[3] = order.getSalesPerson().getPerson().getPersonId();
+                row[4] = orderItem.getActualPrice();
+                row[5] = orderItem.getQuantity();
+                row[6] = orderItem.getSelectedProduct().getTargetPrice();
+                row[7] = orderItem.getSelectedProduct().getFloorPrice();
+                row[8] = orderItem.getSelectedProduct().getCeilingPrice();
+                row[9] = orderItem.getSelectedProduct().getAvailable().getQuantity();
+                SolutionOffer solutionOffer = business.getSolutionOfferCatalog().findSolutionOffer(order.getSalesPerson().getPerson().getPersonId());
+                row[10] = orderItem.getSelectedProduct().getStatus(solutionOffer);
+                row[11] = order.getStatus();
+                model.addRow(row);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

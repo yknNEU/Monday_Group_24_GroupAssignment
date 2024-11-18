@@ -127,8 +127,10 @@ public class WorkArea extends javax.swing.JPanel {
     }//GEN-LAST:event_btnManagePersonActionPerformed
 
     private void btnViewProdReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewProdReportActionPerformed
-        // TODO: Unimplemented
-        JOptionPane.showMessageDialog(this, "Not implemented.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        ViewReport viewReport = new ViewReport(ui, business, userAccount);
+        ui.add("ViewReport" + viewReport.toString(), viewReport);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnViewProdReportActionPerformed
 
     public void setWelcomeName(String name) {

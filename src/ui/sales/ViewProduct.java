@@ -15,7 +15,6 @@ import model.ProductManagement.Product;
 import model.ProductManagement.SolutionOffer;
 import model.Supplier.Supplier;
 import model.UserAccountManagement.UserAccount;
-import ui.admin.ManagePerson;
 
 /**
  *

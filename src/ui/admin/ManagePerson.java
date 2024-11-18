@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Business.Business;
 import model.Personnel.Person;
-import model.Personnel.Profile;
 import model.SalesManagement.SalesPersonProfile;
 import model.UserAccountManagement.UserAccount;
 
@@ -218,8 +217,10 @@ public class ManagePerson extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddPersonActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO: Unimplemented
-        JOptionPane.showMessageDialog(this, "Not implemented.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        SearchPerson searchPerson = new SearchPerson(ui, business, userAccount);
+        ui.add("SearchPerson" + searchPerson.toString(), searchPerson);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     public void populateTable() {

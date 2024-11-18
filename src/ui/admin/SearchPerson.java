@@ -4,16 +4,32 @@
  */
 package ui.admin;
 
+import java.awt.CardLayout;
+import java.awt.Container;
+
+import javax.swing.JOptionPane;
+
+import model.Business.Business;
+import model.Personnel.Person;
+import model.UserAccountManagement.UserAccount;
+
 /**
  *
  * @author VMWare
  */
 public class SearchPerson extends javax.swing.JPanel {
 
+    private Container ui;
+    private Business business;
+    private UserAccount userAccount;
+
     /**
      * Creates new form SearchPerson
      */
-    public SearchPerson() {
+    public SearchPerson(Container ui, Business business, UserAccount userAccount) {
+        this.ui = ui;
+        this.business = business;
+        this.userAccount = userAccount;
         initComponents();
     }
 
@@ -102,7 +118,21 @@ public class SearchPerson extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        
+        if (txtProductName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a name to search for.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Person person = business.getPersonDirectory().findPerson(txtProductName.getText());
+        if (person == null) {
+            JOptionPane.showMessageDialog(this, "Person not found.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        ui.remove(this);
+        CardLayout cardLayout = (CardLayout) ui.getLayout();
+        cardLayout.previous(ui);
+        ViewPerson viewPerson = new ViewPerson(ui, business, person);
+        ui.add("ViewPerson" + viewPerson.toString(), viewPerson);
+        cardLayout.next(ui);
     }//GEN-LAST:event_btnSearchActionPerformed
 
 
