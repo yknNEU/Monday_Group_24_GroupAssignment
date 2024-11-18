@@ -204,7 +204,7 @@ public class ViewTransactions extends javax.swing.JPanel {
 
     private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
         if ("Pending".equals(order.getStatus())) {
-            order.approve();
+            order.approve(business.getMasterOrderList());
             JOptionPane.showMessageDialog(null, "Transaction Approved", "Success", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Transaction already processed", "Error", JOptionPane.ERROR_MESSAGE);

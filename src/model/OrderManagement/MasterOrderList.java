@@ -12,7 +12,7 @@ public class MasterOrderList {
     
     public MasterOrderList() {
         this.orders = new ArrayList<Order>();
-        // this.masterOrderReport = new MasterOrderReport();
+        this.masterOrderReport = new MasterOrderReport();
     }
 
     public ArrayList<Order> getOrders() {

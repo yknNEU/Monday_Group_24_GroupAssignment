@@ -122,12 +122,13 @@ public class Order {
         }
     }
 
-    public void approve() {
+    public void approve(MasterOrderList masterOrderList) {
         status = "Approved";
         // Add to product sales log
         for (OrderItem orderItem : this.getOrderItems()) {
             orderItem.getSelectedProduct().getOrderItems().add(orderItem);
         }
+        masterOrderList.getMasterOrderReport().newOrderSummary(this);
     }
 
     public void setOrderItems(ArrayList<OrderItem> orderItems) {

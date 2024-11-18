@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Business.Business;
 import model.OrderManagement.OrderItem;
 import model.ProductManagement.Product;
+import model.ProductManagement.ProductSummary;
 import model.Supplier.Supplier;
 import model.UserAccountManagement.UserAccount;
 
@@ -154,29 +155,16 @@ public class ViewReport extends javax.swing.JPanel {
 
         for (Supplier supplier : business.getSuppliers().getSupplierList()) {
             for (Product product : supplier.getProductCatalog().getProducts()) {
-                int profit = 0;
-                int profitUnitsSold = 0;
-                int lossUnitsSold = 0;
-                int totalUnitsSold = 0;
+                ProductSummary productSummary = new ProductSummary(product);
+                supplier.getProductsReport().addProductSummary(productSummary);
 
-                for (OrderItem orderItem : product.getOrderItems()) {
-                    // Profit may be negative
-                    profit += (orderItem.getActualPrice() - product.getTargetPrice()) * orderItem.getQuantity();
-                    if (orderItem.getActualPrice() > product.getTargetPrice()) {
-                        profitUnitsSold += orderItem.getQuantity();
-                    } else if (orderItem.getActualPrice() < product.getTargetPrice()) {
-                        lossUnitsSold += orderItem.getQuantity();
-                    }
-                    // Sold with exact the target price will not be regarded as either profit or loss
-                    totalUnitsSold += orderItem.getQuantity();
-                }
-
-                Object[] row = new Object[5];
+                Object[] row = new Object[6];
                 row[0] = product;
-                row[1] = profit;
-                row[2] = profitUnitsSold;
-                row[3] = lossUnitsSold;
-                row[4] = totalUnitsSold;
+                row[1] = productSummary.getAcutalSalesVolume();
+                row[2] = productSummary.getProductPricePerformance();
+                row[3] = productSummary.getNumberAboveTarget();
+                row[4] = productSummary.getNumberBelowTarget();
+                row[5] = productSummary.getAcutalSalesCount();
                 model.addRow(row);
             }
         }

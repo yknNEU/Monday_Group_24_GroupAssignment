@@ -14,6 +14,12 @@ public class MasterOrderReport {
         return orderSummaryList;
     }
 
+    public OrderSummary newOrderSummary(Order order) {
+        OrderSummary os = new OrderSummary(order);
+        orderSummaryList.add(os);
+        return os;
+    }
+
     public void generateOrderReport(ArrayList<Order> orders) {
         ArrayList<Order> orderlist = orders;
         OrderSummary ordersummary;
