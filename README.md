@@ -70,28 +70,18 @@ git log --graph --oneline
 
 ### Kaining Yang Work
 
-- Customer cannot set the sales price
-
-- Sales WorkArea Panel miss welcome message, button name is incorrect, miss update profile button
-
-- Sales Person view Product should not be editable, and should not be the target price, should be actual price.
-
-- Create Product, should be ceiling price not selling price
-
-- Search Supplier should be search by supplier name not product name
-
-- Search Person in admin panel not implemented
-
 - Finish branch configuration
 
-- Product status need to be implemented
+- Handle repository
 
-- MarketingPerson Review Product Summary need to be implemented
+- implement button functions
 
 ### Prasad Shinde Work
 
-- Finished create git repository.
+- Finished ui design
+
+- Code bug test
 
 ### Yao Zhang Work
 
-- Finish branch configuration
+- Create demo data
